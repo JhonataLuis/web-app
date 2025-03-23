@@ -10,8 +10,16 @@
 
     <div class="container my-4">
         <div class="col-md-8 mx-auto rounded border p-4">
-            <h2 class="text-center mb-5">New Client</h2>
+            <h2 class="text-center mb-5">Edit Client</h2>
             <form method="post" th:object="${clienteDto}">
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Client ID</label>
+                    <div class="col-sm-8">
+                        <input class="form-control-plaintext" readonly th:value="${client.id}">
+                    </div>
+                </div>
+
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">First Name</label>
                     <div class="col-sm-8">
@@ -36,7 +44,7 @@
                     <div class="col-sm-8">
                         <input class="form-control" th:field="${clienteDto.email}">
                         <p th:if="${#fields.hasErrors('email')}" th:errorclass="text-danger"
-                        th:errors="${clienteDto.email}"></p>
+                        th:errors="${clientDto.email}"></p>
                     </div>
                 </div>
 
@@ -70,6 +78,13 @@
                         </select>
                         <p th:if="${#fields.hasErrors('status')}" th:errorclass="text-danger"
                         th:errors="${clienteDto.status}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-4 col-form-label">Created At</label>
+                    <div class="col-sm-8">
+                        <input class="form-control-plaintext" readonly th:value="${client.createdAt}">
                     </div>
                 </div>
 

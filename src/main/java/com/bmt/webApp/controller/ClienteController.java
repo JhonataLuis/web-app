@@ -31,13 +31,14 @@ public class ClienteController {
     public String getClients(Model model){
         var clients = clienteRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
         model.addAttribute("clients", clients);
-        return "cliente/cliente";
+        return "cliente/index";
     }
 
     @GetMapping("/create")
     public String CreateClient(Model model){
         ClienteDto clienteDto = new ClienteDto();
         model.addAttribute("clienteDto", clienteDto);
+
         return "cliente/create";
     }
 
@@ -66,26 +67,77 @@ public class ClienteController {
 
         clienteRepository.save(client);
 
-        return "redirect:/cliente";
+        return "redirect:/clients";
     }
 
+    @GetMapping("/edit")
     public String editClient(Model model, @RequestParam Long id){
+        Cliente client = clienteRepository.findById(id).orElse(null);
+        if(client == null){
+            return "redirect:/clients";
+        }
+
+        ClienteDto clienteDto = new ClienteDto();
+        clienteDto.setFirstName(client.getFirstName());
+        clienteDto.setLastName(client.getLastName());
+        clienteDto.setEmail(client.getEmail());
+        clienteDto.setPhone(client.getPhone());
+        clienteDto.setAddress(client.getAddress());
+        clienteDto.setStatus(client.getStatus());
+        
+        model.addAttribute("client", client);
+        model.addAttribute("clienteDto", clienteDto);
+
+        return "cliente/edit";
+    }
+
+    @PostMapping("/edit")
+    public String editClient(Model model, @RequestParam Long id, @Valid @ModelAttribute ClienteDto clientDto,
+    BindingResult result){
+
         Cliente client = clienteRepository.findById(id).orElse(null);
         if(client == null){
             return "redirect:/cliente";
         }
 
-        ClienteDto clientDto = new ClienteDto();
-        clientDto.setFirstName(client.getFirstName());
-        clientDto.setLastName(client.getLastName());
-        clientDto.setEmail(client.getEmail());
-        clientDto.setPhone(client.getPhone());
-        clientDto.setAddress(client.getAddress());
-        clientDto.setStatus(client.getStatus());
-        
         model.addAttribute("client", client);
-        model.addAttribute("clientDto", clientDto);
+
+        if(result.hasErrors()){
+            return "cliente/edit";
+        }
+
+        //update client details
+        client.setFirstName(clientDto.getFirstName());
+        client.setLastName(clientDto.getLastName());
+        client.setEmail(clientDto.getEmail());
+        client.setPhone(clientDto.getPhone());
+        client.setAddress(clientDto.getAddress());
+        client.setStatus(clientDto.getStatus());
+
+        try{
+            //may throw an exception if email is duplicated email should be unique in db
+            clienteRepository.save(client);
+        }
+        catch(Exception ex){
+            result.addError(new FieldError("clienteDto", "email", clientDto.getEmail()
+                , false, null, null, "Email address is already used")
+            );
+
+            return "cliente/edit";
+        }
         
-        return "cliente/edit";
+
+        return "redirect:/clients";
+    }
+
+    @GetMapping("/delete")
+    public String deleteClient(@RequestParam Long id){
+        Cliente client = clienteRepository.findById(id).orElse(null);
+
+        if(client != null){
+            clienteRepository.delete(client);
+        }
+
+        return "redirect:/clients";
     }
 }

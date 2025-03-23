@@ -30,11 +30,11 @@
               <tr th:each="client : ${clients}">
                 <th th:text="${client.id}" scope="row"></th>
                 <td th:text="@{ ${client.firstName} + ' ' + ${client.lastName}}">Mark</td>
-                <td th:text="${client.email}">Otto</td>
-                <td th:text="${client.phone}">@mdo</td>
-                <td th:text="${client.address}">Mark</td>
-                <td th:text="${client.status}">Mark</td>
-                <td th:text="${client.createdAt.toString().substring(0, 10)}">Mark</td>
+                <td th:text="${client.email}"></td>
+                <td th:text="${client.phone}"></td>
+                <td th:text="${client.address}"></td>
+                <td th:text="${client.status}"></td>
+                <td th:text="${client.createdAt.toString().substring(0, 10)}"></td>
 
                 <td style="white-space:nowrap">
                     <a class="btn btn-primary btn-sm" th:href="@{/clients/edit(id=${client.id})}">Edit</a>
