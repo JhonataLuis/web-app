@@ -24,3 +24,18 @@
     ``bash
     npm install
     ``
+
+    Sistema de Gerenciamento de Projetos
+Descrição: Um sistema para gerenciar projetos, tarefas e equipes.
+
+Tecnologias: Spring Boot, Spring Security, Vue.js/React, PostgreSQL.
+
+Funcionalidades:
+
+Criar projetos e atribuir tarefas.
+
+Acompanhar o progresso das tarefas.
+
+Chat em tempo real para equipes.
+
+Aprendizado: WebSockets para comunicação em tempo real.
