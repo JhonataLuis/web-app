@@ -31,12 +31,12 @@
     </nav>
 
     <div class="container my-3">
-        <h1 class="text-center mb-3">Clients Details</h1>
-        <a class="btn btn-primary" href="/clients/create">Back to Clients <img width="20" height="20" src="https://img.icons8.com/fluency/48/forward--v1.png" alt="forward--v1"/></a>
+        <h1 class="text-center mb-3">Employer Details</h1>
+        <a class="btn btn-primary" href="/clients/create">Back to Employer <img width="20" height="20" src="https://img.icons8.com/fluency/48/forward--v1.png" alt="forward--v1"/></a>
 
         <div class="container my-4">
             <div class="col-md-8 mx-auto rounded border p-4">
-                <h2 class="text-center mb-5">Details Client</h2>
+                <h2 class="text-center mb-5">Employer Details</h2>
                 <form method="post" th:object="${clienteDto}">
     
                     <div class="row mb-3">
@@ -49,42 +49,42 @@
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">First Name</label>
                         <div class="col-sm-8">
-                            <input class="form-control" readonly th:value="${client.firstName}">
+                            <input class="form-control-plaintext" readonly th:value="${client.firstName}">
                         </div>
                     </div>
     
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Last Name</label>
                         <div class="col-sm-8">
-                            <input class="form-control" readonly th:value="${client.lastName}">
+                            <input class="form-control-plaintext" readonly th:value="${client.lastName}">
                         </div>
                     </div>
     
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Email</label>
                         <div class="col-sm-8">
-                            <input class="form-control" readonly th:value="${client.email}">
+                            <input class="form-control-plaintext" readonly th:value="${client.email}">
                         </div>
                     </div>
     
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Phone</label>
                         <div class="col-sm-8">
-                            <input class="form-control" readonly th:value="${client.phone}">
+                            <input class="form-control-plaintext" readonly th:value="${client.phone}">
                         </div>
                     </div>
     
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Address</label>
                         <div class="col-sm-8">
-                            <input class="form-control" readonly th:value="${client.address}">
+                            <input class="form-control-plaintext" readonly th:value="${client.address}">
                         </div>
                     </div>
     
                     <div class="row mb-3">
                         <label class="col-sm-4 col-form-label">Status</label>
                         <div class="col-sm-8">
-                                <input class="form-control" readonly th:value="${client.status}"/>
+                                <input class="form-control-plaintext" readonly th:value="${client.status}"/>
                         </div>
                     </div>
     
