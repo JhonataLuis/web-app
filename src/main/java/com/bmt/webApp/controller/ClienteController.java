@@ -3,7 +3,6 @@ package com.bmt.webApp.controller;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.bmt.webApp.model.Cliente;
 import com.bmt.webApp.model.ClienteDto;
 import com.bmt.webApp.repository.ClienteRepository;
+import com.bmt.webApp.service.ClienteService;
 
 import jakarta.validation.Valid;
 
@@ -25,11 +25,14 @@ import jakarta.validation.Valid;
 public class ClienteController {
 
     @Autowired
+    private ClienteService clientService;
+
+    @Autowired
     ClienteRepository clienteRepository;
 
     @GetMapping({"", "/"})
     public String getClients(Model model){
-        var clients = clienteRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        var clients = clientService.buscarTodos();
         model.addAttribute("clients", clients);
         return "cliente/index";
     }
@@ -55,18 +58,7 @@ public class ClienteController {
         if(result.hasErrors()){
             return "cliente/create";
         }
-
-        Cliente client = new Cliente();
-        client.setFirstName(clienteDto.getFirstName());
-        client.setLastName(clienteDto.getLastName());
-        client.setEmail(clienteDto.getEmail());
-        client.setPhone(clienteDto.getPhone());
-        client.setAddress(clienteDto.getAddress());
-        client.setStatus(clienteDto.getStatus());
-        client.setCreatedAt(new Date());
-
-        clienteRepository.save(client);
-
+        clientService.CreateClient(clienteDto);
         return "redirect:/clients";
     }
 
@@ -117,6 +109,7 @@ public class ClienteController {
         try{
             //may throw an exception if email is duplicated email should be unique in db
             clienteRepository.save(client);
+            
         }
         catch(Exception ex){
             result.addError(new FieldError("clienteDto", "email", clientDto.getEmail()
@@ -128,6 +121,23 @@ public class ClienteController {
         
 
         return "redirect:/clients";
+    }
+
+    @GetMapping("/details")
+    public String detailsClient(Model model, @RequestParam Long id){
+
+        Cliente client = clienteRepository.findById(id).orElse(null);
+        if(client == null){
+            return "redirect:/clients";
+        }
+
+        ClienteDto clienteDto = new ClienteDto();
+        clienteDto.setFirstName(client.getFirstName());
+
+        model.addAttribute("clienteDto", clienteDto);
+        model.addAttribute("client", client);
+
+        return "cliente/details";
     }
 
     @GetMapping("/delete")
