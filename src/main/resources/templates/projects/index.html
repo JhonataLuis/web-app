@@ -31,8 +31,8 @@
     </nav>
 
     <div class="container my-3">
-        <h1 class="text-center mb-3">List of Users</h1>
-        <a class="btn btn-primary" href="/usuario/create">New User <img width="20" height="20" src="https://img.icons8.com/fluency/48/forward--v1.png" alt="forward--v1"/></a>
+        <h1 class="text-center mb-3">List of Projects</h1>
+        <a class="btn btn-primary" href="/usuario/create">New Projects <img width="20" height="20" src="https://img.icons8.com/fluency/48/forward--v1.png" alt="forward--v1"/></a>
 
         <span class="badge text-bg-warning">Warning</span>
         <span th:text="${today}"></span>
@@ -41,27 +41,24 @@
               <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Password</th>
-                <th scope="col">Function</th>
+                <th scope="col">Description</th>
+                <th scope="col">Date Created</th>
+                <th scope="col">Date End</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody class="table-group-divider">
-              <tr th:each="user : ${users}">
-                <th th:text="${user.id}" scope="row"></th>
-                <td th:text="${user.name}"></td>
-                <td th:text="${user.email}"></td>
-                <td th:text="${user.password}"></td>
-                <td th:if="${user.funcao}=='Gerente'"><span class="badge text-bg-info"></span></td>
-                <td th:if="${user.funcao}=='Desenvolvedor'"><span class="badge text-bg-success"></span></td>
-                <td th:if="${user.funcao}=='Analista'"><span class="badge text-bg-primary"></span></td>
-                <td th:text="${user.funcao}"></td>
+              <tr th:each="project : ${projects}">
+                <th th:text="${project.id}" scope="row"></th>
+                <td th:text="${project.nome}"></td>
+                <td th:text="${project.descricao}"></td>
+                <td th:text="${project.dataInicio}"></td>
+                <td th:text="${project.dataFim}"></td>
 
                 <td style="white-space:nowrap">
-                    <a class="btn btn-primary btn-sm" th:href="@{/usuario/details(id=${user.id})}"><img width="20" height="20" src="https://img.icons8.com/fluency/48/search-more.png" alt="search-more"/></a>
-                    <a class="btn btn-primary btn-sm" th:href="@{/clients/edit(id=${user.id})}"><img width="20" height="20" src="https://img.icons8.com/fluency/48/pencil-tip.png" alt="pencil-tip"/></a>
-                    <a class="btn btn-danger btn-sm" th:href="@{/clients/delete(id=${user.id})}" onclick="return confirm('Are you sure?')"><img width="20" height="20" src="https://img.icons8.com/fluency/48/delete-forever.png" alt="delete-forever"/></a>
+                    <a class="btn btn-primary btn-sm" th:href="@{/usuario/details(id=${project.id})}"><img width="20" height="20" src="https://img.icons8.com/fluency/48/search-more.png" alt="search-more"/></a>
+                    <a class="btn btn-primary btn-sm" th:href="@{/clients/edit(id=${project.id})}"><img width="20" height="20" src="https://img.icons8.com/fluency/48/pencil-tip.png" alt="pencil-tip"/></a>
+                    <a class="btn btn-danger btn-sm" th:href="@{/clients/delete(id=${project.id})}" onclick="return confirm('Are you sure?')"><img width="20" height="20" src="https://img.icons8.com/fluency/48/delete-forever.png" alt="delete-forever"/></a>
                   </td>
               </tr>
             </tbody>

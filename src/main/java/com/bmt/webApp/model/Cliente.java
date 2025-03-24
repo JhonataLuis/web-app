@@ -15,7 +15,7 @@ import jakarta.persistence.Table;
 public class Cliente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_clients")
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq_clients")
     @SequenceGenerator(name = "seq_clients", sequenceName = "seq_clients", allocationSize = 1)
     private Long id;
 
