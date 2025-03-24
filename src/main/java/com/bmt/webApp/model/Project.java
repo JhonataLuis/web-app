@@ -72,5 +72,12 @@ public class Project {
         this.status = status;
     }
 
+    public void setTarefas(List<Tarefa> tarefas) {
+        this.tarefas = tarefas;
+    }
+
+    public List<Tarefa> getTarefas() {
+        return tarefas;
+    }
     
 }

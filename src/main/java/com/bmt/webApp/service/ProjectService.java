@@ -9,4 +9,6 @@ public interface ProjectService {
     void removerTarefa(Tarefa tarefa);
 
     void atualizarStatus(String status);
+
+    void detailProject(Long id);
 }
