@@ -20,7 +20,7 @@ import jakarta.persistence.Table;
 public class Project {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "seq_projects")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_projects")
     @SequenceGenerator(name = "seq_projects", sequenceName = "seq_projects", allocationSize = 1)
     private Long id;
 
@@ -78,6 +78,12 @@ public class Project {
 
     public List<Tarefa> getTarefas() {
         return tarefas;
+    }
+
+    //MÉTODO AUXILIAR PARA ADICIONAR UMA TAREFA AO PROJETO
+    public void adicionarTarefa(Tarefa tarefa){
+        tarefas.add(tarefa);
+        tarefa.setProject(this);
     }
     
 }

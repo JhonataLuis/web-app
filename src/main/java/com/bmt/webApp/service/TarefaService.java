@@ -9,5 +9,5 @@ public interface TarefaService {
 
     List<Tarefa> listarTarefasPorProjeto(Long projectId);
 
-    void creatTarefa(TarefaDto tarefaDto);
+    void adicionarTarefa(TarefaDto tarefaDto, Long project_id);
 }

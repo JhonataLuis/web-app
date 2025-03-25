@@ -4,7 +4,7 @@ import com.bmt.webApp.model.Tarefa;
 
 public interface ProjectService {
 
-    void adicionarTarefa(Tarefa tarefa);
+    Tarefa adicionarTarefa(Long projectId, Tarefa tarefa);
 
     void removerTarefa(Tarefa tarefa);
 

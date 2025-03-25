@@ -41,4 +41,5 @@ public class TarefaDto {
     public Long getProject_id() {
         return project_id;
     }
+    
 }
