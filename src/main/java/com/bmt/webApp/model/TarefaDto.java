@@ -10,6 +10,8 @@ public class TarefaDto {
     private String descricao;
     @NotEmpty(message = "The status is required")
     private String status;//Em andamento, Pendente
+    
+    private Long project_id;
 
     public String getTitulo() {
         return titulo;
@@ -30,5 +32,13 @@ public class TarefaDto {
 
     public String getStatus() {
         return status;
+    }
+
+    public void setProject_id(Long project_id) {
+        this.project_id = project_id;
+    }
+
+    public Long getProject_id() {
+        return project_id;
     }
 }

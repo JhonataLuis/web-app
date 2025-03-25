@@ -35,6 +35,7 @@ public class TarefaServiceImpl implements TarefaService{
             taref.setStatus(tarefaDto.getStatus());
             taref.setDataInicio(new Date());
             taref.setDataFim(new Date());
+            tarefaDto.getProject_id();
 
             tarefaRepository.save(taref);
         }
