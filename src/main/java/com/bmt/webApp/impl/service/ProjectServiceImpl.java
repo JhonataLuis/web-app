@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.bmt.webApp.model.Project;
 import com.bmt.webApp.model.Tarefa;
+import com.bmt.webApp.model.TarefaDto;
 import com.bmt.webApp.repository.ProjectsRepository;
 import com.bmt.webApp.repository.TarefaRepository;
 import com.bmt.webApp.service.ProjectService;
@@ -21,7 +22,7 @@ public class ProjectServiceImpl implements ProjectService{
     @Autowired
     private TarefaRepository tRepository;
     
-    @Transactional
+     @Transactional
     @Override
     public Tarefa adicionarTarefa(Long projectId, Tarefa tarefa) {
 
@@ -52,5 +53,7 @@ public class ProjectServiceImpl implements ProjectService{
         project.getDescricao();
         project.getTarefas();
     }
+
+    
 
 }
