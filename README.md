@@ -1,22 +1,29 @@
-##App de Gerenciamento de Projetos e Tarefas
+## App de Gerenciamento de Projetos e Tarefas
+
     ##Descrição
     Um aplicativo de gerenciamento de projetos e tarefas (como Trello, Asana ou Notion simplificado) que permite organizar atividades pessoais e profissionais em um sistema intuitivo.
 
     O que faz o app 
+
+## Funcionalidades:
+
+    Cria projetos e atribuir tarefas.
+    Acompanhar o progresso das tarefas.
+    Chat em tempo real para equipes.
     Com oq foi construido 
     Por que?
 
     Foi construído para resolver problemas comuns de organização, produtividade e colaboração, tanto no âmbito pessoal quanto profissional. 
-    ##Instrução de Instalação
+    ## Instrução de Instalação
 
     ``bash
     npm install
     ``
-    ##pré requisitos
+    ## pré requisitos
     Java 17 + jdk 17
     Banco de Dados PostgreSQL
 
-##Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
     -Frontend (Web)
     Thymeleaf (web).
@@ -27,9 +34,9 @@
     -Recursos Adicionais
     Autenticação: Auth ou JWT.
 
-    ##Etapas 
+## Etapas 
 
-    ##Exemplo de Fluxo de Uso
+## Exemplo de Fluxo de Uso
 
     1. Abra localhost:8080 
     2. Faça Login
@@ -42,9 +49,6 @@
     ``bash
     npm install
     ``
-
-    Sistema de Gerenciamento de Projetos
-Descrição: Um sistema para gerenciar projetos, tarefas e equipes.
 
 Tecnologias: Spring Boot, Spring Security, Vue.js/React, PostgreSQL.
 
