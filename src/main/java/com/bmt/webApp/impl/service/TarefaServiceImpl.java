@@ -23,15 +23,16 @@ public class TarefaServiceImpl implements TarefaService{
     @Autowired
     private ProjectsRepository pRepository;
 
-    @Override
+    @Override//método para listar tarefas por projetos
     public List<Tarefa> listarTarefasPorProjeto(Long projectId) {
         if(projectId == null || projectId <= 0){
-            throw new IllegalArgumentException("ID do projeto invólido");
+            throw new IllegalArgumentException("ID do projeto inválido");
         }
         return tarefaRepository.findByProjectId(projectId);
     }
 
-    @Override
+    
+    @Override//método para cadastrar uma tarefa no projeto
     public void adicionarTarefa(TarefaDto tarefaDto, Long projectId) {
         
         Project project = pRepository.findById(projectId)

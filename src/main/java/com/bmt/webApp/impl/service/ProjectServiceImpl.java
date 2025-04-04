@@ -1,6 +1,8 @@
 package com.bmt.webApp.impl.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +46,7 @@ public class ProjectServiceImpl implements ProjectService{
         
     }
 
-    @Override
+    @Override//método para ver detalhes dos projetos
     public void detailProject(Long id) {
         
         Project project = new Project();
@@ -52,6 +54,11 @@ public class ProjectServiceImpl implements ProjectService{
         project.getNome();
         project.getDescricao();
         project.getTarefas();
+    }
+
+    @Override//método para listar os projects cadastrados no sistema
+    public List<Project> listProject() {
+        return pRepository.findAll();
     }
 
     

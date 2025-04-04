@@ -28,7 +28,8 @@ public class ProjectsController {
 
     @GetMapping({"", "/"})
     public String getProjects(Model model){
-        var projects = projectsRepository.findAll();
+        //var projects = projectsRepository.findAll();
+        var projects = projectService.listProject();
         model.addAttribute("projects", projects);
         return "projects/index";
     }

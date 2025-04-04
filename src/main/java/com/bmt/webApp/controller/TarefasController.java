@@ -52,13 +52,6 @@ public class TarefasController {
             return "projects/index";
         }
         
-        /*Tarefa tarefa = new Tarefa();
-        tarefa.setTitulo(tarefaDto.getTitulo());
-        tarefa.setDescricao(tarefaDto.getDescricao());
-        tarefa.setStatus(tarefaDto.getStatus());*/
-        
-
-
         tarefaService.adicionarTarefa(tarefaDto, project_id);
         //pService.adicionarTarefa(tarefaDto, project_id);
         return "redirect:/projects/index";
