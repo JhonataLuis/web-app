@@ -41,7 +41,7 @@ This project is an API built using **Java, Java Spring, Flyway Migrations, Postg
     Java 17 + jdk 17
     Banco de Dados PostgreSQL
 
-## Tecnologias Utilizadas
+## 🛠️ Tecnologias Utilizadas
 
     -Frontend (Web)
     Thymeleaf (web).
@@ -51,6 +51,24 @@ This project is an API built using **Java, Java Spring, Flyway Migrations, Postg
     Banco de Dados: PostgreSQL.
     -Recursos Adicionais
     Autenticação: Auth ou JWT.
+
+    ### Frontend
+![Thymeleaf](https://img.shields.io/badge/Thymeleaf-%23005C0F.svg?style=for-the-badge&logo=thymeleaf&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+
+### Backend
+![Java](https://img.shields.io/badge/Java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring](https://img.shields.io/badge/Spring-6DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F.svg?style=for-the-badge&logo=springboot&logoColor=white)
+![Hibernate](https://img.shields.io/badge/Hibernate-59666C.svg?style=for-the-badge&logo=hibernate&logoColor=white)
+
+### Banco de Dados
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+
+### Segurança & API
+![Spring Security](https://img.shields.io/badge/Spring_Security-6DB33F.svg?style=for-the-badge&logo=springsecurity&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000.svg?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
+![API REST](https://img.shields.io/badge/REST_API-FF6C37.svg?style=for-the-badge&logo=rest&logoColor=white)
 
 ## Etapas 
 
