@@ -1,120 +1,195 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Clients Manager</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom">
-      <div class="container">
-        <a class="navbar-brand" href="#">My Store</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link text-dark" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-dark" href="/contact">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-dark" href="/privacy">Privacy</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Store | Clients Manager</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+    }
 
-    <div class="container my-3">
-        <h1 class="text-center mb-3">Employer Details</h1>
-        <a class="btn btn-primary" href="/clients/create"><img width="20" height="20" src="https://img.icons8.com/color/48/back--v1.png" alt="back--v1"/>Back to Employer</a>
+    h1, h2 {
+      font-weight: 600;
+      color: #343a40;
+    }
 
-        <div class="container my-4">
-            <div class="col-md-8 mx-auto rounded border p-4">
-                <h2 class="text-center mb-5">Employer Details</h2>
-                <form th:object="${clienteDto}">
-    
-                    <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Client ID</label>
-                        <div class="col-sm-8">
-                            <input class="form-control-plaintext" readonly th:value="${client.id}">
-                        </div>
-                    </div>
-    
-                    <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">First Name</label>
-                        <div class="col-sm-8">
-                            <input class="form-control-plaintext" readonly th:value="${client.firstName}">
-                        </div>
-                    </div>
-    
-                    <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Last Name</label>
-                        <div class="col-sm-8">
-                            <input class="form-control-plaintext" readonly th:value="${client.lastName}">
-                        </div>
-                    </div>
-    
-                    <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Email</label>
-                        <div class="col-sm-8">
-                            <input class="form-control-plaintext" readonly th:value="${client.email}">
-                        </div>
-                    </div>
-    
-                    <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Phone</label>
-                        <div class="col-sm-8">
-                            <input class="form-control-plaintext" readonly th:value="${client.phone}">
-                        </div>
-                    </div>
-    
-                    <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Address</label>
-                        <div class="col-sm-8">
-                            <input class="form-control-plaintext" readonly th:value="${client.address}">
-                        </div>
-                    </div>
-    
-                    <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Status</label>
-                        <div class="col-sm-8">
-                                <input class="form-control-plaintext" readonly th:value="${client.status}"/>
-                        </div>
-                    </div>
-    
-                    <div class="row mb-3">
-                        <label class="col-sm-4 col-form-label">Created At</label>
-                        <div class="col-sm-8">
-                            <input class="form-control-plaintext" readonly th:value="${client.createdAt}">
-                        </div>
-                    </div>
-    
-                    <div class="row">
-                        <div class="offset-sm-4 col-sm-4 d-grid">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                        <div class="col-sm-4 d-grid">
-                            <a class="btn btn-outline-primary" href="/clients">Cancel</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+    .form-control-plaintext {
+      background-color: #fff;
+      border: 1px solid #ced4da;
+      padding: 0.375rem 0.75rem;
+      border-radius: 0.375rem;
+      color: #495057;
+    }
 
+    label {
+      font-weight: 500;
+      color: #495057;
+    }
+
+    .btn-primary {
+      background-color: #0d6efd;
+      border: none;
+    }
+
+    .btn img {
+      margin-right: 6px;
+    }
+
+    footer {
+      padding: 1.5rem 0;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg bg-white border-bottom shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold text-primary" href="#">My Store</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/privacy">Privacy</a>
+        </li>
+      </ul>
     </div>
+  </div>
+</nav>
 
-    <footer class="border-top bg-light text-muted text-center">
-      <div class="container pb-5">
-        &copy; [[${#dates.format(#dates.createNow(), 'yyyy')}]] - My Store
+<div class="container my-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Employer Details</h1>
+    <a class="btn btn-outline-primary" href="/clients/create">
+      <img src="https://img.icons8.com/color/24/back--v1.png" alt="Back"/> Back to Employers
+    </a>
+  </div>
+
+  <div class="col-md-10 mx-auto bg-white rounded shadow-sm p-5">
+    <h2 class="text-center mb-4">Employer Information</h2>
+    <form th:object="${clienteDto}">
+
+      <div class="row mb-3">
+        <label class="col-sm-4 col-form-label">
+          <img src="https://img.icons8.com/ios-filled/20/hashtag-large.png" class="me-2" alt="ID" />
+          Client ID
+        </label>
+        <div class="col-sm-8">
+          <input class="form-control-plaintext" readonly th:value="${client.id}">
+        </div>
       </div>
-    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
+      <div class="row mb-3 align-items-center">
+        <label class="col-sm-4 col-form-label">
+          <img src="https://img.icons8.com/ios-filled/20/user.png" class="me-2" alt="First Name" />
+          First Name
+        </label>
+        <div class="col-sm-8">
+          <input class="form-control-plaintext" readonly th:value="${client.firstName}">
+        </div>
+      </div>
+
+      <div class="row mb-3 align-items-center">
+        <label class="col-sm-4 col-form-label">
+          <img src="https://img.icons8.com/ios-filled/20/user.png" class="me-2" alt="Last Name" />
+          Last Name
+        </label>
+        <div class="col-sm-8">
+          <input class="form-control-plaintext" readonly th:value="${client.lastName}">
+        </div>
+      </div>
+
+      <div class="row mb-3 align-items-center">
+        <label class="col-sm-4 col-form-label">
+          <img src="https://img.icons8.com/ios-filled/20/email.png" class="me-2" alt="Email" />
+          Email
+        </label>
+        <div class="col-sm-8">
+          <input class="form-control-plaintext" readonly th:value="${client.email}">
+        </div>
+      </div>
+
+      <div class="row mb-3 align-items-center">
+        <label class="col-sm-4 col-form-label">
+          <img src="https://img.icons8.com/ios-filled/20/phone.png" alt="Phone" class="me-2"/>
+          Phone
+        </label>
+        <div class="col-sm-8">
+          <input class="form-control-plaintext" readonly th:value="${client.phone}">
+        </div>
+      </div>
+
+      <div class="row mb-3 align-items-center">
+        <label class="col-sm-4 col-form-label">
+          <img src="https://img.icons8.com/ios-filled/20/marker.png" class="me-2" alt="Address" />
+          Address
+        </label>
+        <div class="col-sm-8">
+          <input class="form-control-plaintext" readonly th:value="${client.address}">
+        </div>
+      </div>
+
+      <div class="row mb-3 align-items-center">
+        <label class="col-sm-4 col-form-label">
+          <img src="https://img.icons8.com/ios-filled/20/info--v1.png" class="me-2" alt="Status" />
+          Status
+        </label>
+        <div class="col-sm-8">
+            <span th:switch="${client.status}">
+              <span th:case="'Lead'" class="badge bg-warning status-badge">Lead</span>
+              <span th:case="'Permanent'" class="badge bg-success status-badge">Permanent</span>
+              <span th:case="'Ativo'" class="badge bg-primary status-badge">Ativo</span>
+              <span th:case="'Occasional'" class="badge bg-info status-badge">Occasional</span>
+              <span th:case="*" class="badge bg-secondary status-badge" th:text="${client.status}"></span>
+              <input th:case="'Lead'" class="form-control-plaintext badge bg-primary status-badge" readonly th:value="${client.status}">
+              <input th:case="'Permanent'" class="form-control-plaintext badge bg-primary status-badge" readonly th:value="${client.status}">
+              <input th:case="'Ativo'" class="form-control-plaintext badge bg-primary status-badge" readonly th:value="${client.status}">
+            </span>
+          
+          <input class="form-control-plaintext" readonly th:value="${client.status}">
+        </div>
+      </div>
+
+      <div class="row mb-4 align-items-center">
+        <label class="col-sm-4 col-form-label">
+          <img src="https://img.icons8.com/ios-filled/20/calendar--v1.png" alt="Created At" class="me-2"/>
+          Created At
+        </label>
+        <div class="col-sm-8">
+          <input class="form-control-plaintext" readonly th:value="${#dates.format(client.createdAt, 'yyyy-MM-dd')}">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="offset-sm-4 col-sm-4 d-grid">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <div class="col-sm-4 d-grid">
+          <a class="btn btn-outline-secondary" href="/clients">Cancel</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer class="border-top bg-light text-muted text-center">
+  <div class="container">
+    &copy; [[${#dates.format(#dates.createNow(), 'yyyy')}]] - My Store
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
