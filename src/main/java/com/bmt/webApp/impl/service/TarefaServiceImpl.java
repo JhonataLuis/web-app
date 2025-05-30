@@ -47,6 +47,7 @@ public class TarefaServiceImpl implements TarefaService{
             taref.setDataFim(new Date());
             taref.setProject(project);
             
+            
             tarefaRepository.save(taref);
         }
     }
