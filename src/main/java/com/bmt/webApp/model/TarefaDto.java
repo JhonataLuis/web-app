@@ -1,13 +1,17 @@
 package com.bmt.webApp.model;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
 public class TarefaDto {
 
+    @NotBlank
     @NotEmpty(message = "The title is required")
     private String titulo;
+    @NotBlank
     @NotEmpty(message = "The desctiption is required")
     private String descricao;
+    @NotBlank
     @NotEmpty(message = "The status is required")
     private String status;//Em andamento, Pendente
     

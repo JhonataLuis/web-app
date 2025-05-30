@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.bmt.webApp.model.Tarefa;
 import com.bmt.webApp.model.TarefaDto;
 import com.bmt.webApp.repository.ProjectsRepository;
-import com.bmt.webApp.service.ProjectService;
 import com.bmt.webApp.service.TarefaService;
 
 import jakarta.validation.Valid;
@@ -22,7 +20,6 @@ import jakarta.validation.Valid;
 @RequestMapping("/tarefas")
 public class TarefasController {
 
-    private ProjectService pService;
     @Autowired
     private TarefaService tarefaService;
 

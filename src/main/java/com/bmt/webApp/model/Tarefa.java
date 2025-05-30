@@ -1,6 +1,6 @@
 package com.bmt.webApp.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -24,8 +24,8 @@ public class Tarefa {
 
     private String titulo;
     private String descricao;
-    private Date dataInicio;
-    private Date dataFim;
+    private LocalDateTime dataInicio;
+    private LocalDateTime dataFim;
     private String status;//Pendente, Em andamento, Concluída
     //private Usuario usuario;
 
@@ -58,19 +58,19 @@ public class Tarefa {
         this.descricao = descricao;
     }
 
-    public Date getDataInicio() {
+    public LocalDateTime getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(Date dataInicio) {
+    public void setDataInicio(LocalDateTime dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public Date getDataFim() {
+    public LocalDateTime getDataFim() {
         return dataFim;
     }
 
-    public void setDataFim(Date dataFim) {
+    public void setDataFim(LocalDateTime dataFim) {
         this.dataFim = dataFim;
     }
 
