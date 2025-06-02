@@ -51,7 +51,7 @@ public class TarefasController {
         
         tarefaService.adicionarTarefa(tarefaDto, project_id);
         //pService.adicionarTarefa(tarefaDto, project_id);
-        return "redirect:/projects/index";
+        return "redirect:/projects";
 
     }
 }
