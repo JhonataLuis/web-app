@@ -37,12 +37,25 @@ public class ProjectsController {
         model.addAttribute("projects", projects);
         return "projects/index";
     }
+    //cria um novo projeto
+    @GetMapping("/created")
+    public String createdProject(Model model){
+        
+        ProjectDto project = new ProjectDto();
+        
+        model.addAttribute("projectDto", project);
+        return "projects/create";
+    }
 
     @PostMapping("/created")
-    public String createdProject(@Valid @ModelAttribute ProjectDto projectDto, BindingResult result){
+    public String createdProject(@Valid @ModelAttribute("projectDto") ProjectDto projectDto, BindingResult result){
+
+        if(result.hasErrors()){
+            return "projects/create";
+        }
 
         projectService.createProject(projectDto);
-        return "redirect:/projects";
+        return "redirect:/projects/create?success";
     }
 
     @GetMapping("/details/{id}")

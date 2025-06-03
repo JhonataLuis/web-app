@@ -1,7 +1,6 @@
 package com.bmt.webApp.impl.service;
 
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,18 +37,15 @@ public class ProjectServiceImpl implements ProjectService{
     }
 
     @Override
-    public Project createProject(ProjectDto projectDto) {
+    public void createProject(ProjectDto projectDto) {
         
         Project project = new Project();
-
-        if(project != null){
             project.setNome(projectDto.getNome());
             project.setDescricao(projectDto.getDescricao());
             project.setStatus(projectDto.getStatus());
-            project.setDataInicio(new Date());
-            project.setDataFim(new Date());
+            project.setDataInicio(projectDto.getDataInicio());
+            project.setDataFim(projectDto.getDataFim());
             pRepository.save(project);
-        }
     }
 
     @Override

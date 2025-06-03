@@ -1,7 +1,7 @@
 package com.bmt.webApp.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -26,8 +26,8 @@ public class Project {
 
     private String nome;
     private String descricao;
-    private Date dataInicio;
-    private Date dataFim;
+    private LocalDateTime dataInicio;
+    private LocalDateTime dataFim;
     private String status;//Em andamento, Concluído
 
     //Relacionamento 1-N com Tarefa
@@ -53,16 +53,16 @@ public class Project {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    public Date getDataInicio() {
+    public LocalDateTime getDataInicio() {
         return dataInicio;
     }
-    public void setDataInicio(Date dataInicio) {
+    public void setDataInicio(LocalDateTime dataInicio) {
         this.dataInicio = dataInicio;
     }
-    public Date getDataFim() {
+    public LocalDateTime getDataFim() {
         return dataFim;
     }
-    public void setDataFim(Date dataFim) {
+    public void setDataFim(LocalDateTime dataFim) {
         this.dataFim = dataFim;
     }
     public String getStatus() {

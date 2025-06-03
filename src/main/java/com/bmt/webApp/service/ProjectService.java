@@ -8,7 +8,7 @@ import com.bmt.webApp.model.Tarefa;
 
 public interface ProjectService {
 
-    Project createProject(ProjectDto projectDto);
+    void createProject(ProjectDto projectDto);
 
     List<Project> listProject();
     
