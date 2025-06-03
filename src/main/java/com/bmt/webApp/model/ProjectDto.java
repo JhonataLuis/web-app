@@ -5,27 +5,29 @@ import java.time.LocalDateTime;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
-public class TarefaDto {
+public class ProjectDto {
 
     @NotBlank
-    @NotEmpty(message = "The title is required")
-    private String titulo;
+    @NotEmpty(message = "The name is required")
+    private String nome;
     @NotBlank
-    @NotEmpty(message = "The desctiption is required")
+    @NotEmpty(message = "The description is required")
     private String descricao;
     @NotBlank
-    @NotEmpty(message = "The status is required")
-    private String status;//Em andamento, Pendente
+    @NotEmpty(message = "The Date start is required")
     private LocalDateTime dataInicio;
+    @NotBlank
+    @NotEmpty(message = "The Date End is required")
     private LocalDateTime dataFim;
-    
-    private Long project_id;
+    @NotBlank
+    @NotEmpty(message = "The status is required")
+    private String status;//Em andamento, Concluído
 
-    public String getTitulo() {
-        return titulo;
+    public String getNome() {
+        return nome;
     }
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     public String getDescricao() {
         return descricao;
@@ -33,38 +35,25 @@ public class TarefaDto {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-
+    public LocalDateTime getDataInicio() {
+        return dataInicio;
+    }
+    public void setDataInicio(LocalDateTime dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+    public LocalDateTime getDataFim() {
+        return dataFim;
+    }
+    public void setDataFim(LocalDateTime dataFim) {
+        this.dataFim = dataFim;
+    }
+    public String getStatus() {
+        return status;
+    }
     public void setStatus(String status) {
         this.status = status;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public LocalDateTime getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(LocalDateTime dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-
-    public LocalDateTime getDataFim() {
-        return dataFim;
-    }
-
-    public void setDataFim(LocalDateTime dataFim) {
-        this.dataFim = dataFim;
-    }
-
-
-    public void setProject_id(Long project_id) {
-        this.project_id = project_id;
-    }
-
-    public Long getProject_id() {
-        return project_id;
-    }
     
+
 }

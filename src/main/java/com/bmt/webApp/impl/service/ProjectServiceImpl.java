@@ -1,12 +1,14 @@
 package com.bmt.webApp.impl.service;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bmt.webApp.model.Project;
+import com.bmt.webApp.model.ProjectDto;
 import com.bmt.webApp.model.Tarefa;
 import com.bmt.webApp.repository.ProjectsRepository;
 import com.bmt.webApp.repository.TarefaRepository;
@@ -23,7 +25,7 @@ public class ProjectServiceImpl implements ProjectService{
     @Autowired
     private TarefaRepository tRepository;
     
-     @Transactional
+    @Transactional
     @Override
     public Tarefa adicionarTarefa(Long projectId, Tarefa tarefa) {
 
@@ -33,6 +35,21 @@ public class ProjectServiceImpl implements ProjectService{
         project.adicionarTarefa(tarefa);
         return tRepository.save(tarefa);
 
+    }
+
+    @Override
+    public Project createProject(ProjectDto projectDto) {
+        
+        Project project = new Project();
+
+        if(project != null){
+            project.setNome(projectDto.getNome());
+            project.setDescricao(projectDto.getDescricao());
+            project.setStatus(projectDto.getStatus());
+            project.setDataInicio(new Date());
+            project.setDataFim(new Date());
+            pRepository.save(project);
+        }
     }
 
     @Override
@@ -61,5 +78,4 @@ public class ProjectServiceImpl implements ProjectService{
     }
 
     
-
 }

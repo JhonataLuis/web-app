@@ -3,9 +3,12 @@ package com.bmt.webApp.service;
 import java.util.List;
 
 import com.bmt.webApp.model.Project;
+import com.bmt.webApp.model.ProjectDto;
 import com.bmt.webApp.model.Tarefa;
 
 public interface ProjectService {
+
+    Project createProject(ProjectDto projectDto);
 
     List<Project> listProject();
     
