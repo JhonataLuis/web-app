@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class ProjectDto {
 
@@ -13,11 +14,11 @@ public class ProjectDto {
     @NotBlank
     @NotEmpty(message = "The description is required")
     private String descricao;
-    @NotBlank
-    @NotEmpty(message = "The Date start is required")
+
+    @NotNull(message = "The Date start is required")
     private LocalDateTime dataInicio;
-    @NotBlank
-    @NotEmpty(message = "The Date End is required")
+    
+    @NotNull(message = "The Date End is required")
     private LocalDateTime dataFim;
     @NotBlank
     @NotEmpty(message = "The status is required")

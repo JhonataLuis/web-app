@@ -13,26 +13,27 @@ import com.bmt.webApp.repository.ProjectsRepository;
 import com.bmt.webApp.repository.TarefaRepository;
 import com.bmt.webApp.service.ProjectService;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
 public class ProjectServiceImpl implements ProjectService{
 
     @Autowired
-    private ProjectsRepository pRepository;
+    private ProjectsRepository projectRepository;
 
     @Autowired
-    private TarefaRepository tRepository;
+    private TarefaRepository tarefaRepository;
     
     @Transactional
     @Override
     public Tarefa adicionarTarefa(Long projectId, Tarefa tarefa) {
 
-       Project project = pRepository.findById(projectId)
-        .orElseThrow(() -> new RuntimeException("Projeto não encontrado"));
+       Project project = projectRepository.findById(projectId)
+        .orElseThrow(() -> new EntityNotFoundException("Projeto com ID " + projectId + " não encontrado"));
 
         project.adicionarTarefa(tarefa);
-        return tRepository.save(tarefa);
+        return tarefaRepository.save(tarefa);
 
     }
 
@@ -45,7 +46,8 @@ public class ProjectServiceImpl implements ProjectService{
             project.setStatus(projectDto.getStatus());
             project.setDataInicio(projectDto.getDataInicio());
             project.setDataFim(projectDto.getDataFim());
-            pRepository.save(project);
+
+            projectRepository.save(project);
     }
 
     @Override
@@ -70,7 +72,7 @@ public class ProjectServiceImpl implements ProjectService{
 
     @Override//método para listar os projects cadastrados no sistema
     public List<Project> listProject() {
-        return pRepository.findAll();
+        return projectRepository.findAll();
     }
 
     
