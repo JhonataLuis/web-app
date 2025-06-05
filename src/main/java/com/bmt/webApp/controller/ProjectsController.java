@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bmt.webApp.model.ProjectDto;
 import com.bmt.webApp.repository.ProjectsRepository;
@@ -39,23 +40,34 @@ public class ProjectsController {
     }
     //cria um novo projeto
     @GetMapping("/created")
-    public String createdProject(Model model){
+    public String createdProject(@RequestParam(value = "success", required= false) String success,
+    Model model){
         
         ProjectDto project = new ProjectDto();
         
         model.addAttribute("projectDto", project);
+
+        /*if(result.hasErrors()){//SE TIVER ERRO INFORMA ERRO
+            return "projects/create";
+        }*/
+
+         if(success != null){//SE CADASTRAR COM SUCESSO APARECE MENSAGEM DE CADASTRO COM SUCESSO
+            model.addAttribute("successMessage", "Project created successfully!");
+        }
+
         return "projects/create";
     }
 
     @PostMapping("/created")
-    public String createdProject(@Valid @ModelAttribute("projectDto") ProjectDto projectDto, BindingResult result){
+    public String createdProject(@Valid @ModelAttribute("projectDto") ProjectDto projectDto, 
+     Model model, BindingResult result){
 
-        if(result.hasErrors()){
+        if(result.hasErrors()){//SE TIVER ERRO INFORMA ERRO
             return "projects/create";
         }
-
+       
         projectService.createProject(projectDto);
-        return "redirect:/projects/create?success";
+        return "redirect:/projects/created?success";
     }
 
     @GetMapping("/details/{id}")
