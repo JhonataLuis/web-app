@@ -81,5 +81,20 @@ public class ProjectsController {
         return "projects/details";
     }
 
+    @GetMapping("/edit/{id}")
+    public String editProject(@PathVariable Long id, Model model){
+
+        ProjectDto projectDto = projectService.getProjectById(id);
+        model.addAttribute("projectDto", projectDto);
+        return "projects/edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String updateProject(@PathVariable("id") Long id){
+
+        return "redirect:/projects?successEdit";
+
+    }
+
     
 }

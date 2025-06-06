@@ -8,6 +8,8 @@ import jakarta.validation.constraints.NotNull;
 
 public class ProjectDto {
 
+    @NotNull
+    private Long id;
     @NotBlank
     @NotEmpty(message = "The name is required")
     private String nome;
@@ -23,6 +25,14 @@ public class ProjectDto {
     @NotBlank
     @NotEmpty(message = "The status is required")
     private String status;//Em andamento, Concluído
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
 
     public String getNome() {
         return nome;

@@ -10,7 +10,13 @@ public interface ProjectService {
 
     void createProject(ProjectDto projectDto);
 
+    ProjectDto getProjectById(Long id);
+
+    void updateProject(ProjectDto projectDto);
+
     List<Project> listProject();
+
+    
     
     Tarefa adicionarTarefa(Long projectId, Tarefa tarefa);
     

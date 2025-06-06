@@ -70,6 +70,21 @@ public class ProjectServiceImpl implements ProjectService{
         project.getTarefas();
     }
 
+    @Override
+    public void updateProject(ProjectDto projectDto){
+
+        Project project = projectRepository.findById(projectDto.getId())
+        .orElseThrow(() -> new RuntimeException("Project not found with id:" + projectDto.getId()));
+
+        project.setNome(projectDto.getNome());
+        project.setDescricao(projectDto.getDescricao());
+        project.setDataInicio(projectDto.getDataInicio());
+        project.setDataFim(projectDto.getDataFim());
+        project.setStatus(projectDto.getStatus());
+
+        projectRepository.save(project);
+    }
+
     @Override//método para listar os projects cadastrados no sistema
     public List<Project> listProject() {
         return projectRepository.findAll();
