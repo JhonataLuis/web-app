@@ -47,10 +47,6 @@ public class ProjectsController {
         
         model.addAttribute("projectDto", project);
 
-        /*if(result.hasErrors()){//SE TIVER ERRO INFORMA ERRO
-            return "projects/create";
-        }*/
-
          if(success != null){//SE CADASTRAR COM SUCESSO APARECE MENSAGEM DE CADASTRO COM SUCESSO
             model.addAttribute("successMessage", "Project created successfully!");
         }

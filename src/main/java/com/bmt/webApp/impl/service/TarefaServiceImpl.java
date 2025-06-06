@@ -1,6 +1,5 @@
 package com.bmt.webApp.impl.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -64,8 +63,8 @@ public class TarefaServiceImpl implements TarefaService{
             taref.setTitulo(tarefaDto.getTitulo());
             taref.setDescricao(tarefaDto.getDescricao());
             taref.setStatus(tarefaDto.getStatus());
-            taref.setDataInicio(LocalDateTime.now());
-            taref.setDataFim(LocalDateTime.now());
+            taref.setDataInicio(tarefaDto.getDataInicio());
+            taref.setDataFim(tarefaDto.getDataFim());
             taref.setProject(project);
             
             Tarefa tarefaSalva = tarefaRepository.save(taref);

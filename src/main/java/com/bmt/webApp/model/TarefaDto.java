@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class TarefaDto {
 
@@ -16,7 +17,9 @@ public class TarefaDto {
     @NotBlank
     @NotEmpty(message = "The status is required")
     private String status;//Em andamento, Pendente
+    @NotNull
     private LocalDateTime dataInicio;
+    @NotNull
     private LocalDateTime dataFim;
     
     private Long project_id;

@@ -62,7 +62,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Data Início</label>
                     <div class="col-sm-8">
-                        <input class="form-control" th:field="${newtarefasDto.dataInicio}" 
+                        <input type="datetime-local" class="form-control" th:field="${newtarefasDto.dataInicio}" 
                         th:value="${#dates.format(newtarefasDto.dataInicio, 'yyyy-MM-dd')}">
                         <p th:if="${#fields.hasErrors('dataInicio')}" th:errorclass="text-danger"
                         th:errors="${newtarefasDto.dataInicio}"></p>
@@ -72,7 +72,7 @@
                 <div class="row mb-3">
                     <label class="col-sm-4 col-form-label">Data Fim</label>
                     <div class="col-sm-8">
-                        <input class="form-control" th:field="${newtarefasDto.dataFim}" 
+                        <input type="datetime-local" class="form-control" th:field="${newtarefasDto.dataFim}" 
                         th:value="${#dates.format(newtarefasDto.dataFim, 'yyyy-MM-dd')}">
                         <p th:if="${#fields.hasErrors('dataFim')}" th:errorclass="text-danger"
                         th:errors="${newtarefasDto.dataFim}"></p>
