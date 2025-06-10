@@ -52,7 +52,7 @@
                 <th th:text="${project.id}" scope="row"></th>
                 <td th:text="${project.nome}"></td>
                 <td th:text="${project.descricao}"></td>
-                <td th:text="${project.dataInicio}"></td>
+                <td th:text="${#temporals.format(project.dataInicio, 'dd/MM/yyyy HH:mm')}"></td>
                 <td th:text="${project.dataFim}"></td>
 
                 <td style="white-space:nowrap">
