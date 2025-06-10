@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 
 public class ProjectDto {
 
-    @NotNull
+    //@NotNull
     private Long id;
     @NotBlank
     @NotEmpty(message = "The name is required")
