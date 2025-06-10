@@ -28,7 +28,7 @@ public class Project {
     private String descricao;
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
-    private String status;//Em andamento, Concluído
+    private String status;//New, Em andamento e Concluído
 
     //Relacionamento 1-N com Tarefa
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)

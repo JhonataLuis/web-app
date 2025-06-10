@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bmt.webApp.model.ProjectDto;
 import com.bmt.webApp.repository.ProjectsRepository;
@@ -82,17 +83,32 @@ public class ProjectsController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editProject(@PathVariable Long id, Model model){
+    public String editProject(@PathVariable("id") Long id, Model model){
 
         ProjectDto projectDto = projectService.getProjectById(id);
+        if(projectDto == null){
+            return "redirect:/projects";
+        }
         model.addAttribute("projectDto", projectDto);
+        model.addAttribute("projectId", id);
         return "projects/edit";
     }
-
+ 
     @PostMapping("/edit/{id}")
-    public String updateProject(@PathVariable("id") Long id){
+    public String updateProject(@PathVariable("id") Long id, 
+                                @Valid @ModelAttribute("projectDto") ProjectDto projectDto,
+                                BindingResult result, RedirectAttributes redirectAttributes,
+                                Model model){
 
-        return "redirect:/projects?successEdit";
+        if(result.hasErrors()){
+            model.addAttribute("projectId", id);
+            return "projects/edit";
+        }  
+        
+        projectDto.setId(id);
+        projectService.updateProject(id, projectDto);
+        redirectAttributes.addFlashAttribute("successMessage", "Projeto atualizado com sucesso!");
+        return "redirect:/projects";
 
     }
 

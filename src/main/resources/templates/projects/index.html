@@ -34,6 +34,8 @@
         <h1 class="text-center mb-3">List of Projects</h1>
         <a class="btn btn-primary" href="/projects/created">New Projects <img width="20" height="20" src="https://img.icons8.com/fluency/48/forward--v1.png" alt="forward--v1"/></a>
 
+        <!-- Mensagem de sucesso -->
+    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
         <span class="badge text-bg-warning">Warning</span>
         <span th:text="${today}"></span>
         <table class="table table-hover">
@@ -42,6 +44,7 @@
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
+                <th scope="col">Status</th>
                 <th scope="col">Date Created</th>
                 <th scope="col">Date End</th>
                 <th scope="col">Action</th>
@@ -52,12 +55,13 @@
                 <th th:text="${project.id}" scope="row"></th>
                 <td th:text="${project.nome}"></td>
                 <td th:text="${project.descricao}"></td>
+                <td th:text="${project.status}"></td>
                 <td th:text="${#temporals.format(project.dataInicio, 'dd/MM/yyyy HH:mm')}"></td>
-                <td th:text="${project.dataFim}"></td>
+                <td th:text="${#temporals.format(project.dataFim, 'dd/MM/yyyy HH:mm')}"></td>
 
                 <td style="white-space:nowrap">
                     <a class="btn btn-primary btn-sm" th:href="@{/projects/details/{id}(id=${project.id})}"><img width="20" height="20" src="https://img.icons8.com/fluency/48/search-more.png" alt="search-more"/></a>
-                    <a class="btn btn-primary btn-sm" th:href="@{/projects/edit(id=${project.id})}"><img width="20" height="20" src="https://img.icons8.com/fluency/48/pencil-tip.png" alt="pencil-tip"/></a>
+                    <a class="btn btn-primary btn-sm" th:href="@{/projects/edit/{id}(id=${project.id})}"><img width="20" height="20" src="https://img.icons8.com/fluency/48/pencil-tip.png" alt="pencil-tip"/></a>
                     <a class="btn btn-danger btn-sm" th:href="@{/projects/delete(id=${project.id})}" onclick="return confirm('Are you sure?')"><img width="20" height="20" src="https://img.icons8.com/fluency/48/delete-forever.png" alt="delete-forever"/></a>
                   </td>
               </tr>

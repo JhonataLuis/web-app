@@ -2,6 +2,7 @@ package com.bmt.webApp.impl.service;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,22 @@ public class ProjectServiceImpl implements ProjectService{
     private ProjectsRepository projectRepository;
 
     /**
+     * Lista todos os Projetos
+     * 
+     * @return lista de produtos
+     */
+    @Override
+    public List<ProjectDto> listProject() {
+        logger.info("Listando projetos: {}");
+
+        List<Project> projects = projectRepository.findAll();
+        return projects.stream()
+            .map(this::convertToDto)
+            .collect(Collectors.toList());
+            
+    }
+
+    /**
      * Adiciona um novo projeto
      * 
      * @param projectDto dados do projeto
@@ -32,18 +49,12 @@ public class ProjectServiceImpl implements ProjectService{
      */
     @Transactional
     @Override
-    public void createProject(@Valid ProjectDto projectDto) {
+    public void createProject(@Valid ProjectDto dto) {
         logger.info("Tentando adicionar um novo Projeto: {}");
 
-        Project project = new Project();
-            project.setNome(projectDto.getNome());
-            project.setDescricao(projectDto.getDescricao());
-            project.setStatus(projectDto.getStatus());
-            project.setDataInicio(projectDto.getDataInicio());
-            project.setDataFim(projectDto.getDataFim());
-
-            Project projectSave = projectRepository.save(project);
-            logger.info("Projeto salvo com o ID: {}", projectSave.getId());
+        Project project = convertToEntity(dto);
+        Project projectSave = projectRepository.save(project);
+        logger.info("Projeto salvo com o ID: {}", projectSave.getId());
     }
 
     /**
@@ -62,46 +73,41 @@ public class ProjectServiceImpl implements ProjectService{
     }
 
     /**
+     * Obtem o ID do projeto que vai realizar a atualização
+     * 
+     * @param ID do projeto
+     * @return retorna o projecto realizado os set
+     */
+    @Override
+    public ProjectDto getProjectById(Long id) {
+         
+        Project project = projectRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Invalid Project Id: " + id));
+        return convertToDto(project);
+    }
+
+    /**
      * Atualiza dados do projeto no banco de dados
      * 
      * @param projectDto objeto projeto com alguns dados
      * 
      */
     @Override
-    public void updateProject(ProjectDto projectDto){
-        logger.info("Tentando atualizar um projeto no banco de dados: {}", projectDto.getId());
+    public void updateProject(Long id, ProjectDto dto){
+        logger.info("Tentando atualizar um projeto no banco de dados: {}" + id);
 
-        Project project = projectRepository.findById(projectDto.getId())
-        .orElseThrow(() -> new RuntimeException("Projeto não encontrado com ID :" + projectDto.getId()));
+        Project project = projectRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Projeto não encontrado com ID :" + id));
 
-        project.setNome(projectDto.getNome());
-        project.setDescricao(projectDto.getDescricao());
-        project.setDataInicio(projectDto.getDataInicio());
-        project.setDataFim(projectDto.getDataFim());
-        project.setStatus(projectDto.getStatus());
+        project.setNome(dto.getNome());
+        project.setDescricao(dto.getDescricao());
+        project.setDataInicio(dto.getDataInicio());
+        project.setDataFim(dto.getDataFim());
+        project.setStatus(dto.getStatus());
 
-        Project projectUpdate = projectRepository.save(project);
-        logger.info("Projeto atualizado no banco de dados com ID: {}", projectUpdate.getId());
+        projectRepository.save(project);
+        logger.info("Projeto atualizado no banco de dados com ID: {}" + id);
     }
-
-    /**
-     * Lista todos os Projetos
-     * 
-     * @return lista de produtos
-     */
-    @Override
-    public List<Project> listProject() {
-
-        logger.info("Listando projetos: {}");
-        return projectRepository.findAll();
-    }
-
-    @Override
-    public ProjectDto getProjectById(Long id) {
-        
-        throw new UnsupportedOperationException("Unimplemented method 'getProjectById'");
-    }
-
 
     @Override
     public void atualizarStatus(String status) {
@@ -109,5 +115,28 @@ public class ProjectServiceImpl implements ProjectService{
         throw new UnsupportedOperationException("Unimplemented method 'atualizarStatus'");
     }
 
+    private ProjectDto convertToDto(Project project){
+
+        ProjectDto dto = new ProjectDto();
+        
+        dto.setId(project.getId());
+        dto.setNome(project.getNome());
+        dto.setDescricao(project.getDescricao());
+        dto.setDataInicio(project.getDataInicio());
+        dto.setDataFim(project.getDataFim());
+        dto.setStatus(project.getStatus());
+        return dto;
+    }
+
+    private Project convertToEntity(ProjectDto dto){
+
+        Project project = new Project();
+        project.setNome(dto.getNome());
+        project.setDescricao(dto.getDescricao());
+        project.setDataInicio(dto.getDataInicio());
+        project.setDataFim(dto.getDataFim());
+        project.setStatus(dto.getStatus());
+        return project;
+    }
     
 }
