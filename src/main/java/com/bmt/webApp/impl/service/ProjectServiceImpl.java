@@ -1,6 +1,7 @@
 package com.bmt.webApp.impl.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,7 @@ import jakarta.validation.Valid;
 public class ProjectServiceImpl implements ProjectService{
 
     private static final Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
+    private List<ProjectDto> projectList = new ArrayList<>();
 
     @Autowired
     private ProjectsRepository projectRepository;
@@ -107,6 +109,14 @@ public class ProjectServiceImpl implements ProjectService{
 
         projectRepository.save(project);
         logger.info("Projeto atualizado no banco de dados com ID: {}" + id);
+    }
+
+    /**
+     * Ação para deletar um projeto do banco de dados
+     */
+    @Override
+    public void deletProject(Long id){
+        projectList.removeIf(p -> p.getId().equals(id));
     }
 
     @Override

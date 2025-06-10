@@ -12,6 +12,8 @@ public interface ProjectService {
 
     void updateProject(Long id, ProjectDto dto);
 
+    void deletProject(Long id);
+
     List<ProjectDto> listProject();
 
     void atualizarStatus(String status);
