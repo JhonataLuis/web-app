@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import com.bmt.webApp.model.Project;
 import com.bmt.webApp.model.Tarefa;
 import com.bmt.webApp.model.TarefaDto;
+import com.bmt.webApp.model.Usuario;
 import com.bmt.webApp.repository.ProjectsRepository;
 import com.bmt.webApp.repository.TarefaRepository;
+import com.bmt.webApp.repository.UserRepository;
 import com.bmt.webApp.service.TarefaService;
 
 import jakarta.validation.Valid;
@@ -25,6 +27,9 @@ public class TarefaServiceImpl implements TarefaService{
 
     @Autowired
     private ProjectsRepository projectsRepository;
+
+    @Autowired
+    private UserRepository UserRepository;
 
     /**
      * Lista todas as tarefas associadas a um projeto
@@ -71,4 +76,23 @@ public class TarefaServiceImpl implements TarefaService{
             logger.info("Tarefa salva com ID: {}", tarefaSalva.getId());
     }
 
+    /**
+     * Atribui um responsável para executar a tarefa do projeto
+     * 
+     * @param tarefa dados da tarefa
+     * @param usuario dados do usuário
+     * @return Usuario responsável por tarefa
+     */
+
+    @Override
+    public void atribuirResponsavel(Long tarefaId, Long userId){
+        Tarefa tarefa = tarefaRepository.findById(tarefaId)
+                .orElseThrow(() -> new IllegalArgumentException("Tarefa não encontrada"));
+        
+                Usuario usuario = UserRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
+
+                tarefa.setUserResponse(usuario);
+                tarefaRepository.save(tarefa);
+    }
 }

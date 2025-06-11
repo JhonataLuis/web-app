@@ -27,7 +27,11 @@ public class Tarefa {
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
     private String status;//Pendente, Em andamento, Concluída
-    //private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name="usuario_id")
+    @JsonBackReference // Evita recursividade infinita no JSON
+    private Usuario userResponse;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
@@ -88,6 +92,14 @@ public class Tarefa {
 
     public void setProject(Project project) {
         this.project = project;
+    }
+
+    public void setUserResponse(Usuario userResponse) {
+        this.userResponse = userResponse;
+    }
+
+    public Usuario getUserResponse() {
+        return userResponse;
     }
 
     

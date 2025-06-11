@@ -10,4 +10,6 @@ public interface TarefaService {
     List<Tarefa> listarTarefasPorProjeto(Long projectId);
 
     void adicionarTarefa(TarefaDto tarefaDto, Long project_id);
+    void atribuirResponsavel(Long tarefaId, Long userId);
+
 }
