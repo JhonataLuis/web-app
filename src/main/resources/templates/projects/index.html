@@ -69,7 +69,7 @@
                 <td style="white-space:nowrap">
                     <a class="btn btn-primary btn-sm" th:href="@{/projects/details/{id}(id=${project.id})}"><img width="20" height="20" src="https://img.icons8.com/fluency/48/search-more.png" alt="search-more"/></a>
                     <a class="btn btn-primary btn-sm" th:href="@{/projects/edit/{id}(id=${project.id})}"><img width="20" height="20" src="https://img.icons8.com/fluency/48/pencil-tip.png" alt="pencil-tip"/></a>
-                    <a class="btn btn-danger btn-sm" th:href="@{/projects/delete(id=${project.id})}" onclick="return confirm('Are you sure?')"><img width="20" height="20" src="https://img.icons8.com/fluency/48/delete-forever.png" alt="delete-forever"/></a>
+                    <a class="btn btn-danger btn-sm" th:href="@{/projects/delete/{id}(id=${project.id})}" onclick="return confirm('Are you sure about that?')"><img width="20" height="20" src="https://img.icons8.com/fluency/48/delete-forever.png" alt="delete-forever"/></a>
                   </td>
               </tr>
             </tbody>

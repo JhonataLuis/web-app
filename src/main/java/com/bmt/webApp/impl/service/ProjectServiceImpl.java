@@ -1,7 +1,6 @@
 package com.bmt.webApp.impl.service;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +21,6 @@ import jakarta.validation.Valid;
 public class ProjectServiceImpl implements ProjectService{
 
     private static final Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
-    private List<ProjectDto> projectList = new ArrayList<>();
 
     @Autowired
     private ProjectsRepository projectRepository;
@@ -116,7 +114,9 @@ public class ProjectServiceImpl implements ProjectService{
      */
     @Override
     public void deletProject(Long id){
-        projectList.removeIf(p -> p.getId().equals(id));
+        Project project = projectRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Projeto com ID: {}" + id + "não encontrado"));
+        projectRepository.delete(project);    
     }
 
     @Override

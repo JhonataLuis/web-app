@@ -113,9 +113,10 @@ public class ProjectsController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deletProject(@PathVariable Long id){
+    public String deletProject(@PathVariable Long id, RedirectAttributes redirect){
 
         projectService.deletProject(id);
+        redirect.addFlashAttribute("successMessage", "Projeto excluído com sucesso!");
         return "redirect:/projects";
     }
 
