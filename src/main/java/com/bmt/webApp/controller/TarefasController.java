@@ -68,9 +68,8 @@ public class TarefasController {
 
         UserResponsavelDto dto = new UserResponsavelDto();
         dto.setTarefaId(id);
-       // model.addAttribute("tarefaId", id);
+       
         model.addAttribute("usuarios", userRepository.findAll());
-        //model.addAttribute("dto", new UserResponsavelDto());
         model.addAttribute("dto", dto);
         return "usuario/atribuir";
     }
