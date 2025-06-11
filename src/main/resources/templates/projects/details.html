@@ -148,6 +148,7 @@
                     <th scope="col">Title</th>
                     <th scope="col">Description</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Responsável</th>
                     <th scope="col">Date Start / End</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -160,6 +161,7 @@
                         <span class="badge status-badge"
                               th:classappend="' status-' + ${tarefa.status}" th:text="${tarefa.status}"></span>
                     </td>
+                    <td th:text="${tarefa.userResponse != null ? tarefa.userResponse.name : 'Não Atribuído'}"></td>
                     <td th:text="${#temporals.format(tarefa.dataInicio, 'dd/MM/yyyy')} + ' - ' + ${#temporals.format(tarefa.dataFim, 'dd/MM/yyyy')}"></td>
                     <td style="white-space: nowrap;">
                         <a th:href="@{/tarefas/{id}(id=${tarefa.id})}" class="btn btn-info btn-sm">

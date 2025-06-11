@@ -81,9 +81,9 @@ public class Project {
     }
 
     //MÉTODO AUXILIAR PARA ADICIONAR UMA TAREFA AO PROJETO
-    public void adicionarTarefa(Tarefa tarefa){
+    /*public void adicionarTarefa(Tarefa tarefa){
         tarefas.add(tarefa);
         tarefa.setProject(this);
-    }
+    }*/
     
 }
