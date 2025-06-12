@@ -36,10 +36,12 @@
 
         .status-Concluído {
             background-color: #28a745;
+            text-decoration-color: #f8f9fa;
         }
 
         .status-Em\ andamento {
             background-color: #ffc107;
+            text-decoration-color: #f8f9fa;
         }
 
         .btn-sm img {
@@ -148,7 +150,7 @@
                     <th scope="col">Title</th>
                     <th scope="col">Description</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Responsável</th>
+                    <th scope="col">Response</th>
                     <th scope="col">Date Start / End</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -158,17 +160,21 @@
                     <td th:text="${tarefa.titulo}"></td>
                     <td th:text="${tarefa.descricao}"></td>
                     <td>
-                        <span class="badge status-badge"
+                        <span class="badge rounded-pill status-badge"
                               th:classappend="' status-' + ${tarefa.status}" th:text="${tarefa.status}"></span>
                     </td>
                     <td th:text="${tarefa.userResponse != null ? tarefa.userResponse.name : 'Não Atribuído'}"></td>
                     <td th:text="${#temporals.format(tarefa.dataInicio, 'dd/MM/yyyy')} + ' - ' + ${#temporals.format(tarefa.dataFim, 'dd/MM/yyyy')}"></td>
                     <td style="white-space: nowrap;">
-                        <a th:href="@{/tarefas/{id}(id=${tarefa.id})}" class="btn btn-info btn-sm">
+                        <!-- Botão para abrir o modal detalhes tasks-->
+                        <button type="button"
+                                class="btn btn-info btn-sm"
+                                data-bs-toggle="modal"
+                                th:data-bs-target="'#modalTarefa' + ${tarefa.id}">
                             <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/bulleted-list.png"
-                                 alt="bulleted-list"/>
-                        </a>
-                        <a th:href="@{/tarefas/{id}/edit(id=${tarefa.id})}" class="btn btn-warning btn-sm">
+                                alt="bulleted-list"/>
+                        </button>
+                        <a th:href="@{/tarefas/edit/{id}(id=${tarefa.id})}" class="btn btn-warning btn-sm">
                             <img width="20" height="20" src="https://img.icons8.com/fluency/48/pencil-tip.png"
                                  alt="pencil-tip"/>
                         </a>
@@ -184,7 +190,35 @@
                             </button>
                         </form>
                     </td>
+
+                    <!-- Modal -->
+                <div class="modal fade" th:id="'modalTarefa' + ${tarefa.id}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" th:text="'Detalhes da Tarefa: ' + ${tarefa.titulo}"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>ID:</strong> <span th:text="${tarefa.id}"></span></p>
+                        <p><strong>Título:</strong> <span th:text="${tarefa.titulo}"></span></p>
+                        <p><strong>Descrição:</strong> <span th:text="${tarefa.descricao}"></span></p>
+                        <p><strong>Status:</strong> <span class="badge status-badge" th:classappend="' status-' + ${tarefa.status}" th:text="${tarefa.status}"></span></p>
+                        <p><strong>Responsável:</strong> <span th:text="${tarefa.userResponse != null ? tarefa.userResponse.name : 'Não Atribuído'}"></span></p>
+                        <p><strong>Data Início:</strong> <span th:text="${#temporals.format(tarefa.dataInicio, 'dd/MM/yyyy HH:mm')}"></span></p>
+                        <p><strong>Data Fim:</strong> <span th:text="${#temporals.format(tarefa.dataFim, 'dd/MM/yyyy HH:mm')}"></span></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                    </div>
+                </div>
+                </div>
+
                 </tr>
+
+                
+
                 </tbody>
             </table>
 
