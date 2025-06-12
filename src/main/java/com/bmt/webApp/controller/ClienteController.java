@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bmt.webApp.dto.ClienteDto;
 import com.bmt.webApp.model.Cliente;
-import com.bmt.webApp.model.ClienteDto;
 import com.bmt.webApp.repository.ClienteRepository;
 import com.bmt.webApp.service.ClienteService;
 

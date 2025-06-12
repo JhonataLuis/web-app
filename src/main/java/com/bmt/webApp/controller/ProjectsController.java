@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bmt.webApp.model.ProjectDto;
+import com.bmt.webApp.dto.ProjectDto;
 import com.bmt.webApp.repository.ProjectsRepository;
 import com.bmt.webApp.service.ProjectService;
 import com.bmt.webApp.service.TarefaService;

@@ -4,5 +4,6 @@ public enum TarefaStatusEnum {
 
     PENDENTE,
     ANDAMENTO,
-    CONCLUIDO
+    CONCLUIDO,
+    CANCELADA
 }

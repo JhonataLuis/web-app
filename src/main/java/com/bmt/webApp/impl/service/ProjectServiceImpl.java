@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bmt.webApp.dto.ProjectDto;
 import com.bmt.webApp.model.Project;
-import com.bmt.webApp.model.ProjectDto;
 import com.bmt.webApp.repository.ProjectsRepository;
 import com.bmt.webApp.service.ProjectService;
 

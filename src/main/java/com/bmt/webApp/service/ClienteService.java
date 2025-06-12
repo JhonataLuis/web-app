@@ -1,7 +1,7 @@
 package com.bmt.webApp.service;
 
+import com.bmt.webApp.dto.ClienteDto;
 import com.bmt.webApp.model.Cliente;
-import com.bmt.webApp.model.ClienteDto;
 
 public interface ClienteService {
 

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.bmt.webApp.model.TarefaDto;
+import com.bmt.webApp.dto.TarefaDto;
 import com.bmt.webApp.model.UserResponsavelDto;
 import com.bmt.webApp.repository.ProjectsRepository;
 import com.bmt.webApp.repository.UserRepository;

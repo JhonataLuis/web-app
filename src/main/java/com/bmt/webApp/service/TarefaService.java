@@ -2,8 +2,8 @@ package com.bmt.webApp.service;
 
 import java.util.List;
 
+import com.bmt.webApp.dto.TarefaDto;
 import com.bmt.webApp.model.Tarefa;
-import com.bmt.webApp.model.TarefaDto;
 
 public interface TarefaService {
 

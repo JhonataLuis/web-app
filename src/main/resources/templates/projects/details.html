@@ -166,16 +166,19 @@
                     <td style="white-space: nowrap;">
                         <a th:href="@{/tarefas/{id}(id=${tarefa.id})}" class="btn btn-info btn-sm">
                             <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/bulleted-list.png"
-                                 alt="bulleted-list"/> View
+                                 alt="bulleted-list"/>
                         </a>
                         <a th:href="@{/tarefas/{id}/edit(id=${tarefa.id})}" class="btn btn-warning btn-sm">
                             <img width="20" height="20" src="https://img.icons8.com/fluency/48/pencil-tip.png"
-                                 alt="pencil-tip"/> Edit
+                                 alt="pencil-tip"/>
                         </a>
                         <a th:href="@{/tarefas/atribuir/{id}(id=${tarefa.id})}" class="btn btn-warning btn-sm">
-                            <img width="20" height="20" src="https://img.icons8.com/fluency/48/pencil-tip.png"
+                            <img width="20" height="20" src="https://img.icons8.com/?size=100&id=yFi4egqICrpB&format=png&color=000000"
                                  alt="pencil-tip"/> assign
                         </a>
+                        <a class="btn btn-danger btn-sm" th:href="@{/tarefas/delete/{id}(id=${project.id})}" onclick="return confirm('Are you sure about that?')">
+                            <img width="20" height="20" src="https://img.icons8.com/fluency/48/delete-forever.png" 
+                                 alt="delete-forever"/></a>
                     </td>
                 </tr>
                 </tbody>

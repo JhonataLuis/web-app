@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bmt.webApp.dto.TarefaDto;
 import com.bmt.webApp.model.Project;
 import com.bmt.webApp.model.Tarefa;
-import com.bmt.webApp.model.TarefaDto;
 import com.bmt.webApp.model.Usuario;
 import com.bmt.webApp.repository.ProjectsRepository;
 import com.bmt.webApp.repository.TarefaRepository;

@@ -2,7 +2,7 @@ package com.bmt.webApp.service;
 
 import java.util.List;
 
-import com.bmt.webApp.model.ProjectDto;
+import com.bmt.webApp.dto.ProjectDto;
 
 public interface ProjectService {
 

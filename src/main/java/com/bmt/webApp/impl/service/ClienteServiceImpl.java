@@ -4,8 +4,9 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import com.bmt.webApp.dto.ClienteDto;
 import com.bmt.webApp.model.Cliente;
-import com.bmt.webApp.model.ClienteDto;
 import com.bmt.webApp.repository.ClienteRepository;
 import com.bmt.webApp.service.ClienteService;
 
