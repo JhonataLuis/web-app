@@ -11,5 +11,6 @@ public interface TarefaService {
 
     void adicionarTarefa(TarefaDto tarefaDto, Long project_id);
     void atribuirResponsavel(Long tarefaId, Long userId);
+    void removerTarefa(Long tarefaId, Long userId);
 
 }

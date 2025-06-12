@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bmt.webApp.dto.TarefaDto;
@@ -85,5 +86,20 @@ public class TarefasController {
             tarefaService.atribuirResponsavel(dto.getTarefaId(), dto.getUsuarioId());
             redirect.addFlashAttribute("successMessage", "Responsável atribuído com sucesso!");
             return "redirect:/projects"; //+ dto.getTarefaId();//ou redirect para o projeto relacionado /ou redirecione para "/tarefas/" + dto.getTarefaId()
+    }
+
+    @PostMapping("/{id}/delete")
+    public String deletarTarefa(@PathVariable Long id,
+                                @RequestParam("usuarioId") Long usuarioId,
+                                RedirectAttributes redirect){
+
+        try{
+            tarefaService.removerTarefa(id, usuarioId);
+            redirect.addFlashAttribute("successMessage", "Tarefa removida com sucesso!");
+        } catch(IllegalArgumentException ex){
+            redirect.addFlashAttribute("errorMessage", ex.getMessage());
+        }
+
+        return "redirect:/projects";
     }
 }

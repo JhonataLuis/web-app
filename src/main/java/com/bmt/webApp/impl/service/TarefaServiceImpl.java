@@ -95,4 +95,13 @@ public class TarefaServiceImpl implements TarefaService{
                 tarefa.setUserResponse(usuario);
                 tarefaRepository.save(tarefa);
     }
+
+    @Override
+    public void removerTarefa(Long tarefaId, Long userId){
+
+        var tarefa = tarefaRepository.findByIdAndUserResponseId(tarefaId, userId)
+            .orElseThrow(() -> new IllegalArgumentException("Tarefa não encontrada ou usuário não autorizado"));
+        
+        tarefaRepository.delete(tarefa);
+    }
 }
