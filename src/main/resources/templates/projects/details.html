@@ -31,17 +31,15 @@
             padding: 0.4em 0.7em;
             font-size: 0.85rem;
             border-radius: 0.5rem;
-            color: #28a745;
+            color: #fcfdfc;
         }
 
         .status-Concluído {
-            background-color: #28a745;
-            text-decoration-color: #f8f9fa;
+            background-color: #0a530a;
         }
 
         .status-Em\ andamento {
             background-color: #ffc107;
-            text-decoration-color: #f8f9fa;
         }
 
         .btn-sm img {
@@ -183,7 +181,7 @@
                                  alt="pencil-tip"/> assign
                         </a>
                         <form th:action="@{'/tarefas/' + ${tarefa.id} + '/delete'}" method="post" th:object="${tarefa}">
-                            <input type="hidden" name="usuarioId" th:value="${tarefa.userResponse.id}"/>
+                            <input type="hidden" name="usuarioId" th:value="${tarefa.userResponse?.id}"/>
                             <button type="submit" class="btn btn-danger btn-sm" th:href="@{/tarefas/delete/{id}(id=${project.id})}" onclick="return confirm('Are you sure you want to delete this task?')">
                                 <img width="20" height="20" src="https://img.icons8.com/fluency/48/delete-forever.png" 
                                  alt="delete-forever"/>
@@ -191,7 +189,7 @@
                         </form>
                     </td>
 
-                    <!-- Modal -->
+                <!-- Modal -->
                 <div class="modal fade" th:id="'modalTarefa' + ${tarefa.id}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
@@ -200,25 +198,63 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                     </div>
                     <div class="modal-body">
-                        <p><strong>ID:</strong> <span th:text="${tarefa.id}"></span></p>
-                        <p><strong>Título:</strong> <span th:text="${tarefa.titulo}"></span></p>
-                        <p><strong>Descrição:</strong> <span th:text="${tarefa.descricao}"></span></p>
-                        <p><strong>Status:</strong> <span class="badge status-badge" th:classappend="' status-' + ${tarefa.status}" th:text="${tarefa.status}"></span></p>
-                        <p><strong>Responsável:</strong> <span th:text="${tarefa.userResponse != null ? tarefa.userResponse.name : 'Não Atribuído'}"></span></p>
-                        <p><strong>Data Início:</strong> <span th:text="${#temporals.format(tarefa.dataInicio, 'dd/MM/yyyy HH:mm')}"></span></p>
-                        <p><strong>Data Fim:</strong> <span th:text="${#temporals.format(tarefa.dataFim, 'dd/MM/yyyy HH:mm')}"></span></p>
+                       <form th:action="@{'/tarefas/update/' + ${tarefa.id}}" 
+                        method="post" th:object="${tarefa}" 
+                         class="modal-body">
+                        
+                        <input type="hidden" th:value="*{id}" />
+
+                        <div class="mb-3">
+                            <label class="form-label">Título:</label>
+                            <input type="text" th:value="*{titulo}" 
+                                class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Descrição:</label>
+                            <input type="text" th:value="${tarefa.descricao}" 
+                                    class="form-control"/>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Status:</label>
+                            <select th:value="*{status}" 
+                                    class="form-select">
+                                <option value="Pendente">Pendente</option>
+                                <option value="Em andamento">Em andamento</option>
+                                <option value="Concluído">Concluído</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Data Início:</label>
+                            <input type="datetime-local" th:value="${tarefa.dataInicio}" 
+                                class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Data Fim:</label>
+                            <input type="datetime-local" th:value="${tarefa.dataFim}" 
+                                class="form-control">
+                        </div>
+                    </form>
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-warning">
+                                <img width="20" height="20" src="https://img.icons8.com/fluency/48/pencil-tip.png"
+                                 alt="pencil-tip"/>
+                            Editar
+                        </button>
+                        <button type="submit" class="btn btn-success">
+                            Salvar
+                        </button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
                     </div>
                     </div>
+                    </div>
                 </div>
                 </div>
-
                 </tr>
-
-                
-
                 </tbody>
             </table>
 

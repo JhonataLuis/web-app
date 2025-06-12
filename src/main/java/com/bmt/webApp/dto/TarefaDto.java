@@ -22,7 +22,7 @@ public class TarefaDto {
     @NotNull
     private LocalDateTime dataFim;
     
-    private Long project_id;
+    private Long projectId;
 
     public String getTitulo() {
         return titulo;
@@ -62,12 +62,12 @@ public class TarefaDto {
     }
 
 
-    public void setProject_id(Long project_id) {
-        this.project_id = project_id;
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 
-    public Long getProject_id() {
-        return project_id;
+    public Long getProjectId() {
+        return projectId;
     }
     
 }
