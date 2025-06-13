@@ -60,7 +60,7 @@ public class TarefasController {
         }
         
         tarefaService.adicionarTarefa(tarefaDto, project_id);
-        return "redirect:/projects";
+        return "redirect:/projects/" +tarefaService.obterProjetoIdDaTarefa(project_id);
 
     }
 
@@ -85,7 +85,7 @@ public class TarefasController {
 
             tarefaService.atribuirResponsavel(dto.getTarefaId(), dto.getUsuarioId());
             redirect.addFlashAttribute("successMessage", "Responsável atribuído com sucesso!");
-            return "redirect:/projects"; //+ dto.getTarefaId();//ou redirect para o projeto relacionado /ou redirecione para "/tarefas/" + dto.getTarefaId()
+            return "redirect:/projects/details/"; //+ dto.getTarefaId();//ou redirect para o projeto relacionado /ou redirecione para "/tarefas/" + dto.getTarefaId()
     }
 /**
  * 
@@ -107,5 +107,15 @@ public class TarefasController {
         }
 
         return "redirect:/projects";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateTarefa(@PathVariable Long id, TarefaDto dto,
+                               RedirectAttributes redirect){
+        dto.setId(id);
+        tarefaService.atualizarTarefa(dto);
+
+        redirect.addFlashAttribute("successMessage", "Tarefa atualizada com sucesso.");
+        return "redirect:/projects/details/" +tarefaService.obterProjetoIdDaTarefa(id);
     }
 }

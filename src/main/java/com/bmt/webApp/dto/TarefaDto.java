@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 
 public class TarefaDto {
 
+    private Long id;
     @NotBlank
     @NotEmpty(message = "The title is required")
     private String titulo;
@@ -23,6 +24,23 @@ public class TarefaDto {
     private LocalDateTime dataFim;
     
     private Long projectId;
+    private Long userResponseId;
+
+    public void setUserResponseId(Long userResponseId) {
+        this.userResponseId = userResponseId;
+    }
+
+    public Long getUserResponseId() {
+        return userResponseId;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
 
     public String getTitulo() {
         return titulo;
@@ -69,5 +87,5 @@ public class TarefaDto {
     public Long getProjectId() {
         return projectId;
     }
-    
+
 }

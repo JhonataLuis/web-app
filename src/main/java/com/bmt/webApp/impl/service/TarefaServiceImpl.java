@@ -16,6 +16,7 @@ import com.bmt.webApp.repository.TarefaRepository;
 import com.bmt.webApp.repository.UserRepository;
 import com.bmt.webApp.service.TarefaService;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 @Service
@@ -29,7 +30,7 @@ public class TarefaServiceImpl implements TarefaService{
     private ProjectsRepository projectsRepository;
 
     @Autowired
-    private UserRepository UserRepository;
+    private UserRepository userRepository;
 
     /**
      * Lista todas as tarefas associadas a um projeto
@@ -89,7 +90,7 @@ public class TarefaServiceImpl implements TarefaService{
         Tarefa tarefa = tarefaRepository.findById(tarefaId)
                 .orElseThrow(() -> new IllegalArgumentException("Tarefa não encontrada"));
         
-                Usuario usuario = UserRepository.findById(userId)
+                Usuario usuario = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
 
                 tarefa.setUserResponse(usuario);
@@ -103,5 +104,33 @@ public class TarefaServiceImpl implements TarefaService{
             .orElseThrow(() -> new IllegalArgumentException("Tarefa não encontrada ou usuário não autorizado"));
         
         tarefaRepository.delete(tarefa);
+    }
+
+    @Override
+    public void atualizarTarefa(TarefaDto dto){
+        Tarefa tarefa = tarefaRepository.findById(dto.getId())
+            .orElseThrow(() -> new EntityNotFoundException("Tarefa não encontrada"));
+
+        tarefa.setTitulo(dto.getTitulo());
+        tarefa.setDescricao(dto.getDescricao());
+        tarefa.setStatus(dto.getStatus());
+        tarefa.setDataInicio(dto.getDataInicio());
+        tarefa.setDataFim(dto.getDataFim());
+
+        // Se estiver atualizando o usuário responsável
+        if(dto.getUserResponseId() != null){
+            Usuario user = userRepository.findById(dto.getUserResponseId())
+                .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+            tarefa.setUserResponse(user);    
+        }
+
+        tarefaRepository.save(tarefa);
+    }
+
+    @Override
+    public Long obterProjetoIdDaTarefa(Long tarefaId){
+        return tarefaRepository.findById(tarefaId)
+                .map(tarefa -> tarefa.getProject().getId())
+                .orElse(null);
     }
 }

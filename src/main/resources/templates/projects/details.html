@@ -90,6 +90,14 @@
 </nav>
 
 <div class="container my-4">
+     <!-- Mensagem de sucesso -->
+    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert" th:text="${successMessage}">
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     <div class="col-md-10 mx-auto rounded border p-4 bg-white shadow-sm">
         <h2 class="text-center mb-4">Project Details</h2>
         <form th:object="${project}">
@@ -169,18 +177,14 @@
                                 class="btn btn-info btn-sm"
                                 data-bs-toggle="modal"
                                 th:data-bs-target="'#modalTarefa' + ${tarefa.id}">
-                            <img width="20" height="20" src="https://img.icons8.com/ios-filled/50/bulleted-list.png"
-                                alt="bulleted-list"/>
-                        </button>
-                        <a th:href="@{/tarefas/edit/{id}(id=${tarefa.id})}" class="btn btn-warning btn-sm">
-                            <img width="20" height="20" src="https://img.icons8.com/fluency/48/pencil-tip.png"
+                           <img width="20" height="20" src="https://img.icons8.com/fluency/48/pencil-tip.png"
                                  alt="pencil-tip"/>
-                        </a>
+                        </button>
                         <a th:href="@{/tarefas/atribuir/{id}(id=${tarefa.id})}" class="btn btn-warning btn-sm">
                             <img width="20" height="20" src="https://img.icons8.com/?size=100&id=yFi4egqICrpB&format=png&color=000000"
                                  alt="pencil-tip"/> assign
                         </a>
-                        <form th:action="@{'/tarefas/' + ${tarefa.id} + '/delete'}" method="post" th:object="${tarefa}">
+                        <form th:action="@{'/tarefas/' + ${tarefa.id} + '/delete'}" method="post">
                             <input type="hidden" name="usuarioId" th:value="${tarefa.userResponse?.id}"/>
                             <button type="submit" class="btn btn-danger btn-sm" th:href="@{/tarefas/delete/{id}(id=${project.id})}" onclick="return confirm('Are you sure you want to delete this task?')">
                                 <img width="20" height="20" src="https://img.icons8.com/fluency/48/delete-forever.png" 
@@ -189,56 +193,62 @@
                         </form>
                     </td>
 
-                <!-- Modal -->
-                <div class="modal fade" th:id="'modalTarefa' + ${tarefa.id}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                    <!-- Modal -->
+                    <div class="modal fade" th:id="'modalTarefa' + ${tarefa.id}" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
+                         <form th:action="@{'/tarefas/update/' + ${tarefa.id}}" method="post" class="modal-body">
                     <div class="modal-header">
                         <h5 class="modal-title" th:text="'Detalhes da Tarefa: ' + ${tarefa.titulo}"></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                     </div>
                     <div class="modal-body">
-                       <form th:action="@{'/tarefas/update/' + ${tarefa.id}}" 
-                        method="post" th:object="${tarefa}" 
-                         class="modal-body">
-                        
-                        <input type="hidden" th:value="*{id}" />
+                        <input type="hidden" name="id" th:value="${tarefa.id}" />
 
                         <div class="mb-3">
                             <label class="form-label">Título:</label>
-                            <input type="text" th:value="*{titulo}" 
+                            <input type="text" name="titulo" th:value="${tarefa.titulo}" 
                                 class="form-control">
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Descrição:</label>
-                            <input type="text" th:value="${tarefa.descricao}" 
+                            <input type="text" name="descricao" th:value="${tarefa.descricao}" 
                                     class="form-control"/>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Status:</label>
-                            <select th:value="*{status}" 
-                                    class="form-select">
-                                <option value="Pendente">Pendente</option>
-                                <option value="Em andamento">Em andamento</option>
-                                <option value="Concluído">Concluído</option>
-                            </select>
+                        <label class="form-label">Status:</label>
+                        <select name="status" class="form-select">
+                            <option th:value="New" th:selected="${tarefa.status == 'New'}">New</option>
+                            <option th:value="Pendente" th:selected="${tarefa.status == 'Pendente'}">Pendente</option>
+                            <option th:value="Andamento" th:selected="${tarefa.status == 'Andamento'}">Andamento</option>
+                            <option th:value="Concluído" th:selected="${tarefa.status == 'Concluído'}">Concluído</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                         
+                            <label class="form-label">Descrição:</label>
+                            <input type="text" name="userResponse" th:value="${tarefa.userResponse != null ? tarefa.userResponse.name : 'Não Atribuído'}" 
+                                    class="form-control"/>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Data Início:</label>
-                            <input type="datetime-local" th:value="${tarefa.dataInicio}" 
+                            <input type="datetime-local" name="dataInicio" 
+                            th:value="${#temporals.format(tarefa.dataInicio, 'yyyy-MM-dd''T''HH:mm')}"
                                 class="form-control">
+                               
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Data Fim:</label>
-                            <input type="datetime-local" th:value="${tarefa.dataFim}" 
+                            <input type="datetime-local" name="dataFim" 
+                            th:value="${#temporals.format(tarefa.dataFim, 'yyyy-MM-dd''T''HH:mm')}"
                                 class="form-control">
                         </div>
-                    </form>
-                    </div>
+                    
                     <div class="modal-footer">
                         <button type="button" class="btn btn-warning">
                                 <img width="20" height="20" src="https://img.icons8.com/fluency/48/pencil-tip.png"
@@ -249,6 +259,8 @@
                             Salvar
                         </button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                    </form>
                     </div>
                     </div>
                     </div>

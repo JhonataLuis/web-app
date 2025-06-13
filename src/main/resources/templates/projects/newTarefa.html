@@ -85,8 +85,6 @@
                     <div class="col-sm-8">
                         <select class="form-select" th:field="${newtarefasDto.status}">
                             <option value="New">New</option>
-                            <option value="Em andamento">Em andamento</option>
-                            <option value="Pendente">Pendente</option>
                         </select>
                         <p th:if="${#fields.hasErrors('status')}" th:errorclass="text-danger"
                         th:errors="${newtarefasDto.status}"></p>
