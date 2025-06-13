@@ -49,7 +49,7 @@ public class TarefasController {
         return "projects/newTarefa";
     }
 
-    @PostMapping("/create/{project_id}")
+    @PostMapping("/create/{projectId}")
     public String createTarefa(@Valid @ModelAttribute TarefaDto tarefaDto,
                                @PathVariable Long projectId, BindingResult result,
                                RedirectAttributes redirect){
