@@ -51,19 +51,19 @@ public class TarefasController {
 
     @PostMapping("/create/{project_id}")
     public String createTarefa(@Valid @ModelAttribute TarefaDto tarefaDto,
-                               @PathVariable Long project_id, BindingResult result,
+                               @PathVariable Long projectId, BindingResult result,
                                RedirectAttributes redirect){
 
-        if(project_id == null){
+        if(projectId == null){
             System.out.println("Erro project_id, Não deu get no id do projecto");
         }
         if(result.hasErrors()){
             return "projects/index";
         }
         
-        tarefaService.adicionarTarefa(tarefaDto, project_id);
+        tarefaService.adicionarTarefa(tarefaDto, projectId);
         redirect.addFlashAttribute("successMessage", "Tarefa criada com sucesso!");
-        return "redirect:/projects/details/" +tarefaService.obterProjetoIdDaTarefa(project_id);
+        return "redirect:/projects/details/" +tarefaService.obterProjetoIdDaTarefa(projectId);
 
     }
 

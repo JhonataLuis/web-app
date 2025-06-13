@@ -128,8 +128,8 @@ public class TarefaServiceImpl implements TarefaService{
     }
 
     @Override
-    public Long obterProjetoIdDaTarefa(Long tarefaId){
-        return tarefaRepository.findById(tarefaId)
+    public Long obterProjetoIdDaTarefa(Long projectId){
+        return tarefaRepository.findById(projectId)
                 .map(tarefa -> tarefa.getProject().getId())
                 .orElse(null);
     }
