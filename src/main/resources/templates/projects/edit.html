@@ -141,9 +141,9 @@
         </label>
          <div class="col-sm-8">
             <select class="form-select" th:field="*{status}">
-              <option value="New">New</option>
-              <option value="Permanent">Em andamento</option>
-              <option value="Lead">Concluído</option>
+              <option value="Pendente">Pendente</option>
+              <option value="Andamento">Andamento</option>
+              <option value="Concluído">Concluído</option>
             </select>
               <p th:if="${#fields.hasErrors('status')}" th:errorclass="text-danger"
                   th:errors="${status}"></p>
