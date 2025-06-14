@@ -21,6 +21,12 @@
         .navbar {
             margin-bottom: 20px;
         }
+        .card-form {
+        background-color: #fff;
+        border-radius: 1rem;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+        padding: 2rem;
+      }
 
         .form-control-plaintext {
             background-color: #f8f9fa;
@@ -106,7 +112,7 @@
       </div>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-    <div class="col-md-10 mx-auto rounded border p-4 bg-white shadow-sm">
+    <div class="col-md-10 mx-auto card-form">
         <h2 class="text-center mb-4">Project Details</h2>
         <form th:object="${project}">
 
