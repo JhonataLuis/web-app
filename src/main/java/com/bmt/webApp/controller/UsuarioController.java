@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.bmt.webApp.model.Usuario;
 import com.bmt.webApp.repository.UserRepository;
 
 @Controller
@@ -21,5 +22,12 @@ public class UsuarioController {
         var user = userRepository.findAll();
         model.addAttribute("users", user);
         return "usuario/index";
+    }
+
+    @GetMapping("/create")
+    public String createUser(Model model){
+        Usuario user = new Usuario();
+        model.addAttribute("users", user);
+        return "usuario/create";
     }
 }
