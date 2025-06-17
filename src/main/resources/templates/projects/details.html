@@ -196,7 +196,7 @@
                         </button>
                         <a th:href="@{/tarefas/atribuir/{id}(id=${tarefa.id})}" class="btn btn-warning btn-sm">
                             <img width="20" height="20" src="https://img.icons8.com/?size=100&id=yFi4egqICrpB&format=png&color=000000"
-                                 alt="pencil-tip"/> assign
+                                 alt="pencil-tip"/>
                         </a>
                         <form th:action="@{'/tarefas/' + ${tarefa.id} + '/delete'}" method="post">
                             <input type="hidden" name="usuarioId" th:value="${tarefa.userResponse?.id}"/>
