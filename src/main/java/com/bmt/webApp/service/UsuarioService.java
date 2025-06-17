@@ -6,6 +6,6 @@ public interface  UsuarioService {
 
     Iterable<Usuario> listUsers();
 
-    void createUser();
+    void createUser(Usuario users);
 
 }

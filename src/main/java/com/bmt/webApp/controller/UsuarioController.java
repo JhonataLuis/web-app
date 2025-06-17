@@ -1,7 +1,6 @@
 package com.bmt.webApp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bmt.webApp.model.Usuario;
 import com.bmt.webApp.repository.UserRepository;
+import com.bmt.webApp.service.UsuarioService;
 
 import jakarta.validation.Valid;
 
@@ -42,14 +42,14 @@ public class UsuarioController {
     }
 
     @PostMapping("/create/save")
-    public String saveUser(@Valid @ModelAttribute Usuario usuario,
+    public String saveUser(@Valid @ModelAttribute Usuario users,
                            BindingResult result, RedirectAttributes redirect){
 
         if(result.hasErrors()){
             return "users/index";
         }
 
-        userService.createUser();
+        userService.createUser(users);
         redirect.addFlashAttribute("successMessage", "Usuário criado com Sucesso!");
         return "users/index";
     }
