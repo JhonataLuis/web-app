@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 
 public class ClienteDto {
 
+    private Long id;
     @NotEmpty(message = "The First Name is required")
     private String firstName;
 
@@ -21,6 +22,12 @@ public class ClienteDto {
     @NotEmpty(message = "The Status is required")
     private String status;//New, Permanent, Lead, Occasional, Inactive
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public Long getId() {
+        return id;
+    }
     public String getFirstName() {
         return firstName;
     }

@@ -91,7 +91,7 @@ public class ClienteController {
 
     @PostMapping("/edit")
     public String editClient(Model model, @RequestParam Long id, @Valid @ModelAttribute ClienteDto clientDto,
-    BindingResult result){
+                             BindingResult result, RedirectAttributes redirect){
 
         Cliente client = clienteRepository.findById(id).orElse(null);
         if(client == null){
@@ -104,17 +104,10 @@ public class ClienteController {
             return "cliente/edit";
         }
 
-        //update client details
-        client.setFirstName(clientDto.getFirstName());
-        client.setLastName(clientDto.getLastName());
-        client.setEmail(clientDto.getEmail());
-        client.setPhone(clientDto.getPhone());
-        client.setAddress(clientDto.getAddress());
-        client.setStatus(clientDto.getStatus());
-
         try{
             //may throw an exception if email is duplicated email should be unique in db
-            clienteRepository.save(client);
+            //clienteRepository.save(client);
+            clientService.clientUpdate(id);
             
         }
         catch(Exception ex){
@@ -125,7 +118,7 @@ public class ClienteController {
             return "cliente/edit";
         }
         
-
+        redirect.addFlashAttribute("successMessage","Cliente atualizado com Sucesso!");
         return "redirect:/clients";
     }
 

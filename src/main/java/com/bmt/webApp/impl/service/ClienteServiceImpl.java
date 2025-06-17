@@ -48,7 +48,7 @@ public class ClienteServiceImpl implements ClienteService{
     }
 
     @Override
-    public void clientEdit(Long id) {
+    public void clientUpdate(Long id) {
        Cliente client = clientRepository.findById(id).orElse(null);
 
        if(client != null){
@@ -67,8 +67,6 @@ public class ClienteServiceImpl implements ClienteService{
 
        }
 
-        
-       
     }
 
 }
