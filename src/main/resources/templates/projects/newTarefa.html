@@ -89,43 +89,47 @@
         <h2 class="text-center mb-4">New Task</h2>
         <form method="post" th:object="${newtarefasDto}">
           
+          <!-- Exibe o Project ID -->
           <div class="mb-3">
             <label class="form-label">Project ID</label>
-            <input class="form-control-plaintext" readonly th:value="${projectId.id}">
+            <input class="form-control-plaintext" readonly th:value="${projectId}">
           </div>
+
+          <!-- Envia o Project ID -->
+          <input type="text" th:field="${projectId.id}"/>
 
           <div class="mb-3">
             <label class="form-label">Title</label>
-            <input class="form-control" th:field="${newtarefasDto.titulo}">
-            <p th:if="${#fields.hasErrors('titulo')}" th:errorclass="text-danger" th:errors="${newtarefasDto.titulo}"></p>
+            <input class="form-control" th:field="*{titulo}">
+            <p th:if="${#fields.hasErrors('titulo')}" th:errorclass="text-danger" th:errors="*{titulo}"></p>
           </div>
 
           <div class="mb-3">
             <label class="form-label">Description</label>
-            <input class="form-control" th:field="${newtarefasDto.descricao}">
-            <p th:if="${#fields.hasErrors('descricao')}" th:errorclass="text-danger" th:errors="${newtarefasDto.descricao}"></p>
+            <input class="form-control" th:field="*{descricao}">
+            <p th:if="${#fields.hasErrors('descricao')}" th:errorclass="text-danger" th:errors="${descricao}"></p>
           </div>
 
           <div class="mb-3">
             <label class="form-label">Start Date</label>
-            <input type="datetime-local" class="form-control" th:field="${newtarefasDto.dataInicio}" 
-              th:value="${#dates.format(newtarefasDto.dataInicio, 'yyyy-MM-dd')}">
-            <p th:if="${#fields.hasErrors('dataInicio')}" th:errorclass="text-danger" th:errors="${newtarefasDto.dataInicio}"></p>
+            <input type="datetime-local" class="form-control" th:field="*{dataInicio}" 
+              th:value="${#dates.format(dataInicio, 'yyyy-MM-dd')}">
+            <p th:if="${#fields.hasErrors('dataInicio')}" th:errorclass="text-danger" th:errors="*{dataInicio}"></p>
           </div>
 
           <div class="mb-3">
             <label class="form-label">End Date</label>
-            <input type="datetime-local" class="form-control" th:field="${newtarefasDto.dataFim}" 
-              th:value="${#dates.format(newtarefasDto.dataFim, 'yyyy-MM-dd')}">
-            <p th:if="${#fields.hasErrors('dataFim')}" th:errorclass="text-danger" th:errors="${newtarefasDto.dataFim}"></p>
+            <input type="datetime-local" class="form-control" th:field="*{dataFim}" 
+              th:value="${#dates.format(dataFim, 'yyyy-MM-dd')}">
+            <p th:if="${#fields.hasErrors('dataFim')}" th:errorclass="text-danger" th:errors="*{dataFim}"></p>
           </div>
 
           <div class="mb-4">
             <label class="form-label">Status</label>
-            <select class="form-select" th:field="${newtarefasDto.status}">
+            <select class="form-select" th:field="*{status}">
               <option value="New">New</option>
             </select>
-            <p th:if="${#fields.hasErrors('status')}" th:errorclass="text-danger" th:errors="${newtarefasDto.status}"></p>
+            <p th:if="${#fields.hasErrors('status')}" th:errorclass="text-danger" th:errors="*{status}"></p>
           </div>
 
           <div class="row">

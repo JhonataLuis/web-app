@@ -1,5 +1,7 @@
 package com.bmt.webApp.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/tarefas")
 public class TarefasController {
 
+    private static final Logger logger = LoggerFactory.getLogger(TarefasController.class);
     private final UserRepository userRepository;
 
     @Autowired
@@ -51,20 +54,23 @@ public class TarefasController {
 
     @PostMapping("/create/{projectId}")
     public String createTarefa(@Valid @ModelAttribute TarefaDto tarefaDto,
-                               @PathVariable Long projectId, BindingResult result,
+                               @PathVariable(required = false) Long projectId, BindingResult result,
                                RedirectAttributes redirect){
 
         if(projectId == null){
-            System.out.println("Erro project_id, Não deu get no id do projecto");
+             throw new IllegalArgumentException("ID do projeto é obrigatório.");
         }
+
+        tarefaDto.setProjectId(projectId);
+
         if(result.hasErrors()){
             return "projects/index";
         }
         
         tarefaService.adicionarTarefa(tarefaDto, projectId);
         redirect.addFlashAttribute("successMessage", "Tarefa criada com sucesso!");
-        return "redirect:/projects/details/" +tarefaService.obterProjetoIdDaTarefa(projectId);
-
+        logger.info("ID do projeto para Redirecionar. {}", projectId);
+        return "redirect:/projects/details/" + projectId;
     }
 
     @GetMapping("/atribuir/{id}")

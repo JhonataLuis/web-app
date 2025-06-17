@@ -34,7 +34,7 @@ public class Tarefa {
     private Usuario userResponse;
 
     @ManyToOne
-    @JoinColumn(name = "project_id")
+    @JoinColumn(name = "project_id", nullable = false)// o banco não permitirá tarefas sem projetos
     @JsonBackReference // Evita recursividade infinita no JSON
     private Project project;
 

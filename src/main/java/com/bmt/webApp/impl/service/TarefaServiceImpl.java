@@ -1,6 +1,7 @@
 package com.bmt.webApp.impl.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -127,10 +128,23 @@ public class TarefaServiceImpl implements TarefaService{
         tarefaRepository.save(tarefa);
     }
 
+    /**
+     * Obter ID do Projeto a partir do ID da Tarefa
+     * 
+     * @param tarefaId dados da tarefa
+     * @return O ID da tarefa associado ao ID do Projeto
+     */
+
     @Override
-    public Long obterProjetoIdDaTarefa(Long projectId){
-        return tarefaRepository.findById(projectId)
-                .map(tarefa -> tarefa.getProject().getId())
-                .orElse(null);
+    public Long obterProjetoIdDaTarefa(Long tarefaId){
+        return tarefaRepository.findById(tarefaId)
+                .map(tarefa -> {
+                    if(tarefa.getProject() == null){
+                        throw new IllegalStateException("Tarefa não está associada a um projeto.");
+                    }
+                    return tarefa.getProject().getId();
+                })
+                .orElseThrow(() -> new NoSuchElementException("Tarefa não encontrada com ID:" + tarefaId));
+                
     }
 }
