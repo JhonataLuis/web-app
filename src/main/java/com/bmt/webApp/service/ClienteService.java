@@ -9,6 +9,6 @@ public interface ClienteService {
     
     void CreateClient(ClienteDto clienteDto);
 
-    void clientUpdate(Long id);
+    void clientUpdate(ClienteDto dto);
 
 }

@@ -10,6 +10,8 @@ import com.bmt.webApp.model.Cliente;
 import com.bmt.webApp.repository.ClienteRepository;
 import com.bmt.webApp.service.ClienteService;
 
+import jakarta.persistence.EntityNotFoundException;
+
 
 
 @Service
@@ -48,24 +50,19 @@ public class ClienteServiceImpl implements ClienteService{
     }
 
     @Override
-    public void clientUpdate(Long id) {
-       Cliente client = clientRepository.findById(id).orElse(null);
+    public void clientUpdate(ClienteDto dto) {
+       Cliente client = clientRepository.findById(dto.getId())
+       .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
 
-       if(client != null){
-
-        //update client details
-        ClienteDto clientDto = new ClienteDto();
-        clientDto.setFirstName(client.getFirstName());
-        clientDto.setLastName(client.getLastName());
-        clientDto.setEmail(client.getEmail());
-        clientDto.setPhone(client.getPhone());
-        clientDto.setAddress(client.getAddress());
-        clientDto.setPhone(client.getPhone());
-        clientDto.setStatus(client.getStatus());
+        client.setFirstName(dto.getFirstName());
+        client.setLastName(dto.getLastName());
+        client.setEmail(dto.getEmail());
+        client.setPhone(dto.getPhone());
+        client.setAddress(dto.getAddress());
+        client.setPhone(dto.getPhone());
+        client.setStatus(dto.getStatus());
 
         clientRepository.save(client);
-
-       }
 
     }
 

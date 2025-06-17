@@ -93,12 +93,12 @@ public class ClienteController {
     public String editClient(Model model, @RequestParam Long id, @Valid @ModelAttribute ClienteDto clientDto,
                              BindingResult result, RedirectAttributes redirect){
 
-        Cliente client = clienteRepository.findById(id).orElse(null);
-        if(client == null){
+    
+        if(clientDto == null){
             return "redirect:/cliente";
         }
 
-        model.addAttribute("client", client);
+        model.addAttribute("client", clientDto);
 
         if(result.hasErrors()){
             return "cliente/edit";
@@ -107,7 +107,7 @@ public class ClienteController {
         try{
             //may throw an exception if email is duplicated email should be unique in db
             //clienteRepository.save(client);
-            clientService.clientUpdate(id);
+            clientService.clientUpdate(clientDto);
             
         }
         catch(Exception ex){
