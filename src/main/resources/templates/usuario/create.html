@@ -72,6 +72,14 @@
 
     <!-- Conteúdo -->
     <div class="container my-5">
+    <!-- Mensagem de sucesso -->
+    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert" th:text="${successMessage}">
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
       <div class="row justify-content-center">
         <div class="col-lg-6">
           <div class="card p-4">

@@ -23,6 +23,9 @@ public class UsuarioController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UsuarioService userService;
+
 
     @GetMapping({"", "/"})
     public String getUser(Model model){
@@ -46,7 +49,7 @@ public class UsuarioController {
             return "users/index";
         }
 
-        userService.saveUser();
+        userService.createUser();
         redirect.addFlashAttribute("successMessage", "Usuário criado com Sucesso!");
         return "users/index";
     }
