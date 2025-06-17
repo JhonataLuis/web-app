@@ -47,7 +47,7 @@ This project is an API built using **Java, Java Spring, Flyway Migrations, Postg
     Thymeleaf (web).
     Layout: Bootstrap 5 css.
     -Backend
-    Java + Spring Framework (Spring Boot, Spring Data JPA, Spring Web, Spring Security, API REST), JPA (Hibernate).
+    Java + Spring Framework (Spring Boot, Spring Data JPA, Spring Web, Spring Security, API REST), JPA (Hibernate) BCrypt.
     Banco de Dados: PostgreSQL.
     -Recursos Adicionais
     Autenticação: Auth ou JWT.
@@ -68,6 +68,7 @@ This project is an API built using **Java, Java Spring, Flyway Migrations, Postg
 ### Segurança & API
 ![Spring Security](https://img.shields.io/badge/Spring_Security-6DB33F.svg?style=for-the-badge&logo=springsecurity&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-000000.svg?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
+BCrypt
 ![API REST](https://img.shields.io/badge/REST_API-FF6C37.svg?style=for-the-badge&logo=rest&logoColor=white)
 
 ## Etapas 
