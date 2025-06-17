@@ -18,6 +18,12 @@ public class ClienteServiceImpl implements ClienteService{
     @Autowired
     private ClienteRepository clientRepository;
 
+     /**
+     * Lista todos os Clientes
+     * 
+     * @return Os Clientes cadastrados no sistema
+     */
+
     @Override
     public Iterable<Cliente> buscarTodos() {
         var clients = clientRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));

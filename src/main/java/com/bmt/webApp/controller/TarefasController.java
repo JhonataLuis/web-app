@@ -68,7 +68,7 @@ public class TarefasController {
         }
         
         tarefaService.adicionarTarefa(tarefaDto, projectId);
-        redirect.addFlashAttribute("successMessage", "Tarefa criada com sucesso!");
+        redirect.addFlashAttribute("successMessage", "Tarefa salvo com sucesso!");
         logger.info("ID do projeto para Redirecionar. {}", projectId);
         return "redirect:/projects/details/" + projectId;
     }

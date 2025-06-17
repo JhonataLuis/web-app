@@ -1,6 +1,8 @@
 package com.bmt.webApp.controller;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bmt.webApp.dto.ClienteDto;
 import com.bmt.webApp.model.Cliente;
@@ -23,6 +26,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/clients")
 public class ClienteController {
 
+    public static final Logger logger = LoggerFactory.getLogger(ClienteController.class);
     @Autowired
     private ClienteService clientService;
 
@@ -45,19 +49,22 @@ public class ClienteController {
     }
 
     @PostMapping("/create")
-    public String createClient(@Valid @ModelAttribute ClienteDto clienteDto, BindingResult result){
+    public String createClient(@Valid @ModelAttribute ClienteDto clienteDto, 
+                               BindingResult result, RedirectAttributes redirect){
 
         if(clienteRepository.findByEmail(clienteDto.getEmail()) != null){
             result.addError(
                 new FieldError("clienteDto", "email", clienteDto.getEmail()
             , false, null, null, "Email address is already used")
-            );
+            );//Verifica se o email já existe cadastrado no sistema, se houver retorna que já existe
         }
 
         if(result.hasErrors()){
             return "cliente/create";
         }
         clientService.CreateClient(clienteDto);
+        redirect.addFlashAttribute("successMessage", "Cliente salvo com sucesso!");
+        logger.info("Cliente criado no banco de dados ID{}");
         return "redirect:/clients";
     }
 
