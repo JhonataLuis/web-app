@@ -94,15 +94,15 @@ public class TarefasController {
 
             tarefaService.atribuirResponsavel(dto.getTarefaId(), dto.getUsuarioId());
             redirect.addFlashAttribute("successMessage", "Responsável atribuído com sucesso!");
-            return "redirect:/projects/details/"; //+ dto.getTarefaId();//ou redirect para o projeto relacionado /ou redirecione para "/tarefas/" + dto.getTarefaId()
+            return "redirect:/projects/details/" +tarefaService.obterProjetoIdDaTarefa(dto.getTarefaId()); //ou redirect para o projeto relacionado
     }
-/**
- * 
- * @param id da tarefa para remover
- * @param usuarioId id do usuário atrelado a tarefa para remover também
- * @param redirect
- * @return retorna para a pagina inicial de projetos
- */
+    /**
+     * 
+     * @param id da tarefa para remover
+     * @param usuarioId id do usuário atrelado a tarefa para remover também
+     * @param redirect
+     * @return retorna para a pagina inicial de projetos
+     */
     @PostMapping("/{id}/delete")
     public String deletarTarefa(@PathVariable Long id,
                                 @RequestParam("usuarioId") Long usuarioId,
