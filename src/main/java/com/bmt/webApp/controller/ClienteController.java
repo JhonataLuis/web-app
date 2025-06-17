@@ -27,6 +27,7 @@ import jakarta.validation.Valid;
 public class ClienteController {
 
     public static final Logger logger = LoggerFactory.getLogger(ClienteController.class);
+
     @Autowired
     private ClienteService clientService;
 
@@ -93,12 +94,9 @@ public class ClienteController {
     public String editClient(Model model, @RequestParam Long id, @Valid @ModelAttribute ClienteDto clientDto,
                              BindingResult result, RedirectAttributes redirect){
 
-    
         if(clientDto == null){
             return "redirect:/cliente";
         }
-
-        model.addAttribute("client", clientDto);
 
         if(result.hasErrors()){
             return "cliente/edit";
@@ -106,9 +104,7 @@ public class ClienteController {
 
         try{
             //may throw an exception if email is duplicated email should be unique in db
-            //clienteRepository.save(client);
             clientService.clientUpdate(clientDto);
-            
         }
         catch(Exception ex){
             result.addError(new FieldError("clienteDto", "email", clientDto.getEmail()
@@ -117,7 +113,7 @@ public class ClienteController {
 
             return "cliente/edit";
         }
-        
+        model.addAttribute("client", clientDto);
         redirect.addFlashAttribute("successMessage","Cliente atualizado com Sucesso!");
         return "redirect:/clients";
     }
@@ -140,13 +136,14 @@ public class ClienteController {
     }
 
     @GetMapping("/delete")
-    public String deleteClient(@RequestParam Long id){
-        Cliente client = clienteRepository.findById(id).orElse(null);
-
-        if(client != null){
-            clienteRepository.delete(client);
+    public String deleteClient(@RequestParam Long id, RedirectAttributes redirect){
+        
+        try{
+            clientService.clientDelete(id);
+            redirect.addFlashAttribute("successMessage", "Cliente removido com sucesso do Sistema!");
+        } catch(IllegalArgumentException ex){
+            redirect.addFlashAttribute("errorMessage", ex.getMessage());
         }
-
         return "redirect:/clients";
     }
 }

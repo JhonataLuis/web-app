@@ -81,6 +81,13 @@
       </div>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
+    <div th:if="${errorMessage}" class="alert alert-danger alert-dismissible fade show" role="alert" th:text="${errorMessage}">
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h1>List of Employers</h1>
     <a class="btn btn-primary btn-new" href="/clients/create">
@@ -130,7 +137,7 @@
               <img src="https://img.icons8.com/fluency/20/pencil.png" alt="Edit"/> Edit
             </a>
             <a class="btn btn-sm btn-outline-danger" th:href="@{/clients/delete(id=${client.id})}"
-               onclick="return confirm('Are you sure?')">
+               onclick="return confirm('Are you sureAre you sure you want to delete this Client?')">
               <img src="https://img.icons8.com/fluency/20/delete.png" alt="Delete"/> Delete
             </a>
           </td>

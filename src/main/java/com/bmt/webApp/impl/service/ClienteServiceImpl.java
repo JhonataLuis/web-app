@@ -66,4 +66,12 @@ public class ClienteServiceImpl implements ClienteService{
 
     }
 
+    @Override
+    public void clientDelete(Long id){
+        Cliente client = clientRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Cliente não encontrada ou usuário não autorizado"));
+
+        clientRepository.delete(client);
+    }
+
 }
