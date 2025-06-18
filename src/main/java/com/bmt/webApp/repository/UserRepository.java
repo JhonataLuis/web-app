@@ -7,5 +7,7 @@ import com.bmt.webApp.model.Usuario;
 
 @Repository
 public interface UserRepository extends JpaRepository<Usuario, Long>{
-
+    
+    // Método para encontrar um usuário pelo email
+    Usuario findByEmail(String email);
 }
