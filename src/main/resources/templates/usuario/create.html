@@ -89,16 +89,19 @@
               <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
                 <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Enter name" required>
+                <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
               </div>
 
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input th:field="*{email}" type="email" class="form-control" id="email" placeholder="Enter email" required>
+                <input th:field="*{email}" type="email" class="form-control" id="email" placeholder="email@example.com" required>
+                <p class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
               </div>
 
               <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
                 <input th:field="*{password}" type="password" class="form-control" id="password" placeholder="Enter password" required>
+                <p class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
               </div>
 
               <div class="mb-3">
@@ -106,10 +109,10 @@
                 <select th:field="*{funcao}" class="form-select" id="funcao" required>
                   <option value="" disabled selected>Select function</option>
                   <option value="Gerente">Gerente</option>
-                  <option value="Desenvolvedor">Desenvolvedor</option>
-                  <option value="Analista">Analista</option>
+                  <option th:each="func : ${funcoes}" th:value="${func}" th:text="${func}"></option>
                   <option value="Outro">Outro</option>
                 </select>
+                <p class="text-danger" th:if="${#fields.hasErrors('funcao')}" th:errors="*{funcao}"></p>
               </div>
 
               <!-- Submit & Cancel -->
