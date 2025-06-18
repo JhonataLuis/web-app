@@ -3,7 +3,9 @@ package com.bmt.webApp.converter;
 import com.bmt.webApp.enums.Funcao;
 
 import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
+@Converter(autoApply = true) // Define se o conversor deve ser aplicado automaticamente
 public class FuncaoConverter implements AttributeConverter<Funcao, String> {
 
     @Override

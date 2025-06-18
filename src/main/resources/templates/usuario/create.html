@@ -83,6 +83,7 @@
       <div class="row justify-content-center">
         <div class="col-lg-6">
           <div class="card p-4">
+            <h1 th:text="${usuario.id == null} ? 'Novo Usuário' : 'Editar Usuário'"></h1>
             <h1 class="text-center text-primary mb-4">Create New User</h1>
             <form th:action="@{/users/create/save}" th:object="${users}" method="post">
 
@@ -106,10 +107,13 @@
 
               <div class="mb-3">
                 <label for="funcao" class="form-label">Function</label>
-                <select th:field="*{funcao}" class="form-select" id="funcao" required>
+                <select class="form-select" id="funcao" th:field="*{funcao}" required>
                   <option value="" disabled selected>Select function</option>
                   <option value="Gerente">Gerente</option>
-                  <option th:each="func : ${funcoes}" th:value="${func}" th:text="${func}"></option>
+                  <option th:each="func : ${funcoes}" 
+                          th:value="${func.descricao}" 
+                          th:text="${func.descricao}">
+                  </option>
                   <option value="Outro">Outro</option>
                 </select>
                 <p class="text-danger" th:if="${#fields.hasErrors('funcao')}" th:errors="*{funcao}"></p>

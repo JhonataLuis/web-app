@@ -22,7 +22,8 @@ public enum Funcao {
 
     public static Funcao fromDescricao(String descricao) {
         for (Funcao funcao : Funcao.values()) {
-            if (funcao.descricao.equalsIgnoreCase(descricao)) {
+            if (funcao.descricao.equalsIgnoreCase(descricao) || 
+                funcao.name().equalsIgnoreCase(descricao)) {
                 return funcao;
             }
         }

@@ -16,6 +16,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "tab_usuario")
@@ -26,15 +28,22 @@ public class Usuario {
     @SequenceGenerator(name = "seq_usuario", sequenceName = "seq_usuario", allocationSize = 1)
     private Long id;
 
+    @NotBlank(message = "O nome é obrigatório")
     @Column(nullable = false)
     private String name;
 
+    @NotBlank(message = "O email é obrigatório")
+    @Email(message = "O email deve ser válido")
     @Column(unique = true, nullable = false)
     private String email;
     
+    @NotBlank(message = "A senha é obrigatória")
+    // A senha deve ser criptografada antes de ser salva no banco de dados
     @Column(nullable=false)
     private String password;// Será armazenada já criptografada
 
+    @NotBlank(message = "A função é obrigatória")
+    // Usando Enum para definir as funções do usuário
     @Enumerated(EnumType.STRING)
     @Column(nullable=false)
     private Funcao funcao;//Gerente, Desenvolvedor,Analista

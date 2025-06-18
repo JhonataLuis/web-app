@@ -89,7 +89,7 @@
       <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="text-primary">List of Users</h1>
         <a class="btn btn-primary" href="/users/create">
-          <img width="20" height="20" src="https://img.icons8.com/fluency/48/plus-math.png" alt="Add"/> New User
+          <img width="20" height="20" src="https://img.icons8.com/fluency/48/plus-math.png" alt="Add"/> New Manager
         </a>
       </div>
 
@@ -107,6 +107,8 @@
               <th>Email</th>
               <th>Password</th>
               <th>Function</th>
+              <th>Date Created</th>
+              <th>Date Updated</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -116,12 +118,22 @@
               <td th:text="${user.name}"></td>
               <td th:text="${user.email}"></td>
               <td th:text="${user.password}"></td>
+              <td th:text="${user.funcao.descricao}"></td>
+              <td th:text="${#dates.format(user.dataCriacao, 'dd/MM/yyyy HH:mm')}"></td>
+              <td th:text="${#dates.format(user.dataAtualizacao, 'dd/MM/yyyy HH:mm')}"></td>
               <td>
-                <span th:if="${user.funcao}=='Gerente'" class="badge bg-info">Gerente</span>
-                <span th:if="${user.funcao}=='Desenvolvedor'" class="badge bg-success">Desenvolvedor</span>
-                <span th:if="${user.funcao}=='Analista'" class="badge bg-primary">Analista</span>
-                <span th:if="${user.funcao}!='Gerente' and ${user.funcao}!='Desenvolvedor' and ${user.funcao}!='Analista'"
-                      class="badge bg-secondary" th:text="${user.funcao}"></span>
+                <span th:classappend="
+                  ${user.funcao.descricao}=='Gerente' ? 'badge bg-info' :
+                  ${user.funcao.descricao}=='Desenvolvedor' ? 'badge bg-success' :
+                  ${user.funcao.descricao}=='Analista' ? 'badge bg-primary' : 
+                  'badge bg-secondary'"
+                  th:text="${user.funcao.descricao}">
+                </span>
+                <span th:if="${user.funcao.descricao}=='Gerente'" class="badge bg-info">Gerente</span>
+                <span th:if="${user.funcao.descricao}=='Desenvolvedor'" class="badge bg-success">Desenvolvedor</span>
+                <span th:if="${user.funcao.descricao}=='Analista'" class="badge bg-primary">Analista</span>
+                <span th:if="${user.funcao.descricao}!='Gerente' and ${user.funcao.descricao}!='Desenvolvedor' and ${user.funcao.descricao}!='Analista'"
+                      class="badge bg-secondary" th:text="${user.funcao.descricao}"></span>
               </td>
               <td style="white-space:nowrap">
                 <a class="btn btn-outline-primary btn-sm" th:href="@{/usuario/details(id=${user.id})}" title="Details">
@@ -131,7 +143,7 @@
                   <img width="20" height="20" src="https://img.icons8.com/fluency/48/pencil-tip.png" alt="Edit"/>
                 </a>
                 <a class="btn btn-outline-danger btn-sm" th:href="@{/usuario/delete(id=${user.id})}" 
-                   onclick="return confirm('Are you sure?')" title="Delete">
+                   onclick="return confirm('Are you sure you want to delete this User?')" title="Delete">
                   <img width="20" height="20" src="https://img.icons8.com/fluency/48/delete-forever.png" alt="Delete"/>
                 </a>
               </td>

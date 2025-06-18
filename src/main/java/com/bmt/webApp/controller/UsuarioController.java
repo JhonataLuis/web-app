@@ -47,7 +47,15 @@ public class UsuarioController {
                            BindingResult result, RedirectAttributes redirect,
                            Model model) {
 
+        // Verifica se há erros de validação
+        if(users.getId() == null && (users.getPassword() == null || users.getPassword().isEmpty())) {
+            // Se o ID não for nulo, significa que o usuário já existe
+            result.rejectValue("password", "password.empty", "Senha é obrigatória.");
+        }
+
         if(result.hasErrors()){
+            // Se houver erros de validação, adiciona as funções disponíveis ao modelo
+            model.addAttribute("funcoes", Funcao.values());
             return "users/index";
         }
 
