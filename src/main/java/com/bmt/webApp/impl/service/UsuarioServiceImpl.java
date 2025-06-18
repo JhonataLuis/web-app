@@ -24,7 +24,9 @@ public class UsuarioServiceImpl implements UsuarioService{
     @Override
     public Iterable<Usuario> listUsers() {
         
-        throw new UnsupportedOperationException("Unimplemented method 'listUsers'");
+        logger.info("Listando todos os usuários {}.");
+        // Retorna todos os usuários do repositório
+        return userRepository.findAll();
     }
 
     @Override
