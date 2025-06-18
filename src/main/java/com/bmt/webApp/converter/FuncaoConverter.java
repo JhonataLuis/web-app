@@ -15,6 +15,7 @@ public class FuncaoConverter implements AttributeConverter<Funcao, String> {
 
     @Override
     public Funcao convertToEntityAttribute(String descricao) {
+        System.out.println(">>> Convertendo descrição para Função: " + descricao);// degub
         if (descricao == null || descricao.isEmpty()) {
             return null;
         }

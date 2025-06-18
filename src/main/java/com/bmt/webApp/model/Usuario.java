@@ -44,7 +44,6 @@ public class Usuario {
 
     @NotBlank(message = "A função é obrigatória")
     // Usando Enum para definir as funções do usuário
-    @Enumerated(EnumType.STRING)
     @Column(nullable=false)
     private Funcao funcao;//Gerente, Desenvolvedor,Analista
 
@@ -101,6 +100,23 @@ public class Usuario {
 
     public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
         this.dataAtualizacao = dataAtualizacao;
+    }
+
+    // Método para retornar a classe CSS baseada na função do usuário
+    public String getBadgeClass() {
+
+        // Retorna uma classe CSS baseada na função do usuário
+        return switch (this.funcao.getDescricao().toUpperCase()) {
+            case "GERENTE" -> "badge bg-primary";
+            case "DESENVOLVEDOR" -> "badge bg-success";
+            case "ANALISTA" -> "badge bg-info";
+            case "SUPORTE" -> "badge bg-warning";
+            case "TESTADOR" -> "badge bg-danger";
+            case "ADMINISTRADOR" -> "badge bg-dark";
+            case "OUTROS" -> "badge bg-secondary";// Para outras funções
+            default -> "badge bg-secondary"; // Classe padrão para funções desconhecidas    
+            
+        };
     }
 
 }
