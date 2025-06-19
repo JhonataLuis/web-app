@@ -18,6 +18,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tab_usuario")
@@ -42,7 +43,7 @@ public class Usuario {
     @Column(nullable=false)
     private String password;// Será armazenada já criptografada
 
-    @NotBlank(message = "A função é obrigatória")
+    @NotNull(message = "A função é obrigatória")// Validação para garantir que a função não seja nula
     // Usando Enum para definir as funções do usuário
     @Column(nullable=false)
     private Funcao funcao;//Gerente, Desenvolvedor,Analista

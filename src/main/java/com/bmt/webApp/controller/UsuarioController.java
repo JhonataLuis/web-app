@@ -39,6 +39,7 @@ public class UsuarioController {
     public String createUser(Model model){
         Usuario user = new Usuario();
         model.addAttribute("users", user);
+        model.addAttribute("funcoes", Funcao.values());
         return "usuario/create";
     }
 
@@ -56,7 +57,7 @@ public class UsuarioController {
         if(result.hasErrors()){
             // Se houver erros de validação, adiciona as funções disponíveis ao modelo
             model.addAttribute("funcoes", Funcao.values());
-            return "users/index";
+            return "usuario/create";
         }
 
         try {
