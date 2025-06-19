@@ -73,19 +73,15 @@
     <!-- Conteúdo -->
     <div class="container my-5">
     <!-- Mensagem de sucesso -->
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert" th:text="${successMessage}">
-          <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-          <span th:text="${successMessage}"></span>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+      <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong><span th:text="${successMessage}"></span></strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
       <div class="row justify-content-center">
         <div class="col-lg-6">
           <div class="card p-4">
             <h1 class="text-center text-primary mb-4">New Employer</h1>
-            <form th:action="@{/users/create/save}" th:object="${user}" method="post">
+            <form th:action="@{/users/save}" th:object="${user}" method="post">
 
               <div class="mb-3">
                 <label for="name" class="form-label">Name</label>

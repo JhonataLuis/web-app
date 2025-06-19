@@ -44,7 +44,7 @@ public class UsuarioController {
         return "usuario/create";
     }
 
-    @PostMapping("/create/save")
+    @PostMapping("/save")
     public String saveUser(@Valid @ModelAttribute Usuario user,
                            BindingResult result, RedirectAttributes redirect,
                            Model model) {
@@ -56,7 +56,7 @@ public class UsuarioController {
         }
 
         if(result.hasErrors()){
-            // Se houver erros de validação, adiciona as funções disponíveis ao modelo
+            // Retorna para a página de criação, mantendo os dados e os erros
             model.addAttribute("funcoes", Funcao.values());
             return "usuario/create";
         }
