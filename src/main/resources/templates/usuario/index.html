@@ -86,9 +86,14 @@
 
     <!-- Conteúdo -->
     <div class="container my-5">
+      <!-- Mensagem de sucesso -->
+      <div th:if="${successMessage}" class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong><span th:text="${successMessage}"></span></strong> 
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
       <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="text-primary">Employers of List</h1>
-        <a class="btn btn-primary" href="/users/create">
+        <a class="btn btn-primary" href="/users/created">
           <img width="20" height="20" src="https://img.icons8.com/fluency/48/plus-math.png" alt="Add"/> New Employer
         </a>
       </div>
@@ -105,10 +110,9 @@
               <th>ID</th>
               <th>Name</th>
               <th>Email</th>
-              <th>Password</th>
-              <th>Function</th>
               <th>Date Created</th>
               <th>Date Updated</th>
+              <th>Function</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -117,10 +121,8 @@
               <td th:text="${user.id}"></td>
               <td th:text="${user.name}"></td>
               <td th:text="${user.email}"></td>
-              <td th:text="${user.password}"></td>
-              <td th:text="${user.funcao.descricao}"></td>
-              <td th:text="${#dates.format(user.dataCriacao, 'dd/MM/yyyy HH:mm')}"></td>
-              <td th:text="${#dates.format(user.dataAtualizacao, 'dd/MM/yyyy HH:mm')}"></td>
+              <td th:text="${#temporals.format(user.dataCriacao, 'dd/MM/yyyy HH:mm')}"></td>
+              <td th:text="${#temporals.format(user.dataAtualizacao, 'dd/MM/yyyy HH:mm')}"></td>
               <td>
                 <span th:class="${user.badgeClass}" th:text="${user.funcao.descricao}"></span>
               </td>

@@ -35,22 +35,22 @@ public class UsuarioController {
         return "usuario/index";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/created")
     public String createUser(Model model){
         // Cria um novo objeto Usuario para o formulário
         Usuario user = new Usuario();
-        model.addAttribute("users", user);
+        model.addAttribute("user", user);
         model.addAttribute("funcoes", Funcao.values());
         return "usuario/create";
     }
 
     @PostMapping("/create/save")
-    public String saveUser(@Valid @ModelAttribute Usuario users,
+    public String saveUser(@Valid @ModelAttribute Usuario user,
                            BindingResult result, RedirectAttributes redirect,
                            Model model) {
 
         // Verifica se há erros de validação
-        if(users.getId() == null && (users.getPassword() == null || users.getPassword().isEmpty())) {
+        if(user.getId() == null && (user.getPassword() == null || user.getPassword().isEmpty())) {
             // Se o ID não for nulo, significa que o usuário já existe
             result.rejectValue("password", "password.empty", "Senha é obrigatória.");
         }
@@ -63,7 +63,7 @@ public class UsuarioController {
 
         try {
             // Cria o usuário através do serviço
-            userService.createUser(users);
+            userService.createUser(user);
         } catch (IllegalArgumentException e) {
             // Se o usuário já existir, adiciona um erro ao resultado
             result.rejectValue("email", "error.email", e.getMessage());
@@ -72,6 +72,6 @@ public class UsuarioController {
         }
         // Se a criação for bem-sucedida, adiciona uma mensagem de sucesso
         redirect.addFlashAttribute("successMessage", "Usuário cadastrado com Sucesso!");
-        return "usuario/index";
+        return "redirect:/users";
     }
 }
