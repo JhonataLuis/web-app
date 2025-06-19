@@ -110,7 +110,7 @@
                 <select class="form-select" id="funcao" th:field="*{funcao}" required>
                   <option value="" disabled selected>Select function</option>
                   <option th:each="func : ${funcoes}" 
-                          th:value="${func.descricao}" 
+                          th:value="${func}" 
                           th:text="${func.descricao}">
                   </option>
                 </select>

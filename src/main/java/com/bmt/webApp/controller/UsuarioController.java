@@ -37,6 +37,7 @@ public class UsuarioController {
 
     @GetMapping("/create")
     public String createUser(Model model){
+        // Cria um novo objeto Usuario para o formulário
         Usuario user = new Usuario();
         model.addAttribute("users", user);
         model.addAttribute("funcoes", Funcao.values());
@@ -70,7 +71,7 @@ public class UsuarioController {
             return "usuario/create";
         }
         // Se a criação for bem-sucedida, adiciona uma mensagem de sucesso
-        redirect.addFlashAttribute("successMessage", "Usuário criado com Sucesso!");
-        return "users/index";
+        redirect.addFlashAttribute("successMessage", "Usuário cadastrado com Sucesso!");
+        return "usuario/index";
     }
 }

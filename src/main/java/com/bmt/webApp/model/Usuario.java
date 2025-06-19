@@ -14,6 +14,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
@@ -54,6 +55,18 @@ public class Usuario {
 
     @UpdateTimestamp
     private LocalDateTime dataAtualizacao;
+
+    @PrePersist
+    public void prePersist() {
+        // Método chamado antes de persistir o objeto no banco de dados
+        dataCriacao = LocalDateTime.now();
+       dataAtualizacao = LocalDateTime.now(); 
+    }
+
+    public void preUpdate() {
+        // Método chamado antes de atualizar o objeto no banco de dados
+        dataAtualizacao = LocalDateTime.now();
+    }
 
     public Long getId() {
         return id;
