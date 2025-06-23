@@ -79,4 +79,19 @@ public class UsuarioServiceImpl implements UsuarioService{
         return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado com ID: " + id));
     }
 
+    @Override
+    public void deleteUser(Long id) {
+        logger.info("Tentando deletar o usuário com ID: {}", id);
+        
+        // Verificando se o usuário existe
+        if(!userRepository.existsById(id)) {
+            logger.warn("Usuário com ID {} não encontrado.", id);
+            throw new IllegalArgumentException("Usuário não encontrado com o ID: " + id);
+        }
+        
+        // Deletando o usuário do repositório
+        userRepository.deleteById(id);
+        logger.info("Usuário com ID {} deletado com sucesso.", id);
+    }
+
 }

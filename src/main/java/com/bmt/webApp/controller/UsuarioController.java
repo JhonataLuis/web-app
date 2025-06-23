@@ -115,5 +115,17 @@ public class UsuarioController {
         return "redirect:/users";
     }
 
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") Long id, RedirectAttributes redirect) {
+        try {
+            // Deleta o usuário através do serviço
+            userService.deleteUser(id);
+            redirect.addFlashAttribute("successMessage", "Usuário deletado com Sucesso!");
+        } catch (IllegalArgumentException e) {
+            // Se o usuário não existir, adiciona uma mensagem de erro
+            redirect.addFlashAttribute("errorMessage", e.getMessage());
+        }
+        return "redirect:/users";
+    }
     
 }
