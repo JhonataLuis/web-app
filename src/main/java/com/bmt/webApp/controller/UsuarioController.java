@@ -88,4 +88,32 @@ public class UsuarioController {
         model.addAttribute("funcoes", Funcao.values());
         return "usuario/edit";
     }
+
+    @PostMapping("/update")
+    public String updateUser(@Valid @ModelAttribute Usuario user,
+                             BindingResult result, RedirectAttributes redirect,
+                             Model model) {
+
+        // Verifica se há erros de validação
+        if(result.hasErrors()){
+            // Retorna para a página de edição, mantendo os dados e os erros
+            model.addAttribute("funcoes", Funcao.values());
+            return "usuario/edit";
+        }
+
+        try {
+            // Atualiza o usuário através do serviço
+            userService.updateUser(user);
+        } catch (IllegalArgumentException e) {
+            // Se o usuário não existir, adiciona um erro ao resultado
+            result.rejectValue("email", "error.email", e.getMessage());
+            model.addAttribute("funcoes", Funcao.values());
+            return "usuario/edit";
+        }
+        // Se a atualização for bem-sucedida, adiciona uma mensagem de sucesso
+        redirect.addFlashAttribute("successMessage", "Usuário atualizado com Sucesso!");
+        return "redirect:/users";
+    }
+
+    
 }

@@ -80,7 +80,7 @@
 
   <div class="col-md-10 mx-auto bg-white rounded shadow-sm p-5">
     <h2 class="text-center mb-4">Projects Information</h2>
-    <form th:action="@{/usuario/edit/{id}(id=${projectId})}" th:object="${projectDto}" method="post">
+    <form th:action="@{/users/edit/{id}(id=${userId})}" th:object="${user}" method="post">
 
       <div class="row mb-3">
         <label class="col-sm-4 col-form-label">

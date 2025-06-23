@@ -9,8 +9,6 @@ import com.bmt.webApp.enums.Funcao;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -60,7 +58,7 @@ public class Usuario {
     public void prePersist() {
         // Método chamado antes de persistir o objeto no banco de dados
         dataCriacao = LocalDateTime.now();
-       dataAtualizacao = LocalDateTime.now(); 
+        dataAtualizacao = LocalDateTime.now(); 
     }
 
     public void preUpdate() {

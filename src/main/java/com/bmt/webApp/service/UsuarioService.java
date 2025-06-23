@@ -14,4 +14,6 @@ public interface  UsuarioService {
 
     Usuario findById(Long id);
 
+    void deleteUser(Long id);
+
 }
