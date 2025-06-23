@@ -127,13 +127,13 @@
                 <span th:class="${user.badgeClass}" th:text="${user.funcao.descricao}"></span>
               </td>
               <td style="white-space:nowrap">
-                <a class="btn btn-outline-primary btn-sm" th:href="@{/users/details(id=${user.id})}" title="Details">
+                <a class="btn btn-outline-primary btn-sm" th:href="@{/users/details/(id=${user.id})}" title="Details">
                   <img width="20" height="20" src="https://img.icons8.com/fluency/48/search-more.png" alt="Details"/>
                 </a>
-                <a class="btn btn-outline-primary btn-sm" th:href="@{/users/edit(id=${user.id})}" title="Edit">
+                <a class="btn btn-outline-primary btn-sm" th:href="@{/users/edit/(id=${user.id})}" title="Edit">
                   <img width="20" height="20" src="https://img.icons8.com/fluency/48/pencil-tip.png" alt="Edit"/>
                 </a>
-                <a class="btn btn-outline-danger btn-sm" th:href="@{/users/delete(id=${user.id})}" 
+                <a class="btn btn-outline-danger btn-sm" th:href="@{/users/delete/(id=${user.id})}" 
                    onclick="return confirm('Are you sure you want to delete this User?')" title="Delete">
                   <img width="20" height="20" src="https://img.icons8.com/fluency/48/delete-forever.png" alt="Delete"/>
                 </a>
