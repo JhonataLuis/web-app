@@ -47,4 +47,36 @@ public class UsuarioServiceImpl implements UsuarioService{
         
     }
 
+    @Override
+    public Usuario updateUser(Usuario users) {
+        logger.info("Tentando atualizar o usuário: {}", users.getEmail());
+        
+        // Verificando se o usuário existe
+        if(userRepository.findById(users.getId()) == null) {
+            logger.warn("Usuário com ID {} não encontrado.", users.getId());
+            throw new IllegalArgumentException("Usuário não encontrado com o ID: " + users.getId());
+        }       
+        // Criptografando a senha do usuário antes de atualizar
+        String senhaCriptografada = passwordEncoder.encode(users.getPassword());
+        users.setPassword(senhaCriptografada);
+        logger.info("Senha criptografada: {}", senhaCriptografada);
+        // Atualizando o usuário no repositório
+        return userRepository.save(users);  
+
+    }
+
+    @Override
+    public Usuario findByEmail(String email) {
+        logger.info("Buscando usuário pelo email: {}", email);
+        // Busca o usuário pelo email no repositório
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public Usuario findById(Long id) {
+        logger.info("Buscando usuário pelo ID: {}", id);
+        // Busca o usuário pelo ID no repositório
+        return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado com ID: " + id));
+    }
+
 }

@@ -8,4 +8,10 @@ public interface  UsuarioService {
 
     Usuario createUser(Usuario users);
 
+    Usuario updateUser(Usuario users);
+
+    Usuario findByEmail(String email);
+
+    Usuario findById(Long id);
+
 }
