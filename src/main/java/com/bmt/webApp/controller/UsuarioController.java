@@ -72,7 +72,7 @@ public class UsuarioController {
             return "usuario/create";
         }
         // Se a criação for bem-sucedida, adiciona uma mensagem de sucesso
-        redirect.addFlashAttribute("successMessage", "Usuário cadastrado com Sucesso!");
+        redirect.addFlashAttribute("successMessage", "Employer cadastrado com Sucesso!");
         return "redirect:/users";
     }
 
@@ -81,7 +81,7 @@ public class UsuarioController {
         // Busca o usuário pelo ID
         Usuario user = userService.findById(id);
         if (user == null) {
-            model.addAttribute("errorMessage", "Usuário não encontrado.");
+            model.addAttribute("errorMessage", "Employer não encontrado.");
             return "redirect:/users";
         }
         model.addAttribute("user", user);
@@ -111,7 +111,7 @@ public class UsuarioController {
             return "usuario/edit";
         }
         // Se a atualização for bem-sucedida, adiciona uma mensagem de sucesso
-        redirect.addFlashAttribute("successMessage", "Usuário atualizado com Sucesso!");
+        redirect.addFlashAttribute("successMessage", "Employer atualizado com Sucesso!");
         return "redirect:/users";
     }
 
@@ -120,7 +120,7 @@ public class UsuarioController {
         try {
             // Deleta o usuário através do serviço
             userService.deleteUser(id);
-            redirect.addFlashAttribute("successMessage", "Usuário deletado com Sucesso!");
+            redirect.addFlashAttribute("successMessage", "Employer deletado com Sucesso!");
         } catch (IllegalArgumentException e) {
             // Se o usuário não existir, adiciona uma mensagem de erro
             redirect.addFlashAttribute("errorMessage", e.getMessage());
