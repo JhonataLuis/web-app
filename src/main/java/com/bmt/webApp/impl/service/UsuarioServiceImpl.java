@@ -21,6 +21,11 @@ public class UsuarioServiceImpl implements UsuarioService{
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Lista todos os usuários.
+     * 
+     * @return Uma lista de todos os usuários.
+     */
     @Override
     public Iterable<Usuario> listUsers() {
         
@@ -29,6 +34,13 @@ public class UsuarioServiceImpl implements UsuarioService{
         return userRepository.findAll();
     }
 
+    /**
+     * Cria um novo usuário.
+     * 
+     * @param users O usuário a ser criado.
+     * @return O usuário criado.
+     * @throws IllegalArgumentException Se o usuário já existir com o email fornecido.
+     */
     @Override
     public Usuario createUser(Usuario users) {
        logger.info("Tentando criar um novo usuário: {}");
@@ -47,6 +59,13 @@ public class UsuarioServiceImpl implements UsuarioService{
         
     }
 
+    /**
+     * Atualiza um usuário existente.
+     * 
+     * @param users O usuário a ser atualizado.
+     * @return O usuário atualizado.
+     * @throws IllegalArgumentException Se o usuário não for encontrado com o ID fornecido.
+     */
     @Override
     public Usuario updateUser(Usuario users) {
         logger.info("Tentando atualizar o usuário: {}", users.getEmail());
@@ -65,6 +84,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 
     }
 
+    /**
+     * Busca um usuário pelo email.
+     * @param email O email do usuário a ser buscado.
+     * @return O usuário encontrado.
+     * 
+     */
     @Override
     public Usuario findByEmail(String email) {
         logger.info("Buscando usuário pelo email: {}", email);
@@ -72,6 +97,13 @@ public class UsuarioServiceImpl implements UsuarioService{
         return userRepository.findByEmail(email);
     }
 
+    /**
+     * Busca um usuário pelo ID.    
+     * 
+     * @param id O ID do usuário a ser buscado.
+     * @return O usuário encontrado.
+     * @throws IllegalArgumentException Se o usuário não for encontrado com o ID fornecido.
+     */
     @Override
     public Usuario findById(Long id) {
         logger.info("Buscando usuário pelo ID: {}", id);
@@ -79,6 +111,12 @@ public class UsuarioServiceImpl implements UsuarioService{
         return userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado com ID: " + id));
     }
 
+    /**
+     * Deleta um usuário pelo ID.
+     * 
+     * @param id O ID do usuário a ser deletado.
+     * @throws IllegalArgumentException Se o usuário não for encontrado com o ID fornecido.
+     */
     @Override
     public void deleteUser(Long id) {
         logger.info("Tentando deletar o usuário com ID: {}", id);
