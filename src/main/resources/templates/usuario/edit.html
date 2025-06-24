@@ -120,6 +120,7 @@
             Função
             </label>
             <div class="col-sm-8">
+                <span th:class="${user.badgeClass}" th:text="${user.funcao.descricao}"></span>
             <input class="form-control-plaintext" th:value="${user.funcao.descricao}" readonly>
             </div>
         </div>
