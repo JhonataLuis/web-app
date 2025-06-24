@@ -48,7 +48,7 @@
 
 <nav class="navbar navbar-expand-lg bg-white border-bottom shadow-sm">
   <div class="container">
-    <a class="navbar-brand fw-bold text-primary" href="#">My Store</a>
+    <a class="navbar-brand fw-bold text-primary" href="/index">My Store</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
@@ -79,13 +79,13 @@
   </div>
 
   <div class="col-md-10 mx-auto bg-white rounded shadow-sm p-5">
-    <h2 class="text-center mb-4">Projects Information</h2>
+    <h2 class="text-center mb-4">Employer Information</h2>
     <form th:action="@{/users/edit/{id}(id=${userId})}" th:object="${user}" method="post">
 
       <div class="row mb-3">
         <label class="col-sm-4 col-form-label">
           <img src="https://img.icons8.com/ios-filled/20/hashtag-large.png" class="me-2" alt="Project ID" />
-          Project ID
+          Employer ID
         </label>
         <div class="col-sm-8">
           <input class="form-control-plaintext" readonly th:value="${id}">
@@ -95,60 +95,34 @@
       <div class="row mb-3 align-items-center">
         <label class="col-sm-4 col-form-label">
           <img src="https://img.icons8.com/ios-filled/20/user.png" class="me-2" alt="Name Project" />
-          Name Project
+          Name Employer
         </label>
         <div class="col-sm-8">
-          <input class="form-control-plaintext" th:field="*{nome}">
-          <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger"></p>
+          <input class="form-control-plaintext" th:field="*{name}">
+          <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></p>
         </div>
       </div>
 
       <div class="row mb-3 align-items-center">
         <label class="col-sm-4 col-form-label">
-          <img src="https://img.icons8.com/ios-filled/20/user.png" class="me-2" alt="Descrição" />
-          Descrição
+          <img src="https://img.icons8.com/ios-filled/20/user.png" class="me-2" alt="E-mail" />
+          Email
         </label>
         <div class="col-sm-8">
-          <input class="form-control-plaintext" th:field="*{descricao}">
-          <p th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></p>
+          <input class="form-control-plaintext" th:field="*{email}">
+          <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
         </div>
       </div>
 
-       <div class="row mb-4 align-items-center">
-        <label class="col-sm-4 col-form-label">
-          <img src="https://img.icons8.com/ios-filled/20/calendar--v1.png" alt="Start Date" class="me-2"/>
-          Start Date
-        </label>
-        <div class="col-sm-8">
-          <input type="datetime-local" class="form-control-plaintext" name="dataInicio" th:value="*{dataInicio}">
+        <div class="row mb-3 align-items-center">
+            <label class="col-sm-4 col-form-label">
+            <img src="https://img.icons8.com/ios-filled/20/role.png" class="me-2" alt="Função" />
+            Função
+            </label>
+            <div class="col-sm-8">
+            <input class="form-control-plaintext" th:value="${user.funcao.descricao}" readonly>
+            </div>
         </div>
-      </div>
-
-       <div class="row mb-4 align-items-center">
-        <label class="col-sm-4 col-form-label">
-          <img src="https://img.icons8.com/ios-filled/20/calendar--v1.png" alt="End Date" class="me-2"/>
-          End Date
-        </label>
-        <div class="col-sm-8">
-          <input type="datetime-local" class="form-control-plaintext" name="dataFim" th:value="*{dataFim}">
-        </div>
-      </div>
-
-      <div class="row mb-3 align-items-center">
-        <label class="col-sm-4 col-form-label">
-          <img src="https://img.icons8.com/ios-filled/20/info--v1.png" class="me-2" alt="Status" />
-          Status
-        </label>
-         <div class="col-sm-8">
-            <select class="form-select" th:field="*{status}">
-              <option value="Pendente">Pendente</option>
-              <option value="Andamento">Andamento</option>
-              <option value="Concluído">Concluído</option>
-            </select>
-              <p th:if="${#fields.hasErrors('status')}" th:errorclass="text-danger"
-                  th:errors="${status}"></p>
-              </div>
-      </div>
 
       <div class="row">
         <div class="offset-sm-4 col-sm-4 d-grid">

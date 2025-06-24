@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
@@ -61,6 +62,7 @@ public class Usuario {
         dataAtualizacao = LocalDateTime.now(); 
     }
 
+    @PreUpdate
     public void preUpdate() {
         // Método chamado antes de atualizar o objeto no banco de dados
         dataAtualizacao = LocalDateTime.now();
