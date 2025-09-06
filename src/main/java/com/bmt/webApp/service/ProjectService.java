@@ -2,6 +2,9 @@ package com.bmt.webApp.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.bmt.webApp.dto.ProjectDto;
 
 public interface ProjectService {
@@ -19,4 +22,6 @@ public interface ProjectService {
     void atualizarStatus(String status);
 
     void detailProject(Long id);
+
+    Page<ProjectDto> findAll(Pageable pageable);
 }

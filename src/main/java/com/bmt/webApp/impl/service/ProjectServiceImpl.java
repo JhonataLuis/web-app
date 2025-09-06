@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.bmt.webApp.dto.ProjectDto;
@@ -117,6 +118,16 @@ public class ProjectServiceImpl implements ProjectService{
         Project project = projectRepository.findById(id)
             .orElseThrow(() -> new RuntimeException("Projeto com ID: {}" + id + "não encontrado"));
         projectRepository.delete(project);    
+    }
+
+    /**
+     * Lista todos os projetos com paginação
+     */
+
+    @Override
+    public Page<ProjectDto> findAll(org.springframework.data.domain.Pageable pageable) {
+        var page = projectRepository.findAll(pageable);
+        return page.map(this::convertToDto);
     }
 
     @Override

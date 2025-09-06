@@ -1,6 +1,8 @@
 package com.bmt.webApp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,7 +35,13 @@ public class ProjectsController {
     private TarefaService tarefaService;
 
     @GetMapping({"", "/"})
-    public String getProjects(Model model){
+    public String getProjects(@RequestParam(defaultValue= "0") int page,
+                            @RequestParam(defaultValue= "10") int size,
+                             Model model){
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<ProjectDto> projectPage = projectService.findAll(pageable);
+        
         //var projects = projectsRepository.findAll();
         var projects = projectService.listProject();
         model.addAttribute("projects", projects);
