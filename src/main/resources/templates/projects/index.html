@@ -165,6 +165,41 @@
             background-color: white;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
         }
+
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+        
+        .page-info {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .pagination .page-link {
+            color: var(--primary-color);
+            border: 1px solid #dee2e6;
+            padding: 0.5rem 0.75rem;
+        }
+        
+        .pagination .page-item.active .page-link {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .pagination .page-item.disabled .page-link {
+            color: #6c757d;
+        }
+        
+        .filter-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
         
         @media (max-width: 768px) {
             .table-responsive {
@@ -183,6 +218,11 @@
             
             .action-buttons {
                 flex-wrap: wrap;
+            }
+
+            .pagination-container {
+                flex-direction: column;
+                gap: 1rem;
             }
         }
     </style>
@@ -247,6 +287,46 @@
                 New Project
             </a>
         </div>
+        <!-- Filter Section -->
+        <div class="filter-section mb-4">   
+            <form th:action="/projects" class="row g-3" method="get">
+                <div class="col-md-4">
+                    <label for="search" class="form-label visually-hidden">Search</label>
+                    <input type="text" class="form-control" name="search" placeholder="Search projects..." th:value="${search}">
+                </div>
+                <div class="col-md-4">
+                    <label for="status" class="form-label visually-hidden">Status</label>
+                    <select class="form-select" name="status">
+                        <option value="" th:selected="${status == null or status.isEmpty()}">All Statuses</option>
+                        <option value="Pendente" th:selected="${status == 'Pendente'}">Pendente</option>
+                        <option value="Andamento" th:selected="${status == 'Andamento'}">In Progress</option>
+                        <option value="Concluído" th:selected="${status == 'Concluído'}">Completed</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="size" class="form-label">Items per page</label>
+                    <select class="form-select" id="size" name="size" onchange="this.form.submit()">
+                        <option value="5" th:selected="${pageSize == 5}">5</option>
+                        <option value="10" th:selected="${pageSize == 10}">10</option>
+                        <option value="20" th:selected="${pageSize == 20}">20</option>
+                        <option value="50" th:selected="${pageSize == 50}">50</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+                </div>
+
+                <div class="col-md-4 d-flex">
+                    <button type="submit" class="btn btn-primary me-2">
+                        <i class="bi bi-funnel-fill"></i> Filter
+                    </button>
+                    <a href="/projects" class="btn btn-outline-secondary">
+                        <i class="bi bi-x-circle-fill"></i> Clear
+                    </a>
+                </div>
+            </form>
+    </div>
 
         <!-- Projects Table -->
         <div class="table-responsive">
@@ -314,6 +394,51 @@
         </div>
     </div>
 
+    <!-- Pagination -->
+        <div th:if="${totalPages > 0}" class="pagination-container">
+            <div class="page-info">
+                Showing <span th:text="${currentPage * pageSize + 1}">1</span> to 
+                <span th:text="${((currentPage * pageSize) + projects.size())}">10</span> of 
+                <span th:text="${totalItems}">100</span> entries
+            </div>
+            
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                        <a class="page-link" th:href="@{/projects(page=0, size=${pageSize}, status=${statusFilter}, search=${searchTerm})}">
+                            <i class="bi bi-chevron-double-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                        <a class="page-link" th:href="@{/projects(page=${currentPage - 1}, size=${pageSize}, status=${statusFilter}, search=${searchTerm})}">
+                            <i class="bi bi-chevron-left"></i>
+                        </a>
+                    </li>
+                    
+                    <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" 
+                        class="page-item" 
+                        th:classappend="${i == currentPage} ? 'active'">
+                        <a class="page-link" 
+                           th:href="@{/projects(page=${i}, size=${pageSize}, status=${statusFilter}, search=${searchTerm})}" 
+                           th:text="${i + 1}">1</a>
+                    </li>
+                    
+                    <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                        <a class="page-link" th:href="@{/projects(page=${currentPage + 1}, size=${pageSize}, status=${statusFilter}, search=${searchTerm})}">
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                        <a class="page-link" th:href="@{/projects(page=${totalPages - 1}, size=${pageSize}, status=${statusFilter}, search=${searchTerm})}">
+                            <i class="bi bi-chevron-double-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Footer -->
     <footer class="border-top">
         <div class="container">
             <div class="text-center text-muted">
