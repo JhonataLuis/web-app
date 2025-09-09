@@ -36,6 +36,7 @@ public class ProjectsController {
     @Autowired
     private TarefaService tarefaService;
 
+    //lista todos os projetos com paginação, filtro por status e busca
     @GetMapping({"", "/"})
     public String getProjects(@RequestParam(defaultValue= "0") int page,
                             @RequestParam(defaultValue= "10") int size,
@@ -66,6 +67,7 @@ public class ProjectsController {
 
         return "projects/index";
     }
+
     //cria um novo projeto
     @GetMapping("/created")
     public String createdProject(@RequestParam(value = "success", required= false) String success,
