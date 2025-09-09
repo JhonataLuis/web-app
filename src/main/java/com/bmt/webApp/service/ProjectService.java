@@ -23,5 +23,12 @@ public interface ProjectService {
 
     void detailProject(Long id);
 
-    Page<ProjectDto> findAll(Pageable pageable);
+    // Paginated list of projects
+    Page<ProjectDto> findAllProjects(Pageable pageable);
+
+    Page<ProjectDto> findByStatus(String status, Pageable pageable);
+
+    Page<ProjectDto> searchProjects(String searchTerm, Pageable pageable);
+
+    
 }

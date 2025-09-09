@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.bmt.webApp.dto.ProjectDto;
@@ -125,9 +126,25 @@ public class ProjectServiceImpl implements ProjectService{
      */
 
     @Override
-    public Page<ProjectDto> findAll(org.springframework.data.domain.Pageable pageable) {
+    public Page<ProjectDto> findAllProjects(Pageable pageable) {
         var page = projectRepository.findAll(pageable);
         return page.map(this::convertToDto);
+    }
+
+    /**
+     * Lista projetos por status com paginação
+     */
+    @Override
+    public Page<ProjectDto> findByStatus(String status, Pageable pageable) {
+        var page = projectRepository.searchProjects(status, pageable);
+        return page.map(this::convertToDto);
+    }
+
+    @Override
+    public Page<ProjectDto> searchProjects(String searchTerm, Pageable pageable) {
+        
+        return projectRepository.searchProjects(searchTerm, pageable)
+            .map(this::convertToDto);
     }
 
     @Override
