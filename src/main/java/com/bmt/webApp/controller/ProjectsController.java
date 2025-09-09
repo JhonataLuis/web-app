@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,14 +39,31 @@ public class ProjectsController {
     @GetMapping({"", "/"})
     public String getProjects(@RequestParam(defaultValue= "0") int page,
                             @RequestParam(defaultValue= "10") int size,
+                            @RequestParam(required = false) String status,
+                            @RequestParam(required = false) String search,
                              Model model){
 
-        Pageable pageable = PageRequest.of(page, size);
-        Page<ProjectDto> projectPage = projectService.findAll(pageable);
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+        Page<ProjectDto> projectPage;
+
+        if (search != null && !search.isEmpty()) {
+            projectPage = projectService.searchProjects(search, pageable);
+        } else if (status != null && !status.isEmpty()) {
+            projectPage = projectService.findByStatus(status, pageable);
+        } else {
+            projectPage = projectService.findAllProjects(pageable);
+        }
 
         //var projects = projectsRepository.findAll();
-        var projects = projectService.listProject();
-        model.addAttribute("projects", projects);
+        //var projects = projectService.listProject();
+        model.addAttribute("projects", projectPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", projectPage.getTotalPages());  
+        model.addAttribute("totalItems", projectPage.getTotalElements());
+        model.addAttribute("pageSize", size);
+        model.addAttribute("status", status);
+        model.addAttribute("search", search);   
+
         return "projects/index";
     }
     //cria um novo projeto
