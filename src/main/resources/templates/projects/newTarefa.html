@@ -313,9 +313,6 @@
                             <label class="form-label">Status</label>
                             <select class="form-select" th:field="*{status}">
                                 <option value="New">New</option>
-                                <option value="Pendente">Pending</option>
-                                <option value="Andamento">In Progress</option>
-                                <option value="Concluído">Completed</option>
                             </select>
                             <p th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="text-danger"></p>
                         </div>
