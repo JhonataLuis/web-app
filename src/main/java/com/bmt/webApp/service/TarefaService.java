@@ -14,5 +14,6 @@ public interface TarefaService {
     void removerTarefa(Long tarefaId, Long userId);
     void atualizarTarefa(TarefaDto tarefaDto);
     Long obterProjetoIdDaTarefa(Long tarefaId);// útil para redirecionar ao projeto correto
-
+    TarefaDto buscarPorId(Long tarefaId);
+    
 }

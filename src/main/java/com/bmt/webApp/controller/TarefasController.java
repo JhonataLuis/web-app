@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bmt.webApp.dto.TarefaDto;
-import com.bmt.webApp.model.UserResponsavelDto;
+import com.bmt.webApp.dto.UserResponsavelDto;
 import com.bmt.webApp.repository.ProjectsRepository;
 import com.bmt.webApp.repository.UserRepository;
 import com.bmt.webApp.service.TarefaService;
@@ -78,9 +78,13 @@ public class TarefasController {
 
         UserResponsavelDto dto = new UserResponsavelDto();
         dto.setTarefaId(id);
+
+        //Buscar a tarefa pelo ID para garantir que ela existe
+        TarefaDto tarefa = tarefaService.buscarPorId(id);
        
         model.addAttribute("usuarios", userRepository.findAll());
         model.addAttribute("dto", dto);
+        model.addAttribute("tarefa", tarefa);
         return "usuario/atribuir";
     }
 

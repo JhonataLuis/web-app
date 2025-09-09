@@ -147,4 +147,26 @@ public class TarefaServiceImpl implements TarefaService{
                 .orElseThrow(() -> new NoSuchElementException("Tarefa não encontrada com ID:" + tarefaId));
                 
     }
+
+    /**
+     * Buscar tarefa por ID
+     */
+
+    @Override
+    public TarefaDto buscarPorId(Long tarefaId){
+        Tarefa tarefa = tarefaRepository.findById(tarefaId)
+            .orElseThrow(() -> new EntityNotFoundException("Tarefa não encontrada"));
+
+        TarefaDto dto = new TarefaDto();
+            dto.setId(tarefa.getId());
+            dto.setTitulo(tarefa.getTitulo());
+            dto.setDescricao(tarefa.getDescricao());
+            dto.setStatus(tarefa.getStatus());
+            dto.setDataInicio(tarefa.getDataInicio());
+            dto.setDataFim(tarefa.getDataFim());
+            if(tarefa.getUserResponse() != null){
+                dto.setUserResponseId(tarefa.getUserResponse().getId());
+            }
+        return dto;
+    }
 }
