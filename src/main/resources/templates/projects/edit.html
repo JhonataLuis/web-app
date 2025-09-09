@@ -1,173 +1,310 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My Store | Clients Manager</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <title>Edit Project | ProjectFlow</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3f37c9;
+      --success-color: #4cc9f0;
+      --light-bg: #f8f9fa;
+    }
+    
     body {
       font-family: 'Poppins', sans-serif;
+      background-color: #f5f7fb;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    
+    .navbar {
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .navbar-brand {
+      font-weight: 700;
+      color: var(--primary-color) !important;
+    }
+    
+    .nav-link {
+      font-weight: 500;
+      position: relative;
+      padding: 0.5rem 1rem !important;
+      transition: all 0.3s;
+    }
+    
+    .nav-link:hover {
+      color: var(--primary-color) !important;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 50%;
+      background-color: var(--primary-color);
+      transition: all 0.3s;
+    }
+    
+    .nav-link:hover::after {
+      width: 70%;
+      left: 15%;
+    }
+    
+    .main-container {
+      flex: 1;
+      padding: 2rem 0;
+    }
+    
+    .form-container {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .page-header h1 {
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0;
+    }
+    
+    .form-label {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: #495057;
+    }
+    
+    .form-control, .form-select, .form-control-plaintext {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #dee2e6;
+      transition: all 0.3s;
+    }
+    
+    .form-control:focus, .form-select:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
+    }
+    
+    .form-control-plaintext {
       background-color: #f8f9fa;
     }
-
-    h1, h2 {
-      font-weight: 600;
-      color: #343a40;
-    }
-
-    .form-control-plaintext {
-      background-color: #fff;
-      border: 1px solid #ced4da;
-      padding: 0.375rem 0.75rem;
-      border-radius: 0.375rem;
-      color: #495057;
-    }
-
-    label {
-      font-weight: 500;
-      color: #495057;
-    }
-
+    
     .btn-primary {
-      background-color: #0d6efd;
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--secondary-color);
+      border-color: var(--secondary-color);
+      transform: translateY(-2px);
+    }
+    
+    .btn-outline-secondary {
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    
+    .alert {
+      border-radius: 8px;
       border: none;
+      padding: 1rem 1.5rem;
     }
-
-    .btn img {
-      margin-right: 6px;
+    
+    .alert-success {
+      background-color: #d4edda;
+      color: #155724;
     }
-
+    
+    .text-danger {
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+      display: block;
+    }
+    
     footer {
+      margin-top: auto;
       padding: 1.5rem 0;
+      background-color: white;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    }
+    
+    .icon-wrapper {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      margin-right: 0.5rem;
+    }
+    
+    @media (max-width: 768px) {
+      .form-container {
+        padding: 1.5rem;
+      }
+      
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg bg-white border-bottom shadow-sm">
-  <div class="container">
-    <a class="navbar-brand fw-bold text-primary" href="#">My Store</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/contact">Contact</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/privacy">Privacy</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<div class="container my-5">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="mb-0">Editar Projects</h1>
-    <a class="btn btn-outline-primary" href="/projects">
-      <img src="https://img.icons8.com/color/24/back--v1.png" alt="Back"/> Back to Projects
-    </a>
-    <div th:if="${successMessage}" class="alert alert-success" th:text="${successMessage}"></div>
-  </div>
-
-  <div class="col-md-10 mx-auto bg-white rounded shadow-sm p-5">
-    <h2 class="text-center mb-4">Projects Information</h2>
-    <form th:action="@{/projects/edit/{id}(id=${projectId})}" th:object="${projectDto}" method="post">
-
-      <div class="row mb-3">
-        <label class="col-sm-4 col-form-label">
-          <img src="https://img.icons8.com/ios-filled/20/hashtag-large.png" class="me-2" alt="Project ID" />
-          Project ID
-        </label>
-        <div class="col-sm-8">
-          <input class="form-control-plaintext" readonly th:value="${id}">
-        </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="/">
+        <i class="bi bi-kanban-fill me-2"></i>
+        ProjectFlow
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/projects">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/privacy">Privacy</a>
+          </li>
+        </ul>
       </div>
+    </div>
+  </nav>
 
-      <div class="row mb-3 align-items-center">
-        <label class="col-sm-4 col-form-label">
-          <img src="https://img.icons8.com/ios-filled/20/user.png" class="me-2" alt="Name Project" />
-          Name Project
-        </label>
-        <div class="col-sm-8">
-          <input class="form-control-plaintext" th:field="*{nome}">
+  <div class="container main-container">
+    <!-- Alert Messages -->
+    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+      <i class="bi bi-check-circle-fill me-2"></i>
+      <span th:text="${successMessage}"></span>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="page-header">
+      <h1>Edit Project</h1>
+      <a class="btn btn-outline-secondary" href="/projects">
+        <i class="bi bi-arrow-left me-2"></i> Back to Projects
+      </a>
+    </div>
+
+    <div class="form-container">
+      <h2 class="text-center mb-4">Project Information</h2>
+      <form th:action="@{/projects/edit/{id}(id=${projectId})}" th:object="${projectDto}" method="post">
+
+        <div class="mb-4">
+          <label class="form-label">
+            <span class="icon-wrapper"><i class="bi bi-hash"></i></span>
+            Project ID
+          </label>
+          <input class="form-control-plaintext" readonly th:value="${projectId}">
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label">
+            <span class="icon-wrapper"><i class="bi bi-card-heading"></i></span>
+            Project Name
+          </label>
+          <input class="form-control" th:field="*{nome}" placeholder="Enter project name">
           <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger"></p>
         </div>
-      </div>
 
-      <div class="row mb-3 align-items-center">
-        <label class="col-sm-4 col-form-label">
-          <img src="https://img.icons8.com/ios-filled/20/user.png" class="me-2" alt="Descrição" />
-          Descrição
-        </label>
-        <div class="col-sm-8">
-          <input class="form-control-plaintext" th:field="*{descricao}">
-          <p th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></p>
+        <div class="mb-4">
+          <label class="form-label">
+            <span class="icon-wrapper"><i class="bi bi-text-paragraph"></i></span>
+            Description
+          </label>
+          <textarea class="form-control" th:field="*{descricao}" rows="3" placeholder="Enter project description"></textarea>
+          <p th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="text-danger"></p>
         </div>
-      </div>
 
-       <div class="row mb-4 align-items-center">
-        <label class="col-sm-4 col-form-label">
-          <img src="https://img.icons8.com/ios-filled/20/calendar--v1.png" alt="Start Date" class="me-2"/>
-          Start Date
-        </label>
-        <div class="col-sm-8">
-          <input type="datetime-local" class="form-control-plaintext" name="dataInicio" th:value="*{dataInicio}">
+        <div class="mb-4">
+          <label class="form-label">
+            <span class="icon-wrapper"><i class="bi bi-calendar-event"></i></span>
+            Start Date
+          </label>
+          <input type="datetime-local" class="form-control" th:value="*{dataInicio}">
+          <p th:if="${#fields.hasErrors('dataInicio')}" th:errors="*{dataInicio}" class="text-danger"></p>
         </div>
-      </div>
 
-       <div class="row mb-4 align-items-center">
-        <label class="col-sm-4 col-form-label">
-          <img src="https://img.icons8.com/ios-filled/20/calendar--v1.png" alt="End Date" class="me-2"/>
-          End Date
-        </label>
-        <div class="col-sm-8">
-          <input type="datetime-local" class="form-control-plaintext" name="dataFim" th:value="*{dataFim}">
+        <div class="mb-4">
+          <label class="form-label">
+            <span class="icon-wrapper"><i class="bi bi-calendar-check"></i></span>
+            End Date
+          </label>
+          <input type="datetime-local" class="form-control" th:value="*{dataFim}">
+          <p th:if="${#fields.hasErrors('dataFim')}" th:errors="*{dataFim}" class="text-danger"></p>
         </div>
-      </div>
 
-      <div class="row mb-3 align-items-center">
-        <label class="col-sm-4 col-form-label">
-          <img src="https://img.icons8.com/ios-filled/20/info--v1.png" class="me-2" alt="Status" />
-          Status
-        </label>
-         <div class="col-sm-8">
-            <select class="form-select" th:field="*{status}">
-              <option value="Pendente">Pendente</option>
-              <option value="Andamento">Andamento</option>
-              <option value="Concluído">Concluído</option>
-            </select>
-              <p th:if="${#fields.hasErrors('status')}" th:errorclass="text-danger"
-                  th:errors="${status}"></p>
-              </div>
-      </div>
+        <div class="mb-4">
+          <label class="form-label">
+            <span class="icon-wrapper"><i class="bi bi-info-circle"></i></span>
+            Status
+          </label>
+          <select class="form-select" th:field="*{status}">
+            <option value="Pendente">Pending</option>
+            <option value="Andamento">In Progress</option>
+            <option value="Concluído">Completed</option>
+          </select>
+          <p th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="text-danger"></p>
+        </div>
 
-      <div class="row">
-        <div class="offset-sm-4 col-sm-4 d-grid">
-          <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="d-flex justify-content-end mt-5">
+          <div class="btn-group">
+            <a class="btn btn-outline-secondary" href="/projects">
+              <i class="bi bi-x-circle me-2"></i> Cancel
+            </a>
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-check-circle me-2"></i> Update Project
+            </button>
+          </div>
         </div>
-        <div class="col-sm-4 d-grid">
-          <a class="btn btn-outline-secondary" href="/projects">Cancel</a>
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-</div>
 
-<footer class="border-top bg-light text-muted text-center">
-  <div class="container">
-    &copy; [[${#temporals.format(#temporals.createNow(), 'yyyy')}]] - My Store
-  </div>
-</footer>
+  <footer class="border-top">
+    <div class="container">
+      <div class="text-center text-muted">
+        &copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span> - ProjectFlow. All rights reserved.
+      </div>
+    </div>
+  </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
