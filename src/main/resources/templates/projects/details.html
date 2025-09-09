@@ -344,6 +344,7 @@
                             <th scope="col">Description</th>
                             <th scope="col">Status</th>
                             <th scope="col">Assigned To</th>
+                             <th scope="col">Function</th>
                             <th scope="col">Date Range</th>
                             <th scope="col" class="text-center">Actions</th>
                         </tr>
@@ -358,6 +359,7 @@
                                 <span class="status-badge" th:classappend="'status-' + ${tarefa.status.toLowerCase()}" th:text="${tarefa.status}"></span>
                             </td>
                             <td th:text="${tarefa.userResponse != null ? tarefa.userResponse.name : 'Not Assigned'}"></td>
+                            <td th:text="${tarefa.userResponse.funcao}"></td>
                             <td th:text="${#temporals.format(tarefa.dataInicio, 'dd/MM/yyyy')} + ' - ' + ${#temporals.format(tarefa.dataFim, 'dd/MM/yyyy')}"></td>
                             <td>
                                 <div class="action-buttons justify-content-center">
