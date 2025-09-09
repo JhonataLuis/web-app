@@ -1,108 +1,536 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Clients Manager</title>
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProjectFlow - Gerenciador de Projetos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-      <style>
-      body {
-        font-family: 'Poppins', sans-serif;
-        background-color: var(--bs-body-bg);
-        color: var(--bs-body-color);
-      }
-
-      @media (prefers-color-scheme: dark) {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --success-color: #4cc9f0;
+            --warning-color: #ffbe0b;
+            --danger-color: #ff6b6b;
+            --light-bg: #f8f9fa;
+        }
+        
         body {
-          background-color: #121212;
-          color: #f5f5f5;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fb;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
-
-        .form-control, .form-select {
-          background-color: #1e1e1e;
-          color: #f5f5f5;
-          border-color: #333;
+        
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-
-        .form-control:focus, .form-select:focus {
-          border-color: #66afe9;
-          box-shadow: 0 0 0 0.25rem rgba(102, 175, 233, 0.25);
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color) !important;
         }
-
-        .bg-light, .border, .border-top {
-          background-color: #1c1c1c !important;
-          border-color: #333 !important;
+        
+        .nav-link {
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 1rem !important;
+            transition: all 0.3s;
         }
-      }
-
-      .status-select option[value="New"] {
-        background-color: #e0f7fa;
-        color: #00796b;
-      }
-
-      .status-select option[value="Permanent"] {
-        background-color: #e8f5e9;
-        color: #388e3c;
-      }
-
-      .status-select option[value="Lead"] {
-        background-color: #fff3e0;
-        color: #f57c00;
-      }
-
-      .status-select option[value="Inactive"] {
-        background-color: #fbe9e7;
-        color: #d84315;
-      }
-
-      .status-select option[value="Active"] {
-        background-color: #e3f2fd;
-        color: #1565c0;
-      }
+        
+        .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--primary-color);
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 70%;
+            left: 15%;
+        }
+        
+        .main-container {
+            flex: 1;
+            padding: 2rem 0;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            color: white;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.2);
+        }
+        
+        .hero-title {
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-subtitle {
+            font-weight: 400;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .stats-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .stats-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .icon-primary {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .icon-success {
+            background-color: rgba(76, 201, 240, 0.1);
+            color: var(--success-color);
+        }
+        
+        .icon-warning {
+            background-color: rgba(255, 190, 11, 0.1);
+            color: var(--warning-color);
+        }
+        
+        .icon-danger {
+            background-color: rgba(255, 107, 107, 0.1);
+            color: var(--danger-color);
+        }
+        
+        .stats-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stats-label {
+            color: #6c757d;
+            font-weight: 500;
+        }
+        
+        .section-title {
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+            bottom: 0;
+            left: 0;
+            border-radius: 3px;
+        }
+        
+        .recent-projects {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .project-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #f1f1f1;
+            transition: background-color 0.3s;
+        }
+        
+        .project-item:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .project-item:last-child {
+            border-bottom: none;
+        }
+        
+        .project-status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+        
+        .status-andamento {
+            background-color: var(--warning-color);
+        }
+        
+        .status-concluido {
+            background-color: var(--success-color);
+        }
+        
+        .status-pendente {
+            background-color: var(--danger-color);
+        }
+        
+        .project-info {
+            flex: 1;
+        }
+        
+        .project-name {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        
+        .project-date {
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+        
+        .quick-actions {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .action-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+            color: #333;
+            text-decoration: none;
+        }
+        
+        .action-card:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-3px);
+            text-decoration: none;
+            color: #333;
+        }
+        
+        .action-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .action-title {
+            font-weight: 500;
+        }
+        
+        footer {
+            margin-top: auto;
+            padding: 1.5rem 0;
+            background-color: white;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .stats-number {
+                font-size: 1.5rem;
+            }
+        }
     </style>
-  
-  </head>
-  <body>
-
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg bg-white border-bottom shadow-sm">
-  <div class="container">
-    <a class="navbar-brand fw-bold text-primary" href="/projects/index">My Store</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/contact">Contact</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/privacy">Privacy</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-
-    <div class="container my-3">
-        <h1 class="text-center mb-3">Welcome to our System Management of Projects</h1>
-        <a class="btn btn-primary" href="/clients">Clients <img width="20" height="20" src="https://img.icons8.com/fluency/48/forward--v1.png" alt="forward--v1"/></a>
-        <a class="btn btn-primary" href="/users">Employers <img width="20" height="20" src="https://img.icons8.com/fluency/48/forward--v1.png" alt="forward--v1"/></a>
-        <a class="btn btn-primary" href="/projects">Projects <img width="20" height="20" src="https://img.icons8.com/fluency/48/forward--v1.png" alt="forward--v1"/></a>
-      </div>
-
-    <footer class="border-top bg-light text-muted text-center">
-        <div class="container pb-5">
-          &copy; [[${#dates.format(#dates.createNow(), 'yyyy')}]] - My Store
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <i class="bi bi-kanban-fill me-2"></i>
+                ProjectFlow
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/projects">Projetos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/tasks">Tarefas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/team">Equipe</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/reports">Relatórios</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <span class="today-date">
+                        <i class="bi bi-calendar-event"></i>
+                        <span th:text="${#temporals.format(#temporals.createNow(), 'dd MMMM yyyy')}"></span>
+                    </span>
+                </div>
+            </div>
         </div>
-      </footer>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container main-container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="hero-title">Gerencie seus projetos de forma eficiente</h1>
+                    <p class="hero-subtitle">O ProjectFlow ajuda você e sua equipe a acompanhar o progresso, prazos e recursos de todos os seus projetos em um só lugar.</p>
+                    <a href="/projects" class="btn btn-light btn-lg">
+                        <i class="bi bi-plus-circle me-2"></i>
+                        Ver Todos os Projetos
+                    </a>
+                </div>
+                <div class="col-lg-4 d-none d-lg-block">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Project Management" class="img-fluid rounded" style="box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="row mb-5">
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stats-card">
+                    <div class="stats-icon icon-primary">
+                        <i class="bi bi-folder2-open"></i>
+                    </div>
+                    <div class="stats-number" th:text="${totalProjects != null ? totalProjects : '12'}">12</div>
+                    <div class="stats-label">Projetos Ativos</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stats-card">
+                    <div class="stats-icon icon-success">
+                        <i class="bi bi-check-circle"></i>
+                    </div>
+                    <div class="stats-number" th:text="${completedProjects != null ? completedProjects : '5'}">5</div>
+                    <div class="stats-label">Projetos Concluídos</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stats-card">
+                    <div class="stats-icon icon-warning">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <div class="stats-number" th:text="${teamMembers != null ? teamMembers : '8'}">8</div>
+                    <div class="stats-label">Membros na Equipe</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stats-card">
+                    <div class="stats-icon icon-danger">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                    <div class="stats-number" th:text="${overdueTasks != null ? overdueTasks : '3'}">3</div>
+                    <div class="stats-label">Tarefas Atrasadas</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="row">
+            <!-- Recent Projects -->
+            <div class="col-lg-8 mb-4">
+                <div class="recent-projects">
+                    <h3 class="section-title">Projetos Recentes</h3>
+                    
+                    <div class="project-item">
+                        <div class="project-status status-andamento"></div>
+                        <div class="project-info">
+                            <div class="project-name">Redesign do Site Corporativo</div>
+                            <div class="project-date">Prazo: 15/12/2023 • 65% concluído</div>
+                        </div>
+                        <a href="/projects/details/1" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
+                    </div>
+                    
+                    <div class="project-item">
+                        <div class="project-status status-pendente"></div>
+                        <div class="project-info">
+                            <div class="project-name">Sistema de Gestão de Clientes</div>
+                            <div class="project-date">Prazo: 20/01/2024 • 30% concluído</div>
+                        </div>
+                        <a href="/projects/details/2" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
+                    </div>
+                    
+                    <div class="project-item">
+                        <div class="project-status status-concluido"></div>
+                        <div class="project-info">
+                            <div class="project-name">Campanha de Marketing Digital</div>
+                            <div class="project-date">Concluído em: 10/11/2023</div>
+                        </div>
+                        <a href="/projects/details/3" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
+                    </div>
+                    
+                    <div class="project-item">
+                        <div class="project-status status-andamento"></div>
+                        <div class="project-info">
+                            <div class="project-name">App Mobile - Fase 2</div>
+                            <div class="project-date">Prazo: 05/02/2024 • 45% concluído</div>
+                        </div>
+                        <a href="/projects/details/4" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
+                    </div>
+                    
+                    <div class="text-center mt-3">
+                        <a href="/projects" class="btn btn-outline-primary">Ver Todos os Projetos</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Actions -->
+            <div class="col-lg-4">
+                <div class="quick-actions mb-4">
+                    <h3 class="section-title">Ações Rápidas</h3>
+                    
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <a href="/projects/created" class="action-card">
+                                <div class="action-icon">
+                                    <i class="bi bi-plus-lg"></i>
+                                </div>
+                                <div class="action-title">Novo Projeto</div>
+                            </a>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <a href="/tasks/create" class="action-card">
+                                <div class="action-icon">
+                                    <i class="bi bi-card-checklist"></i>
+                                </div>
+                                <div class="action-title">Nova Tarefa</div>
+                            </a>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <a href="/team/add" class="action-card">
+                                <div class="action-icon">
+                                    <i class="bi bi-person-plus"></i>
+                                </div>
+                                <div class="action-title">Adicionar Membro</div>
+                            </a>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <a href="/reports" class="action-card">
+                                <div class="action-icon">
+                                    <i class="bi bi-graph-up"></i>
+                                </div>
+                                <div class="action-title">Relatórios</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Upcoming Deadlines -->
+                <div class="quick-actions">
+                    <h3 class="section-title">Próximos Prazos</h3>
+                    
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="flex-shrink-0">
+                            <div class="bg-danger text-white rounded-circle p-2">
+                                <i class="bi bi-exclamation-lg"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <div class="fw-semibold">Design de Interface</div>
+                            <div class="text-muted small">Vence em: 2 dias</div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="flex-shrink-0">
+                            <div class="bg-warning text-white rounded-circle p-2">
+                                <i class="bi bi-clock"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <div class="fw-semibold">Revisão de Código</div>
+                            <div class="text-muted small">Vence em: 5 dias</div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <div class="bg-info text-white rounded-circle p-2">
+                                <i class="bi bi-calendar-event"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <div class="fw-semibold">Reunião de Progresso</div>
+                            <div class="text-muted small">Amanhã, 10:00</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <h5 class="fw-semibold">ProjectFlow</h5>
+                    <p class="text-muted mb-0">Sistema de gerenciamento de projetos para equipes modernas.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="text-muted mb-0">&copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span> ProjectFlow. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  </body>
+</body>
 </html>

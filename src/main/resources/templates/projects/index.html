@@ -289,7 +289,7 @@
         </div>
         <!-- Filter Section -->
         <div class="filter-section mb-4">   
-            <form th:action="/projects" class="row g-3" method="get">
+            <form th:action="@{/projects}" class="row g-3" method="get">
                 <div class="col-md-4">
                     <label for="search" class="form-label visually-hidden">Search</label>
                     <input type="text" class="form-control" name="search" placeholder="Search projects..." th:value="${search}">
@@ -392,7 +392,7 @@
                 Create Project
             </a>
         </div>
-    </div>
+    
 
     <!-- Pagination -->
         <div th:if="${totalPages > 0}" class="pagination-container">
@@ -435,6 +435,7 @@
                     </li>
                 </ul>
             </nav>
+        </div>
         </div>
     </div>
 
