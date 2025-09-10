@@ -149,6 +149,33 @@
             font-weight: 500;
             font-size: 0.8rem;
         }
+
+        .badge-testador {
+            background-color: #e2e3e5;
+            color: #383d41;
+            padding: 0.35rem 0.65rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+
+        .badge-desenvolvedor {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            padding: 0.35rem 0.65rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+
+        .badge-analista {
+            background-color: #fae2e1;
+            color: #721c24;
+            padding: 0.35rem 0.65rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
         
         .action-buttons {
             display: flex;
@@ -273,6 +300,15 @@
                                 </span>
                                 <span th:case="'Suporte'" class="badge-suporte">
                                     <i class="bi bi-person"></i> Suporte
+                                </span>
+                                <span th:case="'Testador'" class="badge-testador">
+                                    <i class="bi bi-flask"></i> Testador
+                                </span>
+                                <span th:case="'Desenvolvedor'" class="badge-desenvolvedor">
+                                    <i class="bi bi-person-workspace"></i> Desenvolvedor
+                                </span>
+                                <span th:case="'Analista'" class="badge-analista">
+                                    <i class="bi bi-person-bounding-box"></i> Analista
                                 </span>
                                 <span th:case="*" class="badge-user" th:text="${user.funcao.descricao}"></span>
                             </span>
