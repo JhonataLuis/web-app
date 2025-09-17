@@ -3,7 +3,6 @@ package com.bmt.webApp.dto;
 import java.time.LocalDateTime;
 
 import com.bmt.webApp.enums.Funcao;
-import com.bmt.webApp.model.Usuario;
 
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
