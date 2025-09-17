@@ -70,26 +70,44 @@ public class UsuarioServiceImpl implements UsuarioService{
     @Override
     public Usuario updateUser(UsuarioDto userDto) {
         logger.info("Tentando atualizar o usuário: {}", userDto.getEmail());
+
+        Usuario existingUser = userRepository.findById(userDto.getId())
+            .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado com ID: " + userDto.getId()));  
         
-        // Verificando se o usuário existe
-        if(userRepository.findById(userDto.getId()) == null) {
-            logger.warn("Usuário com ID {} não encontrado.", userDto.getId());
-            throw new IllegalArgumentException("Usuário não encontrado com o ID: " + userDto.getId());
-        }       
+        //verifica se o email já está em uso por outro usuário
+        if(!existingUser.getEmail().equals(userDto.getEmail()) && userRepository.existsByEmailAndIdNot(userDto.getEmail(), userDto.getId())) {
+            logger.warn("Email {} já está em uso por outro usuário.", userDto.getEmail());
+            throw new IllegalArgumentException("Email já está em uso por outro usuário: " + userDto.getEmail());
+        }
+        
 
-        Usuario users = new Usuario();
-        users.setName(userDto.getName());
-        users.setEmail(userDto.getEmail()); 
-        users.setDataAtualizacao(userDto.getDataAtualizacao());
+        // Atualizando os dados do usuário
+        
+        existingUser.setName(userDto.getName());
+        existingUser.setEmail(userDto.getEmail()); 
+        existingUser.setFuncao(userDto.getFuncao());
+        existingUser.setDataAtualizacao(userDto.getDataAtualizacao());
+
+        //Atualiza a senha somente se foi fornecida uma nova senha(não vazia)
+        if(userDto.getPassword() != null && !userDto.getPassword().isEmpty()){
+            String senhaCriptografada = passwordEncoder.encode(userDto.getPassword());
+            existingUser.setPassword(senhaCriptografada);
+            logger.info("Senha criptografada: {}", senhaCriptografada);
+        } else {
+            // Mantém a senha atual se nenhuma nova senha for fornecida
+            existingUser = userRepository.findById(userDto.getId())
+            .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado com ID: " + userDto.getId()));
+            existingUser.setPassword(existingUser.getPassword());
+
+        }
+
+        System.out.println("Atualizando usuário: " + existingUser.getId());
+        System.out.println("Email atual: " + existingUser.getEmail());
+        System.out.println("Novo email: " + userDto.getEmail());
+        System.out.println("Email existe? " + userRepository.findByEmail(userDto.getEmail()));
 
 
-        /*// Criptografando a senha do usuário antes de atualizar
-        String senhaCriptografada = passwordEncoder.encode(userDto.getPassword());
-        users.setPassword(senhaCriptografada);
-        logger.info("Senha criptografada: {}", senhaCriptografada);*/
-        // Atualizando o usuário no repositório
-
-        return userRepository.save(users);
+        return userRepository.save(existingUser);
 
     }
 

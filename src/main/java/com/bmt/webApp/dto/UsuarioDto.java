@@ -2,6 +2,10 @@ package com.bmt.webApp.dto;
 
 import java.time.LocalDateTime;
 
+import com.bmt.webApp.enums.Funcao;
+import com.bmt.webApp.model.Usuario;
+
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -14,9 +18,12 @@ public class UsuarioDto {
     @NotBlank
     @NotEmpty(message = "The email is required")
     private String email;
+    @Column(nullable = false)
     private String password;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAtualizacao;
+
+    private Funcao funcao;
 
     public Long getId() {
         return id;
@@ -66,4 +73,13 @@ public class UsuarioDto {
         this.dataAtualizacao = dataAtualizacao;
     }
 
+    public Funcao getFuncao() {
+        return funcao;
+    }
+
+    public void setFuncao(Funcao funcao) {
+        this.funcao = funcao;
+    }
+
+   
 }
