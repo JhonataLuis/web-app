@@ -14,6 +14,7 @@ public class UsuarioDto {
     @NotBlank
     @NotEmpty(message = "The email is required")
     private String email;
+    private String password;
     private LocalDateTime dataCriacao;
     private LocalDateTime dataAtualizacao;
 
@@ -39,6 +40,14 @@ public class UsuarioDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public LocalDateTime getDataCriacao() {
