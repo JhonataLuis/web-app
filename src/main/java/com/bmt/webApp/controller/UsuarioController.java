@@ -97,6 +97,9 @@ public class UsuarioController {
 
         // Verifica se há erros de validação
         if(result.hasErrors()){
+
+            //Exibe os erros no console para depuração
+            System.out.println("Erros de validação encontrados: " + result.getAllErrors());
             // Retorna para a página de edição, mantendo os dados e os erros
             model.addAttribute("funcoes", Funcao.values());
             model.addAttribute("user", user);
