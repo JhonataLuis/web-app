@@ -51,6 +51,7 @@ public class UsuarioServiceImpl implements UsuarioService{
              logger.warn("Usuário com email {} já existe.", users.getEmail());
              throw new IllegalArgumentException("Usuário já existe com o email: " + users.getEmail());
          }
+         
          // Criptografando a senha do usuário antes de salvar
          String senhaCriptografada = passwordEncoder.encode(users.getPassword());
          users.setPassword(senhaCriptografada);
