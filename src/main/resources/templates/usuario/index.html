@@ -586,24 +586,8 @@
                                 </a>
                             </div>
                         </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        
-        <!-- Empty state -->
-        <div th:if="${users != null && users.empty}" class="text-center py-5">
-            <i class="bi bi-people" style="font-size: 3rem; color: #dee2e6;"></i>
-            <h4 class="mt-3 text-muted">No employers found</h4>
-            <p class="text-muted">Get started by adding your first employer</p>
-            <a class="btn btn-primary mt-2" href="/users/created">
-                <i class="bi bi-person-plus"></i>
-                Add Employer
-            </a>
-        </div>
-    </div>
 
-   <!-- Employer Details Modal -->
+                        <!-- Employer Details Modal -->
 <div class="modal fade" id="employerDetailsModal" tabindex="-1" aria-labelledby="employerDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -677,13 +661,32 @@
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                     <i class="bi bi-x-circle me-1"></i> Close
                 </button>
-                <a id="edit-employer-btn" class="btn btn-primary" href="#">
+                <a id="edit-employer-btn" class="btn btn-primary" th:href="@{/users/edit/{id}(id=${user.id})}">
                     <i class="bi bi-pencil me-1"></i> Edit Employer
                 </a>
             </div>
         </div>
     </div>
 </div>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Empty state -->
+        <div th:if="${users != null && users.empty}" class="text-center py-5">
+            <i class="bi bi-people" style="font-size: 3rem; color: #dee2e6;"></i>
+            <h4 class="mt-3 text-muted">No employers found</h4>
+            <p class="text-muted">Get started by adding your first employer</p>
+            <a class="btn btn-primary mt-2" href="/users/created">
+                <i class="bi bi-person-plus"></i>
+                Add Employer
+            </a>
+        </div>
+    </div>
+
+   
 
 
     <!-- Footer -->
@@ -701,7 +704,7 @@
 
         // Atualizar a função showEmployerDetails para incluir a badge de função
         function showEmployerDetails(button) {
-        const userId = button.getAttribute('data-id');
+        //const userId = button.getAttribute('data-id');
         
         // Find the table row that contains this user's data
         const row = button.closest('tr');
@@ -726,7 +729,7 @@
         document.getElementById('status-since').textContent = dateCreated.split(' ')[0]; // Just the date part
         
         // Set the edit link
-        document.getElementById('edit-employer-btn').href = `/users/edit/${userId}`;
+        //document.getElementById('edit-employer-btn').href = `/users/edit/${userId}`;
         
         // Show the modal
         const modal = new bootstrap.Modal(document.getElementById('employerDetailsModal'));
