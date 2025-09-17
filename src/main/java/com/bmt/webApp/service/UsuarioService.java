@@ -1,5 +1,6 @@
 package com.bmt.webApp.service;
 
+import com.bmt.webApp.dto.UsuarioDto;
 import com.bmt.webApp.model.Usuario;
 
 public interface  UsuarioService {
@@ -8,7 +9,7 @@ public interface  UsuarioService {
 
     Usuario createUser(Usuario users);
 
-    Usuario updateUser(Usuario users);
+    Usuario updateUser(UsuarioDto userDto);
 
     Usuario findByEmail(String email);
 

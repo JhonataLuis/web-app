@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.bmt.webApp.dto.UsuarioDto;
 import com.bmt.webApp.model.Usuario;
 import com.bmt.webApp.repository.UserRepository;
 import com.bmt.webApp.service.UsuarioService;
@@ -67,20 +68,28 @@ public class UsuarioServiceImpl implements UsuarioService{
      * @throws IllegalArgumentException Se o usuário não for encontrado com o ID fornecido.
      */
     @Override
-    public Usuario updateUser(Usuario users) {
-        logger.info("Tentando atualizar o usuário: {}", users.getEmail());
+    public Usuario updateUser(UsuarioDto userDto) {
+        logger.info("Tentando atualizar o usuário: {}", userDto.getEmail());
         
         // Verificando se o usuário existe
-        if(userRepository.findById(users.getId()) == null) {
-            logger.warn("Usuário com ID {} não encontrado.", users.getId());
-            throw new IllegalArgumentException("Usuário não encontrado com o ID: " + users.getId());
+        if(userRepository.findById(userDto.getId()) == null) {
+            logger.warn("Usuário com ID {} não encontrado.", userDto.getId());
+            throw new IllegalArgumentException("Usuário não encontrado com o ID: " + userDto.getId());
         }       
-        // Criptografando a senha do usuário antes de atualizar
-        String senhaCriptografada = passwordEncoder.encode(users.getPassword());
+
+        Usuario users = new Usuario();
+        users.setName(userDto.getName());
+        users.setEmail(userDto.getEmail()); 
+        users.setDataAtualizacao(userDto.getDataAtualizacao());
+
+
+        /*// Criptografando a senha do usuário antes de atualizar
+        String senhaCriptografada = passwordEncoder.encode(userDto.getPassword());
         users.setPassword(senhaCriptografada);
-        logger.info("Senha criptografada: {}", senhaCriptografada);
+        logger.info("Senha criptografada: {}", senhaCriptografada);*/
         // Atualizando o usuário no repositório
-        return userRepository.save(users);  
+
+        return userRepository.save(users);
 
     }
 

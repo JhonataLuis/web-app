@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.bmt.webApp.dto.UsuarioDto;
 import com.bmt.webApp.enums.Funcao;
 import com.bmt.webApp.model.Usuario;
 import com.bmt.webApp.service.UsuarioService;
@@ -90,7 +91,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/update")
-    public String updateUser(@Valid @ModelAttribute Usuario user,
+    public String updateUser(@Valid @ModelAttribute UsuarioDto userDto,
                              BindingResult result, 
                              RedirectAttributes redirect,
                              Model model) {
@@ -102,19 +103,19 @@ public class UsuarioController {
             System.out.println("Erros de validação encontrados: " + result.getAllErrors());
             // Retorna para a página de edição, mantendo os dados e os erros
             model.addAttribute("funcoes", Funcao.values());
-            model.addAttribute("user", user);
+            model.addAttribute("user", userDto);
             return "usuario/edit";
         }
 
         try {
             // Atualiza o usuário através do serviço
-            userService.updateUser(user);
+            userService.updateUser(userDto);
             redirect.addFlashAttribute("successMessage", "Employer atualizado com Sucesso!");
         } catch (IllegalArgumentException e) {
             // Se o usuário não existir, adiciona um erro ao resultado
             result.rejectValue("email", "error.email", e.getMessage());
             model.addAttribute("funcoes", Funcao.values());
-            model.addAttribute("user", user);
+            model.addAttribute("user", userDto);
             return "usuario/edit";
         }
         
