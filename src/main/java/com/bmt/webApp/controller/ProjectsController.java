@@ -59,7 +59,7 @@ public class ProjectsController {
         //var projects = projectService.listProject();
 
         
-        model.addAttribute("totalProjects", projectsRepository.countByStatus());//model para thymeleaf count de projetos por status
+        //model.addAttribute("totalProjects", projectsRepository.countByStatus());//model para thymeleaf count de projetos por status
         model.addAttribute("projects", projectPage.getContent());
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", projectPage.getTotalPages());  

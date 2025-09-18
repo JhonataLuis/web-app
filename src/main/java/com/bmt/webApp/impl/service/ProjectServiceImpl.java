@@ -160,9 +160,9 @@ public class ProjectServiceImpl implements ProjectService{
      */
 
      @Override
-     public long countByStatus() {
+     public long count() {
 
-        return projectRepository.countByStatus();
+        return projectRepository.count();
      }
 
     private ProjectDto convertToDto(Project project){

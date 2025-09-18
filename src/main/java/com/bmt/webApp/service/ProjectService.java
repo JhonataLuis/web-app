@@ -30,8 +30,8 @@ public interface ProjectService {
 
     Page<ProjectDto> searchProjects(String searchTerm, Pageable pageable);
 
-    //conta projetos por status
-    long countByStatus();
+    //conta projetos
+    long count();
 
     
 }
