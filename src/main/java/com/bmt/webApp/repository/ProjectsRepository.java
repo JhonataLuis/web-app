@@ -18,6 +18,5 @@ public interface ProjectsRepository extends JpaRepository<Project, Long>{
     //@Query("SELECT COUNT(p) FROM Project p WHERE p.projectId = :projectId")
     //Project countByProjectId(Long projetoId);
 
-    //@Query("SELECT COUNT(p) FROM Project p WHERE p.status = :status")
     long count();
 }

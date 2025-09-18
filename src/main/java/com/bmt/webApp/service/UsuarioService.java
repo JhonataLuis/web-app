@@ -17,4 +17,7 @@ public interface  UsuarioService {
 
     void deleteUser(Long id);
 
+    //conta o total de membros da equipe
+    long countMembers();
+
 }

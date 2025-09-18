@@ -160,4 +160,14 @@ public class UsuarioServiceImpl implements UsuarioService{
         logger.info("Usuário com ID {} deletado com sucesso.", id);
     }
 
+    /**
+     * Conta o total de membros da equipe.
+     * 
+     * @return O total de membros.
+     */
+    @Override
+    public long countMembers(){
+        return userRepository.count();
+    }
+
 }

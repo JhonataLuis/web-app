@@ -15,4 +15,7 @@ public interface UserRepository extends JpaRepository<Usuario, Long>{
     // Verifica se o email existe para um usuário diferente do ID fornecido
     @Query("SELECT COUNT(u) > 0 FROM Usuario u WHERE u.email = :email AND u.id <> :id")
     boolean existsByEmailAndIdNot(String email, Long id);
+
+    //conta o tatal de membros da equipe
+    long count();
 }

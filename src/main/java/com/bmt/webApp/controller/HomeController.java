@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.bmt.webApp.repository.ProjectsRepository;
+import com.bmt.webApp.repository.UserRepository;
 
 
 
@@ -15,13 +16,17 @@ public class HomeController {
     @Autowired
     ProjectsRepository projectsRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     @GetMapping("/")
     public String home(Model model){
 
         long totalProjects = projectsRepository.count();
 
-        //model para mostrar o total de projetos no dashboard (index.html)
-        model.addAttribute("totalProjects", totalProjects);
+        
+        model.addAttribute("totalProjects", totalProjects);//total de projetos no dashboard (index.html)
+        model.addAttribute("totalMembers", userRepository.count());//total de membros da equipe
 
         return "index";
     }
