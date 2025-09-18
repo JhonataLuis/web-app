@@ -155,19 +155,14 @@ public class ProjectServiceImpl implements ProjectService{
 
     /**
      * Conta por ID do projeto
-     * @return quantidade de projetos
+     *
      * 
      */
 
      @Override
-     public void countByProjectId(Long projectId){
+     public long countByStatus() {
 
-        Project project = projectRepository.countByProjectId(projectId);
-        if(project != null){
-            logger.info("Projeto encontrado com ID: {}" + projectId);
-        } else {
-            logger.info("Nenhum projeto encontrado com ID: {}" + projectId);
-        }
+        return projectRepository.countByStatus();
      }
 
     private ProjectDto convertToDto(Project project){

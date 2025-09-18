@@ -15,6 +15,9 @@ public interface ProjectsRepository extends JpaRepository<Project, Long>{
     @Query("SELECT p FROM Project p WHERE p.nome LIKE %:searchTerm% OR p.descricao LIKE %:searchTerm%")
     Page<Project> searchProjects(@Param("searchTerm") String searchTerm, Pageable pageable);
 
-    @Query("SELECT COUNT(p) FROM Project p WHERE p.projectId = :projectId")
-    Project countByProjectId(Long projetoId);
+    //@Query("SELECT COUNT(p) FROM Project p WHERE p.projectId = :projectId")
+    //Project countByProjectId(Long projetoId);
+
+    @Query("SELECT COUNT(p) FROM Project p WHERE p.status = :status")
+    long countByStatus();
 }
