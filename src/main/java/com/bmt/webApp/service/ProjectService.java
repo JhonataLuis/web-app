@@ -30,5 +30,7 @@ public interface ProjectService {
 
     Page<ProjectDto> searchProjects(String searchTerm, Pageable pageable);
 
+    void countByProjectId(Long projectId);
+
     
 }

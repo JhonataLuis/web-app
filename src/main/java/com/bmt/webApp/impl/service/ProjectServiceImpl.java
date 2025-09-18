@@ -153,6 +153,23 @@ public class ProjectServiceImpl implements ProjectService{
         throw new UnsupportedOperationException("Unimplemented method 'atualizarStatus'");
     }
 
+    /**
+     * Conta por ID do projeto
+     * @return quantidade de projetos
+     * 
+     */
+
+     @Override
+     public void countByProjectId(Long projectId){
+
+        Project project = projectRepository.countByProjectId(projectId);
+        if(project != null){
+            logger.info("Projeto encontrado com ID: {}" + projectId);
+        } else {
+            logger.info("Nenhum projeto encontrado com ID: {}" + projectId);
+        }
+     }
+
     private ProjectDto convertToDto(Project project){
 
         ProjectDto dto = new ProjectDto();
