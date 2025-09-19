@@ -23,7 +23,7 @@ public class ProjectDto {
     private LocalDateTime dataInicio;
     
     @NotNull(message = "The Date End is required")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+   @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dataFim;
     
     @NotEmpty(message = "The status is required")

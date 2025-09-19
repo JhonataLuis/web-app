@@ -81,8 +81,8 @@ public class ProjectsController {
 
     @PostMapping("/saved")
     public String createdProject(@Valid @ModelAttribute("projectDto") ProjectDto projectDto, 
+                                 BindingResult result,
                                  Model model, 
-                                 BindingResult result, 
                                  RedirectAttributes redirect){
 
         if(result.hasErrors()){//SE TIVER ERRO INFORMA ERRO

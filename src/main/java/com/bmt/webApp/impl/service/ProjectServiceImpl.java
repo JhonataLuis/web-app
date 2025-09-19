@@ -1,6 +1,7 @@
 package com.bmt.webApp.impl.service;
 
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -182,8 +183,13 @@ public class ProjectServiceImpl implements ProjectService{
         Project project = new Project();
         project.setNome(dto.getNome());
         project.setDescricao(dto.getDescricao());
+
+       
+        
         project.setDataInicio(dto.getDataInicio());
         project.setDataFim(dto.getDataFim());
+
+      
         project.setStatus(dto.getStatus());
         return project;
     }
