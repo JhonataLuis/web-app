@@ -1,59 +1,242 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My Store | Clients Manager</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <title>CuboChess | Client Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3f37c9;
+      --success-color: #4cc9f0;
+      --light-bg: #f8f9fa;
+    }
+    
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #f8f9fa;
+      background-color: #f5f7fb;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
-
-    h1, h2 {
-      font-weight: 600;
-      color: #343a40;
+    
+    .navbar {
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
-
-    .form-control-plaintext {
-      background-color: #fff;
-      border: 1px solid #ced4da;
-      padding: 0.375rem 0.75rem;
-      border-radius: 0.375rem;
-      color: #495057;
+    
+    .navbar-brand {
+      font-weight: 700;
+      color: var(--primary-color) !important;
     }
-
-    label {
+    
+    .nav-link {
       font-weight: 500;
+      position: relative;
+      padding: 0.5rem 1rem !important;
+      transition: all 0.3s;
+    }
+    
+    .nav-link:hover {
+      color: var(--primary-color) !important;
+    }
+    
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 50%;
+      background-color: var(--primary-color);
+      transition: all 0.3s;
+    }
+    
+    .nav-link:hover::after {
+      width: 70%;
+      left: 15%;
+    }
+    
+    .main-container {
+      flex: 1;
+      padding: 2rem 0;
+    }
+    
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .detail-card {
+      background-color: #fff;
+      border-radius: 0.75rem;
+      box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .detail-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #e9ecef;
+    }
+    
+    .detail-title {
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+    
+    .detail-subtitle {
+      color: #6c757d;
+      font-size: 1.1rem;
+    }
+    
+    .detail-item {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #f8f9fa;
+    }
+    
+    .detail-label {
+      font-weight: 600;
       color: #495057;
+      display: flex;
+      align-items: center;
+      margin-bottom: 0.5rem;
     }
-
+    
+    .detail-label i {
+      margin-right: 10px;
+      color: var(--primary-color);
+      font-size: 1.1rem;
+    }
+    
+    .detail-value {
+      font-size: 1.1rem;
+      color: #343a40;
+      padding: 0.75rem 1rem;
+      background-color: #f8f9fa;
+      border-radius: 0.5rem;
+      border: 1px solid #e9ecef;
+    }
+    
+    .status-badge {
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .status-lead {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+    
+    .status-permanent {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    
+    .status-ativo {
+      background-color: #cce5ff;
+      color: #004085;
+    }
+    
+    .status-occasional {
+      background-color: #d1ecf1;
+      color: #0c5460;
+    }
+    
+    .status-other {
+      background-color: #e2e3e5;
+      color: #383d41;
+    }
+    
     .btn-primary {
-      background-color: #0d6efd;
-      border: none;
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s;
     }
-
-    .btn img {
-      margin-right: 6px;
+    
+    .btn-primary:hover {
+      background-color: var(--secondary-color);
+      border-color: var(--secondary-color);
+      transform: translateY(-2px);
     }
-
+    
+    .btn-outline-primary {
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s;
+    }
+    
     footer {
+      margin-top: auto;
       padding: 1.5rem 0;
+      background-color: white;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    }
+    
+    .today-date {
+      background-color: var(--light-bg);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-weight: 500;
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    @media (max-width: 768px) {
+      .detail-card {
+        padding: 1.5rem;
+      }
+      
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .today-date {
+        margin-left: 0;
+        margin-top: 1rem;
+      }
     }
   </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg bg-white border-bottom shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
   <div class="container">
     <a class="navbar-brand d-flex align-items-center" href="/">
       <i class="bi bi-kanban-fill me-2"></i>
-        CuboChess
+      CuboChess
     </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" href="/">Home</a>
         </li>
@@ -64,131 +247,146 @@
           <a class="nav-link" href="/privacy">Privacy</a>
         </li>
       </ul>
+      <div class="d-flex align-items-center">
+        <span class="today-date">
+          <i class="bi bi-calendar-event"></i>
+          <span th:text="${#temporals.format(#temporals.createNow(), 'dd MMMM yyyy')}"></span>
+        </span>
+      </div>
     </div>
   </div>
 </nav>
 
-<div class="container my-5">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="mb-0">Employer Details</h1>
-    <a class="btn btn-outline-primary" href="/clients/">
-      <img src="https://img.icons8.com/color/24/back--v1.png" alt="Back"/> Back to Employers
+<div class="container main-container">
+  <!-- Alert Messages -->
+  <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+    <i class="bi bi-check-circle-fill me-2"></i>
+    <span th:text="${successMessage}"></span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1 class="h2 mb-1">Client Details</h1>
+      <p class="text-muted">View detailed information about the client</p>
+    </div>
+    <a class="btn btn-outline-primary" href="/clients">
+      <i class="bi bi-arrow-left"></i> Back to Clients
     </a>
   </div>
 
-  <div class="col-md-10 mx-auto bg-white rounded shadow-sm p-5">
-    <h2 class="text-center mb-4">Employer Information</h2>
-    <form th:object="${clienteDto}">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="detail-card">
+        <div class="detail-header">
+          <h2 class="detail-title">Client Information</h2>
+          <p class="detail-subtitle">Complete details of the client record</p>
+        </div>
 
-      <div class="row mb-3">
-        <label class="col-sm-4 col-form-label">
-          <img src="https://img.icons8.com/ios-filled/20/hashtag-large.png" class="me-2" alt="ID" />
-          Client ID
-        </label>
-        <div class="col-sm-8">
-          <input class="form-control-plaintext" readonly th:value="${client.id}">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="detail-item">
+              <div class="detail-label">
+                <i class="bi bi-hash"></i> Client ID
+              </div>
+              <div class="detail-value" th:text="${client.id}"></div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-label">
+                <i class="bi bi-person"></i> First Name
+              </div>
+              <div class="detail-value" th:text="${client.firstName}"></div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-label">
+                <i class="bi bi-person"></i> Last Name
+              </div>
+              <div class="detail-value" th:text="${client.lastName}"></div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-label">
+                <i class="bi bi-envelope"></i> Email Address
+              </div>
+              <div class="detail-value" th:text="${client.email}"></div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="detail-item">
+              <div class="detail-label">
+                <i class="bi bi-telephone"></i> Phone Number
+              </div>
+              <div class="detail-value" th:text="${client.phone}"></div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-label">
+                <i class="bi bi-geo-alt"></i> Address
+              </div>
+              <div class="detail-value" th:text="${client.address}"></div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-label">
+                <i class="bi bi-info-circle"></i> Status
+              </div>
+              <div class="detail-value">
+                <span th:switch="${client.status}">
+                  <span th:case="'Lead'" class="status-badge status-lead">
+                    <i class="bi bi-lightbulb"></i> Lead
+                  </span>
+                  <span th:case="'Permanent'" class="status-badge status-permanent">
+                    <i class="bi bi-check-circle"></i> Permanent
+                  </span>
+                  <span th:case="'Ativo'" class="status-badge status-ativo">
+                    <i class="bi bi-person-check"></i> Ativo
+                  </span>
+                  <span th:case="'Occasional'" class="status-badge status-occasional">
+                    <i class="bi bi-clock-history"></i> Occasional
+                  </span>
+                  <span th:case="*" class="status-badge status-other" th:text="${client.status}"></span>
+                </span>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-label">
+                <i class="bi bi-calendar"></i> Created At
+              </div>
+              <div class="detail-value" th:text="${#dates.format(client.createdAt, 'dd/MM/yyyy HH:mm')}"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12">
+            <div class="d-flex justify-content-end gap-2">
+              <a class="btn btn-outline-secondary" href="/clients">
+                <i class="bi bi-x-circle me-1"></i> Cancel
+              </a>
+              <a class="btn btn-primary" th:href="@{/clients/edit(id=${client.id})}">
+                <i class="bi bi-pencil me-1"></i> Edit Client
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="row mb-3 align-items-center">
-        <label class="col-sm-4 col-form-label">
-          <img src="https://img.icons8.com/ios-filled/20/user.png" class="me-2" alt="First Name" />
-          First Name
-        </label>
-        <div class="col-sm-8">
-          <input class="form-control-plaintext" readonly th:value="${client.firstName}">
-        </div>
-      </div>
-
-      <div class="row mb-3 align-items-center">
-        <label class="col-sm-4 col-form-label">
-          <img src="https://img.icons8.com/ios-filled/20/user.png" class="me-2" alt="Last Name" />
-          Last Name
-        </label>
-        <div class="col-sm-8">
-          <input class="form-control-plaintext" readonly th:value="${client.lastName}">
-        </div>
-      </div>
-
-      <div class="row mb-3 align-items-center">
-        <label class="col-sm-4 col-form-label">
-          <img src="https://img.icons8.com/ios-filled/20/email.png" class="me-2" alt="Email" />
-          Email
-        </label>
-        <div class="col-sm-8">
-          <input class="form-control-plaintext" readonly th:value="${client.email}">
-        </div>
-      </div>
-
-      <div class="row mb-3 align-items-center">
-        <label class="col-sm-4 col-form-label">
-          <img src="https://img.icons8.com/ios-filled/20/phone.png" alt="Phone" class="me-2"/>
-          Phone
-        </label>
-        <div class="col-sm-8">
-          <input class="form-control-plaintext" readonly th:value="${client.phone}">
-        </div>
-      </div>
-
-      <div class="row mb-3 align-items-center">
-        <label class="col-sm-4 col-form-label">
-          <img src="https://img.icons8.com/ios-filled/20/marker.png" class="me-2" alt="Address" />
-          Address
-        </label>
-        <div class="col-sm-8">
-          <input class="form-control-plaintext" readonly th:value="${client.address}">
-        </div>
-      </div>
-
-      <div class="row mb-3 align-items-center">
-        <label class="col-sm-4 col-form-label">
-          <img src="https://img.icons8.com/ios-filled/20/info--v1.png" class="me-2" alt="Status" />
-          Status
-        </label>
-        <div class="col-sm-8">
-            <span th:switch="${client.status}">
-              <span th:case="'Lead'" class="badge bg-warning status-badge">Lead</span>
-              <span th:case="'Permanent'" class="badge bg-success status-badge">Permanent</span>
-              <span th:case="'Ativo'" class="badge bg-primary status-badge">Ativo</span>
-              <span th:case="'Occasional'" class="badge bg-info status-badge">Occasional</span>
-              <span th:case="*" class="badge bg-secondary status-badge" th:text="${client.status}"></span>
-              <input th:case="'Lead'" class="form-control-plaintext badge bg-primary status-badge" readonly th:value="${client.status}">
-              <input th:case="'Permanent'" class="form-control-plaintext badge bg-primary status-badge" readonly th:value="${client.status}">
-              <input th:case="'Ativo'" class="form-control-plaintext badge bg-primary status-badge" readonly th:value="${client.status}">
-            </span>
-          
-          <input class="form-control-plaintext" readonly th:value="${client.status}">
-        </div>
-      </div>
-
-      <div class="row mb-4 align-items-center">
-        <label class="col-sm-4 col-form-label">
-          <img src="https://img.icons8.com/ios-filled/20/calendar--v1.png" alt="Created At" class="me-2"/>
-          Created At
-        </label>
-        <div class="col-sm-8">
-          <input class="form-control-plaintext" readonly th:value="${#dates.format(client.createdAt, 'yyyy-MM-dd')}">
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="offset-sm-4 col-sm-4 d-grid">
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-        <div class="col-sm-4 d-grid">
-          <a class="btn btn-outline-secondary" href="/clients">Cancel</a>
-        </div>
-      </div>
-    </form>
+    </div>
   </div>
 </div>
 
-<footer class="border-top bg-light text-muted text-center">
+<footer class="border-top">
   <div class="container">
-    &copy; [[${#dates.format(#dates.createNow(), 'yyyy')}]] - My Store
+    <div class="text-center text-muted">
+      &copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span> - CuboChess. Todos Direitos Reservados.
+    </div>
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
