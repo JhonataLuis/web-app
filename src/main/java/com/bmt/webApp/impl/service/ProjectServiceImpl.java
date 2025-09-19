@@ -17,7 +17,6 @@ import com.bmt.webApp.repository.ProjectsRepository;
 import com.bmt.webApp.service.ProjectService;
 
 import jakarta.transaction.Transactional;
-import jakarta.validation.Valid;
 
 @Service
 public class ProjectServiceImpl implements ProjectService{
@@ -51,7 +50,7 @@ public class ProjectServiceImpl implements ProjectService{
      */
     @Transactional
     @Override
-    public void createProject(@Valid ProjectDto dto) {
+    public void createProject(ProjectDto dto) {
         logger.info("Tentando adicionar um novo Projeto: {}");
 
         Project project = convertToEntity(dto);
