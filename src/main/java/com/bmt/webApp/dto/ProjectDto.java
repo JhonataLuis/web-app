@@ -2,6 +2,8 @@ package com.bmt.webApp.dto;
 
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -17,9 +19,11 @@ public class ProjectDto {
     private String descricao;
 
     @NotNull(message = "The Date start is required")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dataInicio;
     
     @NotNull(message = "The Date End is required")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dataFim;
     
     @NotEmpty(message = "The status is required")

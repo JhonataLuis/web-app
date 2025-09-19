@@ -1,5 +1,7 @@
 package com.bmt.webApp.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +28,8 @@ import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/projects")
 public class ProjectsController {
+
+    public static final Logger logger = LoggerFactory.getLogger(ProjectsController.class);
 
     @Autowired
     private ProjectsRepository projectsRepository;
@@ -68,30 +72,37 @@ public class ProjectsController {
 
     //cria um novo projeto
     @GetMapping("/created")
-    public String createdProject(@RequestParam(value = "success", required= false) String success,
-    Model model){
+    public String createdProject(Model model){
         
         ProjectDto project = new ProjectDto();
-        
         model.addAttribute("projectDto", project);
-
-         if(success != null){//SE CADASTRAR COM SUCESSO APARECE MENSAGEM DE CADASTRO COM SUCESSO
-            model.addAttribute("successMessage", "Project created successfully!");
-        }
-
         return "projects/create";
     }
 
-    @PostMapping("/created")
-    public String createdProject(@Valid @ModelAttribute ProjectDto projectDto, 
-                                 Model model, BindingResult result){
+    @PostMapping("/saved")
+    public String createdProject(@Valid @ModelAttribute("projectDto") ProjectDto projectDto, 
+                                 Model model, 
+                                 BindingResult result, 
+                                 RedirectAttributes redirect){
 
         if(result.hasErrors()){//SE TIVER ERRO INFORMA ERRO
+            model.addAttribute("errorMessage","Please correct the errors in the form!");
+            //É importante retornar o objeto para manter os dados preenchidos
+            model.addAttribute("projectDto", projectDto);
             return "projects/create";
         }
        
-        projectService.createProject(projectDto);
-        return "redirect:/projects/created?success";
+        try{
+            projectService.createProject(projectDto);
+            redirect.addFlashAttribute("successMessage", "Project created successfully!");
+            logger.info("Projeto criado no banco de dados ID{}", projectDto.getId());
+            return "redirect:/projects";
+        } catch(Exception e){
+            model.addAttribute("errorMessage", "An error occurred while creating the project. Please try again.");
+            model.addAttribute("projectDto", projectDto);
+            return "projects/create";
+        }
+        
     }
 
     @GetMapping("/details/{id}")
