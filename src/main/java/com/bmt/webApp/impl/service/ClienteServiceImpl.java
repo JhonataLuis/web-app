@@ -1,6 +1,7 @@
 package com.bmt.webApp.impl.service;
 
 import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -36,17 +37,17 @@ public class ClienteServiceImpl implements ClienteService{
     public void CreateClient(ClienteDto clientDto) {
         
         Cliente client = new Cliente();
-        if(client != null){
-            client.setFirstName(clientDto.getFirstName());
-            client.setLastName(clientDto.getLastName());
-            client.setEmail(clientDto.getEmail());
-            client.setPhone(clientDto.getPhone());
-            client.setAddress(clientDto.getAddress());
-            client.setStatus(clientDto.getStatus());
-            client.setCreatedAt(new Date());
+        
+        client.setFirstName(clientDto.getFirstName());
+        client.setLastName(clientDto.getLastName());
+        client.setEmail(clientDto.getEmail());
+        client.setPhone(clientDto.getPhone());
+        client.setAddress(clientDto.getAddress());
+        client.setStatus(clientDto.getStatus());
+        client.setCreatedAt(new Date());
 
-            clientRepository.save(client);
-        }
+        clientRepository.save(client);
+      
     }
 
     @Override

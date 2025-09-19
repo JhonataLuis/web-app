@@ -83,7 +83,7 @@ public class ProjectsController {
     }
 
     @PostMapping("/created")
-    public String createdProject(@Valid @ModelAttribute("projectDto") ProjectDto projectDto, 
+    public String createdProject(@Valid @ModelAttribute ProjectDto projectDto, 
                                  Model model, BindingResult result){
 
         if(result.hasErrors()){//SE TIVER ERRO INFORMA ERRO

@@ -2,7 +2,6 @@ package com.bmt.webApp.dto;
 
 import java.time.LocalDateTime;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -10,10 +9,10 @@ public class ProjectDto {
 
     //@NotNull
     private Long id;
-    @NotBlank
+    
     @NotEmpty(message = "The name is required")
     private String nome;
-    @NotBlank
+    
     @NotEmpty(message = "The description is required")
     private String descricao;
 
@@ -22,7 +21,7 @@ public class ProjectDto {
     
     @NotNull(message = "The Date End is required")
     private LocalDateTime dataFim;
-    @NotBlank
+    
     @NotEmpty(message = "The status is required")
     private String status;//Em andamento, Concluído
 
