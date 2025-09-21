@@ -180,7 +180,7 @@ public class ProjectServiceImpl implements ProjectService{
     */
     @Override
     public List<ProjectDto> findTop4ByOrderByIdDesc(){
-        
+
         List<Project> projects = projectRepository.findTop4ByOrderByIdDesc();
         return projects.stream()
             .map(this::convertToDto)

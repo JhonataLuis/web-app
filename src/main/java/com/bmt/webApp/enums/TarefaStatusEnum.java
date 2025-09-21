@@ -1,4 +1,4 @@
-package com.bmt.webApp.model;
+package com.bmt.webApp.enums;
 
 public enum TarefaStatusEnum {
 

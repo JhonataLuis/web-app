@@ -4,10 +4,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bmt.webApp.enums.ProjectStatus;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,12 +32,20 @@ public class Project {
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
     private Integer completionPercentage;
-    private String status;//New, Em andamento e Concluído
+
+    @Enumerated(EnumType.STRING)
+    private ProjectStatus status;//New, Pendente, Em andamento, Concluído e Cancelado
 
     //Relacionamento 1-N com Tarefa
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference //Evita recusrsividade infinita no JSON
     private List<Tarefa> tarefas = new ArrayList<>();
+
+    // Construtor para novos projetos: ao cadastrar, a porcentage de conclusão inicia em 0 e o status em "New"
+    public Project(){
+        this.completionPercentage = 0;
+        this.status = ProjectStatus.NEW;
+    }
     
     public Long getId() {
         return id;
@@ -67,18 +78,19 @@ public class Project {
         this.dataFim = dataFim;
     }
 
-    public Double getCompletionPercentage(){
+    public Integer getCompletionPercentage(){
         return completionPercentage;
     }
 
-    public void setCompletionPercentage(Double completionPercentage){
+    public void setCompletionPercentage(Integer completionPercentage){
         this.completionPercentage = completionPercentage;
     }
 
-    public String getStatus() {
+    public ProjectStatus getStatus() {
         return status;
     }
-    public void setStatus(String status) {
+
+    public void setStatus(ProjectStatus status) {
         this.status = status;
     }
 

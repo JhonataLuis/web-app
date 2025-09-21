@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.bmt.webApp.enums.ProjectStatus;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -27,7 +29,7 @@ public class ProjectDto {
     private LocalDateTime dataFim;
     
     @NotEmpty(message = "The status is required")
-    private String status;//Em andamento, Concluído
+    private ProjectStatus status;//New, Pendente, Em andamento, Concluído e Cancelado
 
     public void setId(Long id) {
         this.id = id;
@@ -61,13 +63,13 @@ public class ProjectDto {
     public void setDataFim(LocalDateTime dataFim) {
         this.dataFim = dataFim;
     }
-    public String getStatus() {
+   
+    public ProjectStatus getStatus() {
         return status;
     }
-    public void setStatus(String status) {
+
+    public void setStatus(ProjectStatus status) {
         this.status = status;
     }
-
-    
 
 }
