@@ -28,6 +28,7 @@ public class Project {
     private String descricao;
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
+    private Double completionPercentage;
     private String status;//New, Em andamento e Concluído
 
     //Relacionamento 1-N com Tarefa
@@ -65,6 +66,15 @@ public class Project {
     public void setDataFim(LocalDateTime dataFim) {
         this.dataFim = dataFim;
     }
+
+    public Double getCompletionPercentage(){
+        return completionPercentage;
+    }
+
+    public void setCompletionPercentage(Double completionPercentage){
+        this.completionPercentage = completionPercentage;
+    }
+    
     public String getStatus() {
         return status;
     }
