@@ -3,10 +3,10 @@ package com.bmt.webApp.enums;
 public enum ProjectStatus {
 
     NEW("New"),
-    PENDING("Pendente"),
-    IN_PROGRESS("Em andamento"),
-    COMPLETED("Concluído"),
-    CANCELED("Cancelado");
+    PENDENTE("Pendente"),
+    ANDAMENTO("Andamento"),
+    CONCLUÍDO("Concluído"),
+    CANCELADO("Cancelado");
 
     private final String projectStatus;
 

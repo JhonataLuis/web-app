@@ -453,8 +453,14 @@
             <div class="detail-row row">
                 <div class="col-md-2 detail-label">Status</div>
                 <div class="col-md-10">
-                    <span class="status-badge" th:classappend="'status-' + ${project.status.toLowerCase()}" th:text="${project.status}"></span>
+                    <span class="status-badge" th:classappend="'status-' + ${project.status.projectStatus.toLowerCase()}" th:text="${project.status}"></span>
                 </div>
+            </div>
+            <div class="detail-row row">
+                <form th:action="@{'/projects/' + ${project.id} + '/update-completion'}" method="post">
+                    <input type="number" name="completionPercentage"  class="form-control" min="0" max="100" th:value="${project.completionPercentage}" required>
+                        <button type="submit" class="btn btn-primary mt-2">Update Project Completion</button>
+                </form>
             </div>
         </div>
 
@@ -536,12 +542,7 @@
                                                             <option value="Concluído" th:selected="${tarefa.status == 'Concluído'}">Completed</option>
                                                         </select>
                                                     </div>
-                                                    <div>
-                                                        <form th:action="@{'/projects/' + ${project.id} + '/update-completion'}" method="post">
-                                                            <input type="number" name="completionPercentage"  class="form-control" min="0" max="100" th:value="${project.completionPercentage}" required>
-                                                            <button type="submit" class="btn btn-primary mt-2">Update Project Completion</button>
-                                                        </form>
-                                                    </div>
+                                                    
                                                     
                                                     <div class="mb-3">
                                                         <label class="form-label">Assigned To</label>

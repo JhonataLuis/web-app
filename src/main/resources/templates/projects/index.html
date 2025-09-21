@@ -473,16 +473,16 @@
                             <div class="text-truncate" style="max-width: 200px;" th:text="${project.descricao}"></div>
                         </td>
                         <td>
-                            <span th:if="${project.status == 'New'}" class="status-badge status-new">
+                            <span th:if="${project.status.projectStatus == 'New'}" class="status-badge status-new">
                                 <i class="bi bi-star-fill"></i> New
                             </span>
-                          <span th:if="${project.status == 'Pendente'}" class="status-badge status-occasional">
+                          <span th:if="${project.status.projectStatus == 'Pendente'}" class="status-badge status-occasional">
                               <i class="bi bi-clock-history"></i> Pendente
                             </span>
-                            <span th:if="${project.status == 'Andamento'}" class="status-badge status-andamento">
+                            <span th:if="${project.status.projectStatus == 'Andamento'}" class="status-badge status-andamento">
                                 <i class="bi bi-clock"></i> In Progress
                             </span>
-                            <span th:if="${project.status == 'Concluído'}" class="status-badge status-concluido">
+                            <span th:if="${project.status.projectStatus == 'Concluído'}" class="status-badge status-concluido">
                                 <i class="bi bi-check-circle"></i> Completed
                             </span>
                         </td>

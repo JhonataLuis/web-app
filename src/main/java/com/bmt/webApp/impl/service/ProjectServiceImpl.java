@@ -230,11 +230,11 @@ public class ProjectServiceImpl implements ProjectService{
 
         // Atualiza o status do projeto com base na porcentagem de conclusão
         if(completionPercentage == 100){
-            project.setStatus(ProjectStatus.COMPLETED);
+            project.setStatus(ProjectStatus.CONCLUÍDO);
         } else if (completionPercentage > 0){
-            project.setStatus(ProjectStatus.IN_PROGRESS);
+            project.setStatus(ProjectStatus.ANDAMENTO);
         } else {
-            project.setStatus(ProjectStatus.PENDING);
+            project.setStatus(ProjectStatus.PENDENTE);
         }
 
         project = projectRepository.save(project);
