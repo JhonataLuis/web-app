@@ -28,7 +28,7 @@ public class HomeController {
         
         model.addAttribute("totalProjects", totalProjects);//total de projetos no dashboard (index.html)
         model.addAttribute("totalMembers", userRepository.count());//total de membros da equipe
-        model.addAttribute("totalCompletedProjects", projectsRepository.countByStatus(status)); //total de projetos com status "Concluído"
+        model.addAttribute("totalCompletedProjects", status); //total de projetos com status "Concluído"
 
         return "index";
     }
