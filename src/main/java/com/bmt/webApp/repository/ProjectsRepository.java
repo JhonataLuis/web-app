@@ -19,4 +19,8 @@ public interface ProjectsRepository extends JpaRepository<Project, Long>{
     //Project countByProjectId(Long projetoId);
 
     long count();
+
+    //Consulta personalizada para contar projetos com status "Concluído"
+    @Query("SELECT p FROM Project p WHERE p.status = :status")
+    long countByStatus(@Param("status") String status);
 }

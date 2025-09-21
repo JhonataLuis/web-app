@@ -1,7 +1,6 @@
 package com.bmt.webApp.impl.service;
 
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -133,6 +132,7 @@ public class ProjectServiceImpl implements ProjectService{
 
     /**
      * Lista projetos por status com paginação
+     * @return projetos filtrados por status
      */
     @Override
     public Page<ProjectDto> findByStatus(String status, Pageable pageable) {
@@ -155,7 +155,7 @@ public class ProjectServiceImpl implements ProjectService{
 
     /**
      * Conta por ID do projeto
-     *
+     * @return total de projetos
      * 
      */
 
@@ -164,6 +164,15 @@ public class ProjectServiceImpl implements ProjectService{
 
         return projectRepository.count();
      }
+
+     /**
+      * Contar o total de projetos com o status "Concluído"
+      * @return total de projetos concluídos
+      */
+      @Override 
+      public long countByStatus(String status) {
+        return projectRepository.countByStatus(status);
+      }
 
     private ProjectDto convertToDto(Project project){
 
@@ -183,14 +192,10 @@ public class ProjectServiceImpl implements ProjectService{
         Project project = new Project();
         project.setNome(dto.getNome());
         project.setDescricao(dto.getDescricao());
-
-       
-        
         project.setDataInicio(dto.getDataInicio());
         project.setDataFim(dto.getDataFim());
-
-      
         project.setStatus(dto.getStatus());
+
         return project;
     }
     

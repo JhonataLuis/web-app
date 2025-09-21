@@ -33,5 +33,8 @@ public interface ProjectService {
     //conta projetos
     long count();
 
+    //conta projetos com status "Concluído"
+    long countByStatus(String status);
+
     
 }
