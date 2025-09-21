@@ -396,36 +396,9 @@
                         <div th:classappend="${project.status == 'andamento'} ? 'project-status status-andamento'" class="project-status status-andamento"></div>
                         <div class="project-info">
                             <div class="project-name" th:text="${project.nome}">Redesign do Site Corporativo</div>
-                            <div  class="project-date">Prazo: <span th:text="${#temporals.format(project.dataFim, 'dd/MM/yyyy')}">15/12/2023 </span> • <span th:text="${project.completionPercentage} + '% concluído'"></span> • 65% concluído</div>
+                            <div  class="project-date">Prazo: <span th:text="${#temporals.format(project.dataFim, 'dd/MM/yyyy')}">15/12/2023 </span> • <span th:text="${project.completionPercentage} + '% concluído'"></span></div>
                         </div>
                         <a th:href="@{'/projects/details/' + ${project.id}}" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
-                    </div>
-                    
-                    <div class="project-item">
-                        <div class="project-status status-pendente"></div>
-                        <div class="project-info">
-                            <div class="project-name">Sistema de Gestão de Clientes</div>
-                            <div class="project-date">Prazo: 20/01/2024 • 30% concluído</div>
-                        </div>
-                        <a href="/projects/details/2" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
-                    </div>
-                    
-                    <div class="project-item">
-                        <div class="project-status status-concluido"></div>
-                        <div class="project-info">
-                            <div class="project-name">Campanha de Marketing Digital</div>
-                            <div class="project-date">Concluído em: 10/11/2023</div>
-                        </div>
-                        <a href="/projects/details/3" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
-                    </div>
-                    
-                    <div class="project-item">
-                        <div class="project-status status-andamento"></div>
-                        <div class="project-info">
-                            <div class="project-name">App Mobile - Fase 2</div>
-                            <div class="project-date">Prazo: 05/02/2024 • 45% concluído</div>
-                        </div>
-                        <a href="/projects/details/4" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
                     </div>
                     
                     <div class="text-center mt-3">
