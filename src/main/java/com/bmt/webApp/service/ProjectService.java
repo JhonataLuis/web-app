@@ -36,5 +36,8 @@ public interface ProjectService {
     //conta projetos com status "Concluído"
     long countByStatus(String status);
 
+    //listar os 4 últimos projetos cadastrados no sistema
+    List<ProjectDto> findTop4ByOrderByIdDesc();
+
     
 }

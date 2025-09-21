@@ -392,13 +392,13 @@
                 <div class="recent-projects">
                     <h3 class="section-title">Projetos Recentes</h3>
                     
-                    <div class="project-item">
-                        <div class="project-status status-andamento"></div>
+                    <div class="project-item" th:each="project : ${recentProjects}">
+                        <div th:classappend="${project.status == 'andamento'} ? 'project-status status-andamento'" class="project-status status-andamento"></div>
                         <div class="project-info">
-                            <div class="project-name">Redesign do Site Corporativo</div>
-                            <div class="project-date">Prazo: 15/12/2023 • 65% concluído</div>
+                            <div class="project-name" th:text="${project.nome}">Redesign do Site Corporativo</div>
+                            <div  class="project-date">Prazo: <span th:text="${#temporals.format(project.dataFim, 'dd/MM/yyyy')}">15/12/2023 <!--</span> • <span th:text="${project.completionPercentage} + '% concluído'"></span> --> • 65% concluído</div>
                         </div>
-                        <a href="/projects/details/1" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
+                        <a th:href="@{'/projects/details/' + ${project.id}}" class="btn btn-sm btn-outline-primary">Ver detalhes</a>
                     </div>
                     
                     <div class="project-item">

@@ -174,6 +174,19 @@ public class ProjectServiceImpl implements ProjectService{
         return projectRepository.countByStatus(status);
       }
 
+    /**
+    * Lista os 4 últimos projetos cadastrados no sistema
+    * @return lista dos 4 últimos projetos
+    */
+    @Override
+    public List<ProjectDto> findTop4ByOrderByIdDesc(){
+        
+        List<Project> projects = projectRepository.findTop4ByOrderByIdDesc();
+        return projects.stream()
+            .map(this::convertToDto)
+            .collect(Collectors.toList());
+        }
+
     private ProjectDto convertToDto(Project project){
 
         ProjectDto dto = new ProjectDto();

@@ -1,5 +1,7 @@
 package com.bmt.webApp.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,4 +25,7 @@ public interface ProjectsRepository extends JpaRepository<Project, Long>{
     //Consulta personalizada para contar projetos com status "Concluído"
     @Query("SELECT COUNT(p) FROM Project p WHERE p.status = :status")
     long countByStatus(@Param("status") String status);
+
+    //ação para listar os 4 últimos projetos cadastrados no sistema
+    List<Project> findTop4ByOrderByIdDesc();
 }
