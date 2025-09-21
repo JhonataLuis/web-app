@@ -23,12 +23,12 @@ public class HomeController {
     public String home(Model model){
 
         long totalProjects = projectsRepository.count();
-        long status = projectsRepository.countByStatus("Concluído");
+        long totalCompletedProjects = projectsRepository.countByStatus("Concluído");
 
         
         model.addAttribute("totalProjects", totalProjects);//total de projetos no dashboard (index.html)
         model.addAttribute("totalMembers", userRepository.count());//total de membros da equipe
-        model.addAttribute("totalCompletedProjects", status); //total de projetos com status "Concluído"
+        model.addAttribute("totalCompletedProjects", totalCompletedProjects); //total de projetos com status "Concluído"
 
         return "index";
     }
