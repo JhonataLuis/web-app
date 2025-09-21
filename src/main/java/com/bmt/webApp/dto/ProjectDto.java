@@ -31,6 +31,8 @@ public class ProjectDto {
     @NotEmpty(message = "The status is required")
     private ProjectStatus status;//New, Pendente, Em andamento, Concluído e Cancelado
 
+    private Integer completionPercentage;
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -70,6 +72,10 @@ public class ProjectDto {
 
     public void setStatus(ProjectStatus status) {
         this.status = status;
+    }
+
+    public void setCompletionPercentage(Integer completionPercentage) {
+        this.completionPercentage = completionPercentage;
     }
 
 }

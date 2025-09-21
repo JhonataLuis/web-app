@@ -158,5 +158,18 @@ public class ProjectsController {
         return "redirect:/projects";
     }
 
+    @PostMapping("/{id}/update-completion")
+    public String updateProjectCompletion(@PathVariable Long id, 
+                                          @RequestParam("completionPercentage") Integer completionPercentage,
+                                          RedirectAttributes redirectAttributes) {
+        try {
+            projectService.updateCompletionPercentagem(id, completionPercentage);
+            redirectAttributes.addFlashAttribute("successMessage", "Project completion percentage updated successfully!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "An error occurred while updating the project completion percentage.");
+        }
+        return "redirect:/projects/details/" + id;
+    }
+
     
 }

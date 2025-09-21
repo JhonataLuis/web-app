@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.bmt.webApp.enums.ProjectStatus;
 import com.bmt.webApp.model.Project;
 
 @Repository
@@ -24,7 +25,7 @@ public interface ProjectsRepository extends JpaRepository<Project, Long>{
 
     //Consulta personalizada para contar projetos com status "Concluído"
     @Query("SELECT COUNT(p) FROM Project p WHERE p.status = :status")
-    long countByStatus(@Param("status") String status);
+    long countByStatus(@Param("status") ProjectStatus status);
 
     //ação para listar os 4 últimos projetos cadastrados no sistema
     List<Project> findTop4ByOrderByIdDesc();

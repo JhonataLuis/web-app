@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.bmt.webApp.dto.ProjectDto;
+import com.bmt.webApp.enums.ProjectStatus;
 import com.bmt.webApp.model.Project;
 import com.bmt.webApp.repository.ProjectsRepository;
 import com.bmt.webApp.service.ProjectService;
@@ -171,7 +172,7 @@ public class ProjectServiceImpl implements ProjectService{
       */
       @Override 
       public long countByStatus(String status) {
-        return projectRepository.countByStatus(status);
+        return projectRepository.countByStatus(ProjectStatus.valueOf(status.toUpperCase()));
       }
 
     /**
@@ -196,7 +197,8 @@ public class ProjectServiceImpl implements ProjectService{
         dto.setDescricao(project.getDescricao());
         dto.setDataInicio(project.getDataInicio());
         dto.setDataFim(project.getDataFim());
-        dto.setStatus(project.getStatus());
+        dto.setCompletionPercentage(project.getCompletionPercentage());
+        dto.setStatus(project.getStatus());// Retorna a string do enum
         return dto;
     }
 
@@ -207,9 +209,37 @@ public class ProjectServiceImpl implements ProjectService{
         project.setDescricao(dto.getDescricao());
         project.setDataInicio(dto.getDataInicio());
         project.setDataFim(dto.getDataFim());
-        project.setStatus(dto.getStatus());
-
+        //project.setStatus(dto.getStatus());
+        // completionPercentage inicia em 0 e status em "New" no construtor da classe Project
+        
         return project;
     }
+
+    /**
+     * Atualiza a porcentagem de conclusão do projeto com base no status dos projetos
+     * @param project o projeto a ser atualizado
+     * @return 
+     */
+    @Override
+    public void updateCompletionPercentagem(Long projectId, Integer completionPercentage) {
+
+       Project project = projectRepository.findById(projectId)
+       .orElseThrow(() -> new IllegalArgumentException("Projeto não encontrado com ID: " + projectId));
+
+        project.setCompletionPercentage(completionPercentage);
+
+        // Atualiza o status do projeto com base na porcentagem de conclusão
+        if(completionPercentage == 100){
+            project.setStatus(ProjectStatus.COMPLETED);
+        } else if (completionPercentage > 0){
+            project.setStatus(ProjectStatus.IN_PROGRESS);
+        } else {
+            project.setStatus(ProjectStatus.PENDING);
+        }
+
+        project = projectRepository.save(project);
+        // Retorna o projeto atualizado
+        convertToDto(project);
+     }
     
 }

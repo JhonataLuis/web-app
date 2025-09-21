@@ -204,6 +204,10 @@
         .status-pendente {
             background-color: var(--danger-color);
         }
+
+        .status-cancelado {
+            background-color: #c01b4c;
+        }
         
         .project-info {
             flex: 1;
@@ -393,7 +397,7 @@
                     <h3 class="section-title">Projetos Recentes</h3>
                     
                     <div class="project-item" th:each="project : ${recentProjects}">
-                        <div th:classappend="${project.status == 'andamento'} ? 'project-status status-andamento'" class="project-status status-andamento"></div>
+                        <div th:classappend="'project.status status-' + ${project.status}" class="project-status"></div>
                         <div class="project-info">
                             <div class="project-name" th:text="${project.nome}">Redesign do Site Corporativo</div>
                             <div  class="project-date">Prazo: <span th:text="${#temporals.format(project.dataFim, 'dd/MM/yyyy')}">15/12/2023 </span> • <span th:text="${project.completionPercentage} + '% concluído'"></span></div>

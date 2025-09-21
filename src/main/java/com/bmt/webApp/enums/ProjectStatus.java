@@ -1,28 +1,30 @@
 package com.bmt.webApp.enums;
 
-public enum ProjectStatusEnum {
+public enum ProjectStatus {
 
     NEW("New"),
+    PENDING("Pendente"),
     IN_PROGRESS("Em andamento"),
-    COMPLETED("Concluído");
+    COMPLETED("Concluído"),
+    CANCELED("Cancelado");
 
-    private final String descricao;
+    private final String projectStatus;
 
-    ProjectStatusEnum(String descricao) {
-        this.descricao = descricao;
+    ProjectStatus(String projectStatus) {
+        this.projectStatus = projectStatus;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getProjectStatus() {
+        return projectStatus;
     }
 
-    public static ProjectStatusEnum fromDescricao(String descricao) {
-        for (ProjectStatusEnum status : ProjectStatusEnum.values()) {
-            if (status.descricao.equalsIgnoreCase(descricao) || 
-                status.name().equalsIgnoreCase(descricao)) {
+    public static ProjectStatus fromDescricao(String projectStatus) {
+        for (ProjectStatus status : ProjectStatus.values()) {
+            if (status.projectStatus.equalsIgnoreCase(projectStatus) || 
+                status.name().equalsIgnoreCase(projectStatus)) {
                 return status;
             }
         }
-        throw new IllegalArgumentException("Status não encontrado para a descrição: " + descricao);
+        throw new IllegalArgumentException("Status não encontrado para a descrição: " + projectStatus);
     }
 }

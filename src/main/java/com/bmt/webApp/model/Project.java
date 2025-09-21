@@ -33,7 +33,7 @@ public class Project {
     private LocalDateTime dataFim;
     private Integer completionPercentage;
 
-    @Enumerated(EnumType.STRING)
+    //@Enumerated(EnumType.STRING)
     private ProjectStatus status;//New, Pendente, Em andamento, Concluído e Cancelado
 
     //Relacionamento 1-N com Tarefa
