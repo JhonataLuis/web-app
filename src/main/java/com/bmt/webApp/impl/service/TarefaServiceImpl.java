@@ -1,5 +1,6 @@
 package com.bmt.webApp.impl.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -169,4 +170,15 @@ public class TarefaServiceImpl implements TarefaService{
             }
         return dto;
     }
-}
+
+    /**
+     * Contar tarefas atrasadas
+     * @return total de tarefas atrasadas
+     * 
+     */
+    @Override
+    public Long contarTarefasAtrasadas() {
+        return tarefaRepository.countByTaskAtrasada(LocalDateTime.now());
+
+    }
+}   
