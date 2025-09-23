@@ -162,7 +162,6 @@ public class ProjectServiceImpl implements ProjectService{
 
      @Override
      public long count() {
-
         return projectRepository.count();
      }
 
@@ -172,7 +171,7 @@ public class ProjectServiceImpl implements ProjectService{
       */
       @Override 
       public long countByStatus(String status) {
-        return projectRepository.countByStatus(ProjectStatus.valueOf(status.toUpperCase()));
+        return projectRepository.countByStatus(ProjectStatus.CONCLUÍDO);// Aqui você pode passar o enum ProjectStatus.CONCLUÍDO
       }
 
     /**

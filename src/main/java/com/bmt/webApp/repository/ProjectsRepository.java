@@ -27,6 +27,6 @@ public interface ProjectsRepository extends JpaRepository<Project, Long>{
     @Query("SELECT COUNT(p) FROM Project p WHERE p.status = :status")
     long countByStatus(@Param("status") ProjectStatus status);
 
-    //ação para listar os 4 últimos projetos cadastrados no sistema
+    //ação para listar os 4 últimos projetos cadastrados no sistema, para mostrar no index do sistema
     List<Project> findTop4ByOrderByIdDesc();
 }

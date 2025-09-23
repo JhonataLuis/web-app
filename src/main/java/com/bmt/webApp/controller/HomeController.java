@@ -23,7 +23,7 @@ public class HomeController {
     public String home(Model model){
 
         long totalProjects = projectsRepository.count();
-        long totalCompletedProjects = projectsRepository.countByStatus(null);
+        long totalCompletedProjects = projectsRepository.countByStatus(null); //Aqui você pode passar o enum ProjectStatus.COMPLETED se estiver usando enums
 
         
         model.addAttribute("totalProjects", totalProjects);//total de projetos no dashboard (index.html)
