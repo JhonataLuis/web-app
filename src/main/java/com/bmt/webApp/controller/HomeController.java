@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.bmt.webApp.enums.ProjectStatus;
 import com.bmt.webApp.repository.ProjectsRepository;
 import com.bmt.webApp.repository.UserRepository;
 
@@ -23,7 +24,7 @@ public class HomeController {
     public String home(Model model){
 
         long totalProjects = projectsRepository.count();
-        long totalCompletedProjects = projectsRepository.countByStatus(null); //Aqui você pode passar o enum ProjectStatus.COMPLETED se estiver usando enums
+        long totalCompletedProjects = projectsRepository.countByStatus(ProjectStatus.CONCLUÍDO); //Aqui você pode passar o enum ProjectStatus.COMPLETED se estiver usando enums
 
         
         model.addAttribute("totalProjects", totalProjects);//total de projetos no dashboard (index.html)
