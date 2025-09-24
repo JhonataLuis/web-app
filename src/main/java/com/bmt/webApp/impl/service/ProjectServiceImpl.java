@@ -1,6 +1,8 @@
 package com.bmt.webApp.impl.service;
 
 
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -240,5 +242,21 @@ public class ProjectServiceImpl implements ProjectService{
         // Retorna o projeto atualizado
         convertToDto(project);
      }
-    
+
+     /**
+      * Busca projetos com prazos próximos (dentro de 7 dias a partir da data atual)
+      * @return lista de projetos com prazos próximos
+      */
+    @Override
+    public List<ProjectDto> buscarProjetosComProximosPrazos() {
+
+        // Filtra projetos cuja data de fim esteja dentro dos próximos 7 dias
+        return projectRepository.findAll().stream()
+            .filter(p -> p.getDataFim() != null)
+            .filter(p -> p.getDataFim().isAfter(LocalDateTime.now().minusDays(7)))
+            .sorted((p1, p2) -> p1.getDataFim().compareTo(p2.getDataFim()))
+            .limit(4) // Limita a 4 projetos
+            .map(this::convertToDto)
+            .collect(Collectors.toList());
+    }
 }

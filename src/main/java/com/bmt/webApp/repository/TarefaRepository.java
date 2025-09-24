@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.bmt.webApp.model.Tarefa;
@@ -19,5 +20,5 @@ public interface TarefaRepository extends JpaRepository<Tarefa, Long>{
 
     //Contar tarefas atrasadas (onde a data de fim é anterior à data atual e o status não é "COMPLETED")
     @Query("SELECT COUNT(t) FROM Tarefa t WHERE t.dataFim < :agora AND t.status <> 'COMPLETED'")
-    Long countByTaskAtrasada(LocalDateTime agora);
+    Long countByTaskAtrasada(@Param("agora") LocalDateTime agora);
 }

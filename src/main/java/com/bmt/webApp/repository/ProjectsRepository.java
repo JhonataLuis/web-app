@@ -1,5 +1,6 @@
 package com.bmt.webApp.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -30,5 +31,9 @@ public interface ProjectsRepository extends JpaRepository<Project, Long>{
     //ação para listar os 4 últimos projetos cadastrados no sistema, para mostrar no index do sistema
     List<Project> findTop4ByOrderByIdDesc();
 
-    
+    //método para buscar projetos com prazos próximos (por exemplo, dentro dos próximos 7 dias)
+    //@Query("SELECT p FROM Project p WHERE p.dataFim BETWEEN :start AND :end AND p.status NOT IN :excludedStatuses ORDER BY p.dataFim ASC")
+    //List<Project> findByDataFimBetweenAndStatusNotIn(LocalDateTime start, LocalDateTime end, List<ProjectStatus> excludedStatuses);
+
+
 }

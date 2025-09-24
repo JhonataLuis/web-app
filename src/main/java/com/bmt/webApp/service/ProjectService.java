@@ -42,5 +42,8 @@ public interface ProjectService {
     //atualiza a porcentagem de conclusão do projeto
     void updateCompletionPercentagem(Long projectId, Integer porcentagemConclusao);
 
+    //método para buscar projetos com prazos próximos
+    List<ProjectDto> buscarProjetosComProximosPrazos();
+
     
 }
