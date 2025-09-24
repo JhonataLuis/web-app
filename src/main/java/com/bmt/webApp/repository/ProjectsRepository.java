@@ -19,21 +19,15 @@ public interface ProjectsRepository extends JpaRepository<Project, Long>{
     @Query("SELECT p FROM Project p WHERE p.nome LIKE %:searchTerm% OR p.descricao LIKE %:searchTerm%")
     Page<Project> searchProjects(@Param("searchTerm") String searchTerm, Pageable pageable);
 
-    //@Query("SELECT COUNT(p) FROM Project p WHERE p.projectId = :projectId")
-    //Project countByProjectId(Long projetoId);
-
+    //conta todos os projetos
     long count();
 
     //Consulta personalizada para contar projetos com status "Concluído"
     @Query("SELECT COUNT(p) FROM Project p WHERE p.status = :status")
-    long countByStatus(@Param("status") ProjectStatus status);
+    Long countByStatus(@Param("status") ProjectStatus status);
 
     //ação para listar os 4 últimos projetos cadastrados no sistema, para mostrar no index do sistema
     List<Project> findTop4ByOrderByIdDesc();
-
-    //método para buscar projetos com prazos próximos (por exemplo, dentro dos próximos 7 dias)
-    //@Query("SELECT p FROM Project p WHERE p.dataFim BETWEEN :start AND :end AND p.status NOT IN :excludedStatuses ORDER BY p.dataFim ASC")
-    //List<Project> findByDataFimBetweenAndStatusNotIn(LocalDateTime start, LocalDateTime end, List<ProjectStatus> excludedStatuses);
 
     // Projetos em risco: aqueles com prazos próximos (dentro de 7 dias) e com menos de 50% de conclusão
     @Query("SELECT COUNT(p) FROM Project p " +
@@ -49,7 +43,6 @@ Long countProjetosEmRisco(
         @Param("projectId") Long projectId,
         @Param("statusIgnorados") List<ProjectStatus> statusIgnorados
 );
-                              
 
 
 }

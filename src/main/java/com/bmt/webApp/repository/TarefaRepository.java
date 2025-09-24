@@ -21,4 +21,10 @@ public interface TarefaRepository extends JpaRepository<Tarefa, Long>{
     //Contar tarefas atrasadas (onde a data de fim é anterior à data atual e o status não é "COMPLETED")
     @Query("SELECT COUNT(t) FROM Tarefa t WHERE t.dataFim < :agora AND t.status <> 'COMPLETED'")
     Long countByTaskAtrasada(@Param("agora") LocalDateTime agora);
+
+    //Contar tarefas por status
+    Long countByStatus(String status);
+
+    //Contar tarefas vencidas não concluídas
+    Long countByDataFimBeforeAndStatusNot(LocalDateTime dataFim, String status);
 }

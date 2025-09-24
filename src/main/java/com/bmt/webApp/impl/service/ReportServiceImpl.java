@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.bmt.webApp.enums.ProjectStatus;
 import com.bmt.webApp.repository.ProjectsRepository;
+import com.bmt.webApp.repository.TarefaRepository;
 import com.bmt.webApp.service.ReportService;
 
 @Service
@@ -16,7 +17,52 @@ public class ReportServiceImpl implements ReportService {
     @Autowired
     private ProjectsRepository projectRepository;
 
-    // Contar projetos em risco
+    @Autowired
+    private TarefaRepository tarefaRepository;
+
+    /**
+     * Calcular produtividade: % tarefas concluídas no prazo    
+     * @return
+     */
+    @Override
+    public Double calcularProdutividade() {
+        Long totalTarefas = tarefaRepository.count();
+        Long tarefasConcluidas = tarefaRepository.countByStatus("CONCLUÍDO");
+
+        if (totalTarefas == 0) return 0.0;
+            return (tarefasConcluidas * 100.0) / totalTarefas;
+    }
+
+    /**
+     * Calcular taxa de conclusão: % projetos concluídos
+     * @return
+     */ 
+    @Override
+    public Double calcularTaxaConclusao() {
+        Long totalProjetos = projectRepository.count();
+        Long projetosConcluidos = projectRepository.countByStatus(ProjectStatus.CONCLUÍDO);
+
+        if (totalProjetos == 0) return 0.0;
+            return (projetosConcluidos * 100.0) / totalProjetos;
+    }
+
+    /**
+     * Contar tarefas atrasadas: tarefas vencidas não concluídas
+     * @return
+     */
+    @Override
+    public Long contarTarefasAtrasadas() {
+        LocalDateTime agora = LocalDateTime.now();
+        return tarefaRepository.countByDataFimBeforeAndStatusNot(agora, "CONCLUÍDO");
+    }
+
+    /**
+     * Contar projetos em risco: projetos próximos do prazo, baixo progresso
+     * @param dataInicio
+     * @param projectId
+     * @return
+     */
+    @Override
     public Long contarProjetosEmRisco(LocalDateTime dataInicio, Long projectId) {
     LocalDateTime hoje = LocalDateTime.now();
     LocalDateTime limite = hoje.plusDays(7);
