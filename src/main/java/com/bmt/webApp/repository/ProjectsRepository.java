@@ -35,5 +35,21 @@ public interface ProjectsRepository extends JpaRepository<Project, Long>{
     //@Query("SELECT p FROM Project p WHERE p.dataFim BETWEEN :start AND :end AND p.status NOT IN :excludedStatuses ORDER BY p.dataFim ASC")
     //List<Project> findByDataFimBetweenAndStatusNotIn(LocalDateTime start, LocalDateTime end, List<ProjectStatus> excludedStatuses);
 
+    // Projetos em risco: aqueles com prazos próximos (dentro de 7 dias) e com menos de 50% de conclusão
+    @Query("SELECT COUNT(p) FROM Project p " +
+       "WHERE p.dataFim BETWEEN :hoje AND :limite " +
+       "AND p.completionPercentage < 50 " +
+       "AND p.status NOT IN (:statusIgnorados) " +
+       "AND p.dataInicio >= :dataInicio " +
+       "AND (:projectId IS NULL OR p.id = :projectId)")
+Long countProjetosEmRisco(
+        @Param("hoje") LocalDateTime hoje,
+        @Param("limite") LocalDateTime limite,
+        @Param("dataInicio") LocalDateTime dataInicio,
+        @Param("projectId") Long projectId,
+        @Param("statusIgnorados") List<ProjectStatus> statusIgnorados
+);
+                              
+
 
 }
