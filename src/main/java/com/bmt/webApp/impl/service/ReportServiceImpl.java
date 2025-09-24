@@ -1,7 +1,9 @@
 package com.bmt.webApp.impl.service;
 
 import java.time.LocalDateTime;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,5 +75,24 @@ public class ReportServiceImpl implements ReportService {
         );
 
     return projectRepository.countProjetosEmRisco(hoje, limite, dataInicio, projectId, statusIgnorados);
+    
     }
+
+    /**
+     * 
+     */
+    @Override
+    public Map<ProjectStatus, Long> contarProjetosPorStatus() {
+       
+        Map<ProjectStatus, Long> result = new EnumMap<>(ProjectStatus.class);
+
+        for(ProjectStatus status : ProjectStatus.values()){
+            Long count = projectRepository.countByStatus(status);
+            result.put(status, count != null ? count : 0L);
+        }
+
+        return result;
+    }
+
+    
 }
