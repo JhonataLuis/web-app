@@ -15,7 +15,7 @@ public class ProjectDto {
     //@NotNull
     private Long id;
     
-    @NotEmpty(message = "The name is required")
+    @NotEmpty(message = "Informe um nome para o Projeto")
     private String nome;
     
     @NotEmpty(message = "The description is required")
@@ -29,7 +29,7 @@ public class ProjectDto {
    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dataFim;
     
-    @NotEmpty(message = "The status is required")
+    @NotEmpty(message = "Informar o status")
     private ProjectStatus status;//New, Pendente, Em andamento, Concluído e Cancelado
 
     private Integer completionPercentage;

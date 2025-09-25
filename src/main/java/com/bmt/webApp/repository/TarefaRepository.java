@@ -28,8 +28,14 @@ public interface TarefaRepository extends JpaRepository<Tarefa, Long>{
     //Contar tarefas vencidas não concluídas
     Long countByDataFimBeforeAndStatusNot(LocalDateTime dataFim, String status);
 
-    // Buscar quantidade de tarefas por usuário (dashboard reports)
-    @Query("SELECT t.userResponse.name, COUNT(t) "+
-    "FROM Tarefa t GROUP BY t.userResponse.name")
+    // Buscar quantidade de tarefas por usuário (dashboard reports) JPQL
+    @Query("""
+        SELECT t.userResponse.name,
+          COUNT(t),
+          SUM(CASE WHEN t.status = 'CONCLUIDO' THEN 1 ELSE 0 END),
+          SUM(CASE WHEN t.status = 'PENDENTE' THEN 1 ELSE 0 END)
+      FROM Tarefa t 
+      GROUP BY t.userResponse.name
+      """)
     List<Object[]> contarTarefaPorMembro();
 }

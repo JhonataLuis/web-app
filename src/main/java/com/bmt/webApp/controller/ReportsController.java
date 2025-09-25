@@ -29,14 +29,15 @@ public class ReportsController {
 
         Double produtividade = reportService.calcularProdutividade();
         Map<ProjectStatus, Long> statusProjetos = reportService.contarProjetosPorStatus();
+        Map<String, Long> totalTarefasPorMembro = reportService.contarTarefasPorMembro();
 
         // Estatísticas principais
-         model.addAttribute("statusProjetos", statusProjetos);
          model.addAttribute("produtividade", produtividade);
          model.addAttribute("taxaConclusao", reportService.calcularTaxaConclusao());
          model.addAttribute("tarefasAtrasadas", reportService.contarTarefasAtrasadas());
          model.addAttribute("riscos", reportService.contarProjetosEmRisco(java.time.LocalDateTime.now().minusDays(periodo), projectId));
-         
+         model.addAttribute("statusProjetos", statusProjetos);
+         model.addAttribute("totalTarefasPorMembro", totalTarefasPorMembro);
 
         return "relatorios/reports";
     }

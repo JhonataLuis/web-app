@@ -607,6 +607,41 @@ new Chart(document.getElementById("projectStatusChart"), {
 });
 /*]]>*/
 
+
+     //Grafico de Tarefas por membros
+    /*<![CDATA[*/
+    let totalTarefasPorMembro = [[${totalTarefasPorMembro}]];
+
+    // Converte Map em listas
+    let membros = Object.keys(totalTarefasPorMembro);
+    let totais = Object.values(totalTarefasPorMembro);
+
+    new Chart(document.getElementById("tasksByMemberChart"), {
+        type: 'bar',
+        data: {
+                labels: membros,
+                datasets: [{
+                    label: 'Tarefas Distribuídas',
+                    data: totais,
+                    backgroundColor: '#4cc9f0'
+                }]
+            },
+        options: {
+            responsive: true,
+            scales: {
+                 y: {
+                        beginAtZero: true,
+                        //ticks: { precision: 0 },
+                        title: {
+                            display: true,
+                            text: 'Número de Tarefas'
+                        }
+                    }
+            }
+        }
+    });
+    /*]]>*/
+
    </script>
 
     <script>
@@ -651,14 +686,14 @@ new Chart(document.getElementById("projectStatusChart"), {
         const tasksByMemberChart = new Chart(tasksByMemberCtx, {
             type: 'bar',
             data: {
-                labels: ['João Silva', 'Maria Santos', 'Pedro Oliveira', 'Ana Costa', 'Carlos Lima'],
+                labels: membros,
                 datasets: [{
                     label: 'Tarefas Concluídas',
-                    data: [24, 18, 22, 15, 20],
+                    data: totais,
                     backgroundColor: '#4cc9f0'
                 }, {
                     label: 'Tarefas Pendentes',
-                    data: [6, 8, 5, 10, 7],
+                    data: totais,
                     backgroundColor: '#ffbe0b'
                 }]
             },
