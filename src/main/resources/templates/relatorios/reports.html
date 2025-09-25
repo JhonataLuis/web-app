@@ -558,6 +558,7 @@
    
    <script th:inline="javascript">
 
+// Gráfico de Status dos Projetos
         /*<![CDATA[*/
         let statusProjetos = [[${statusProjetos}]];
 
@@ -570,7 +571,7 @@
             data.push(statusProjetos[key]);
         });
 
-        // Gráfico Doughnut
+       // Gráfico de Status dos Projetos
 new Chart(document.getElementById("projectStatusChart"), {
     type: 'doughnut',
     data: {
@@ -611,7 +612,7 @@ new Chart(document.getElementById("projectStatusChart"), {
     <script>
 
 
-        // Gráfico de Status dos Projetos
+        
        
            
         // Gráfico de Progresso Mensal

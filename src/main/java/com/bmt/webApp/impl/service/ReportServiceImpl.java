@@ -2,6 +2,7 @@ package com.bmt.webApp.impl.service;
 
 import java.time.LocalDateTime;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -79,7 +80,7 @@ public class ReportServiceImpl implements ReportService {
     }
 
     /**
-     * 
+     * Conta projetos por status (grafico dashboard reports)
      */
     @Override
     public Map<ProjectStatus, Long> contarProjetosPorStatus() {
@@ -94,5 +95,19 @@ public class ReportServiceImpl implements ReportService {
         return result;
     }
 
-    
+    // Buscar quantidade de tarefas por usuário (dashboard reports)
+    @Override
+    public Map<String, Long> contarTarefasPorMembro(){
+
+        List<Object[]> resultados = tarefaRepository.contarTarefaPorMembro();
+        Map<String, Long> mapa = new HashMap<>();
+
+        for(Object[] linha : resultados){
+            String nome = (String) linha[0];
+            Long total = (Long) linha[1];
+            mapa.put(nome, total);
+        }
+
+        return mapa;
+    }
 }

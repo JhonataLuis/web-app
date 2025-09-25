@@ -13,4 +13,7 @@ public interface ReportService {
 
     // Retorna um mapa com status do projeto e quantidade
     Map<ProjectStatus, Long> contarProjetosPorStatus();
+
+    // Buscar quantidade de tarefas por usuário (dashboard reports)
+    Map<String, Long> contarTarefasPorMembro();
 }
