@@ -474,16 +474,16 @@
                         </td>
                         <td>
                             <span th:if="${project.status.projectStatus == 'New'}" class="status-badge status-new">
-                                <i class="bi bi-star-fill"></i> New
+                                <i class="bi bi-star-fill"></i> Novo
                             </span>
                           <span th:if="${project.status.projectStatus == 'Pendente'}" class="status-badge status-occasional">
                               <i class="bi bi-clock-history"></i> Pendente
                             </span>
                             <span th:if="${project.status.projectStatus == 'Andamento'}" class="status-badge status-andamento">
-                                <i class="bi bi-clock"></i> In Progress
+                                <i class="bi bi-clock"></i> Em Andamento
                             </span>
                             <span th:if="${project.status.projectStatus == 'Concluído'}" class="status-badge status-concluido">
-                                <i class="bi bi-check-circle"></i> Completed
+                                <i class="bi bi-check-circle"></i> Concluído
                             </span>
                         </td>
                         <td th:text="${#temporals.format(project.dataInicio, 'dd/MM/yyyy')}"></td>

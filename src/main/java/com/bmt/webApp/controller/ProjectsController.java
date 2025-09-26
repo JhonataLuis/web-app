@@ -196,9 +196,9 @@ public class ProjectsController {
                                           RedirectAttributes redirectAttributes) {
         try {
             projectService.updateCompletionPercentagem(id, completionPercentage);
-            redirectAttributes.addFlashAttribute("successMessage", "Project completion percentage updated successfully!");
+            redirectAttributes.addFlashAttribute("successMessage", "Porcentagem de conclusão do projeto atualizada com sucesso!");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "An error occurred while updating the project completion percentage.");
+            redirectAttributes.addFlashAttribute("errorMessage", "Ocorreu um erro ao atualizar a porcentagem de conclusão do projeto.");
         }
         return "redirect:/projects/details/" + id;
     }

@@ -421,7 +421,15 @@
             </div>
             </div>
 
-
+            <div class="page-header">
+                <div class="d-flex justify-content-between mt-4">
+                    <h1 class="h2 mb-0">Detalhes do Projeto</h1>
+                    <a class="btn btn-primary" th:href="@{/projects/edit/{id}(id=${project.id})}">
+                        <i class="bi bi-plus-circle"></i>
+                        Edit Project
+                    </a>
+                </div>
+            </div>
         <div class="card-details">
             <h2 class="section-title">Projeto</h2>
             
