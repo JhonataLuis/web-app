@@ -480,40 +480,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Redesign do Site Corporativo</td>
-                                    <td>João Silva</td>
+                                <tr th:each="project : ${projects}">
+                                    <td th:text="${project.nome}">Redesign do Site Corporativo</td>
+                                    <!--<td th:text="${project.userResponseProject.name != null ? project.userResponseProject.name : 'Sem Responsável'}">João Silva</td>-->
                                     <td>
                                         <div class="progress" style="height: 8px;">
-                                            <div class="progress-bar" style="width: 65%"></div>
+                                            <div class="progress-bar" th:style="${project.completionPercentage} + '%'" style="width: 65%"></div>
                                         </div>
-                                        <small>65%</small>
+                                        <small th:text="${project.completionPercentage} + '%'">65%</small>
                                     </td>
-                                    <td>15/12/2023</td>
-                                    <td><span class="badge bg-warning">Em Andamento</span></td>
+                                    <td th:text="${project.getStatusPrazo()}">15/12/2023</td>
+                                    <td><span th:classappend="|badge bg-${project.getNivelUrgencia()}|" th:text="${project.status}" class="badge bg-warning">Em Andamento</span></td>
                                     <td>
-                                        <button class="btn btn-sm btn-outline-primary">
+                                        <a th:href="@{/projects/details/{id}(id=${project.id})}" class="btn btn-sm btn-outline-primary">
                                             <i class="bi bi-eye"></i>
-                                        </button>
+                                        </a>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>Sistema de Gestão de Clientes</td>
-                                    <td>Maria Santos</td>
-                                    <td>
-                                        <div class="progress" style="height: 8px;">
-                                            <div class="progress-bar" style="width: 40%"></div>
-                                        </div>
-                                        <small>40%</small>
-                                    </td>
-                                    <td>30/11/2023</td>
-                                    <td><span class="badge bg-warning">Em Andamento</span></td>
-                                    <td>
-                                        <button class="btn btn-sm btn-outline-primary">
-                                            <i class="bi bi-eye"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                
                                 <tr>
                                     <td>App Mobile</td>
                                     <td>Pedro Oliveira</td>
@@ -681,40 +665,6 @@ new Chart(document.getElementById("projectStatusChart"), {
             }
         });
 
-        // Gráfico de Tarefas por Membro
-        const tasksByMemberCtx = document.getElementById('tasksByMemberChart').getContext('2d');
-        const tasksByMemberChart = new Chart(tasksByMemberCtx, {
-            type: 'bar',
-            data: {
-                labels: membros,
-                datasets: [{
-                    label: 'Tarefas Concluídas',
-                    data: totais,
-                    backgroundColor: '#4cc9f0'
-                }, {
-                    label: 'Tarefas Pendentes',
-                    data: totais,
-                    backgroundColor: '#ffbe0b'
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    x: {
-                        grid: {
-                            display: false
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Número de Tarefas'
-                        }
-                    }
-                }
-            }
-        });
     </script>
 </body>
 </html>

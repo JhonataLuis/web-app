@@ -32,6 +32,9 @@ public class ProjectDto {
     @NotEmpty(message = "Informar o status")
     private ProjectStatus status;//New, Pendente, Em andamento, Concluído e Cancelado
 
+    @NotEmpty(message = "O projeto precisa de um responsável")
+    private Long userResponseProjectId;
+
     private Integer completionPercentage;
 
     public void setId(Long id) {
@@ -77,6 +80,14 @@ public class ProjectDto {
 
     public void setCompletionPercentage(Integer completionPercentage) {
         this.completionPercentage = completionPercentage;
+    }
+
+    public void setUserResponseProjectId(Long userResponseProjectId){
+        this.userResponseProjectId = userResponseProjectId;
+    }
+
+    public Long getUserResponseProjectId(){
+        return userResponseProjectId;
     }
 
     // Retorna a porcentagem de conclusão do projeto

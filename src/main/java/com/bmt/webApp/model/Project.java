@@ -1,19 +1,21 @@
 package com.bmt.webApp.model;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.bmt.webApp.enums.ProjectStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -40,6 +42,11 @@ public class Project {
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference //Evita recusrsividade infinita no JSON
     private List<Tarefa> tarefas = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id") // o banco não permitirá projetos sem usuários responsáveis
+    @JsonBackReference // Evita recursividade infinita no JSON
+    private Usuario userResponseProject;
 
     // Construtor para novos projetos: ao cadastrar, a porcentage de conclusão inicia em 0 e o status em "New"
     public Project(){
@@ -102,10 +109,51 @@ public class Project {
         return tarefas;
     }
 
-    //MÉTODO AUXILIAR PARA ADICIONAR UMA TAREFA AO PROJETO
-    /*public void adicionarTarefa(Tarefa tarefa){
-        tarefas.add(tarefa);
-        tarefa.setProject(this);
-    }*/
+    public void setUserResponseProject(Usuario userResponseProject){
+        this.userResponseProject = userResponseProject;
+    }
+
+    public Usuario getUsuario() {
+        return userResponseProject;
+    }
+
+     // Retorna a porcentagem de conclusão do projeto
+    public Long getDiasRestantes(){
+        if(dataFim == null)
+            return Long.MAX_VALUE; // Retorna um valor alto se a data de fim não estiver definida
+        return Duration.between(LocalDateTime.now(), dataFim).toDays();
+        
+    }
+
+    // Nível de urgência baseado nos dias restantes
+    public String getNivelUrgencia(){
+        Long diasRestantes = getDiasRestantes();
+        if(diasRestantes < 0){
+            return "dark"; // Atrasado cinza
+        } else if (diasRestantes <= 2){
+            return "danger"; // Muito urgente vermelho
+        } else if (diasRestantes <= 5){
+            return "warning"; // Urgente amarelo 
+        } else {
+            return "info"; // Normal azul
+        }
+    }
+
+    // Retorna uma string representando o status do prazo
+    public String getStatusPrazo(){
+
+        if(dataFim == null) return "Sem prazo definido";
+        Long dias = getDiasRestantes();
+        
+        if (dias < 0){
+            return "Atrasado (" + Math.abs(dias) + " dias)";
+        } else if (dias == 0){
+            return "Hoje";
+        } else {
+            return  "Vence em : " + dias + " dias";
+            
+        }
+    }
+
     
 }

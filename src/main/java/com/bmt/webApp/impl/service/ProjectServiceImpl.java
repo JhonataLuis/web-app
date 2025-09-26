@@ -200,6 +200,7 @@ public class ProjectServiceImpl implements ProjectService{
         dto.setDataFim(project.getDataFim());
         dto.setCompletionPercentage(project.getCompletionPercentage());
         dto.setStatus(project.getStatus());// Retorna a string do enum
+        //dto.setUserResponseProjectId(project.getUsuario());
         return dto;
     }
 
@@ -210,6 +211,7 @@ public class ProjectServiceImpl implements ProjectService{
         project.setDescricao(dto.getDescricao());
         project.setDataInicio(dto.getDataInicio());
         project.setDataFim(dto.getDataFim());
+        //project.setUserResponseProject(dto.getUserResponseProjectId());
         //project.setStatus(dto.getStatus());
         // completionPercentage inicia em 0 e status em "New" no construtor da classe Project
         
