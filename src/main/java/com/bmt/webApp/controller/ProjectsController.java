@@ -148,8 +148,13 @@ public class ProjectsController {
         if(projectDto == null){
             return "redirect:/projects";
         }
+
+        // Carrgar a lista de usuários
+        List<Usuario> users = userRepository.findAll(); // Busca os usuários cadastrados
+
         model.addAttribute("projectDto", projectDto);
         model.addAttribute("projectId", id);
+        model.addAttribute("users", users); // Adiciona a lista de usuários ao modelo
         return "projects/edit";
     }
  
