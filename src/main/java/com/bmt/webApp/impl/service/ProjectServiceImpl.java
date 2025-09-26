@@ -2,7 +2,6 @@ package com.bmt.webApp.impl.service;
 
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,7 +15,9 @@ import org.springframework.stereotype.Service;
 import com.bmt.webApp.dto.ProjectDto;
 import com.bmt.webApp.enums.ProjectStatus;
 import com.bmt.webApp.model.Project;
+import com.bmt.webApp.model.Usuario;
 import com.bmt.webApp.repository.ProjectsRepository;
+import com.bmt.webApp.repository.UserRepository;
 import com.bmt.webApp.service.ProjectService;
 
 import jakarta.transaction.Transactional;
@@ -28,6 +29,9 @@ public class ProjectServiceImpl implements ProjectService{
 
     @Autowired
     private ProjectsRepository projectRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     /**
      * Lista todos os Projetos
@@ -200,20 +204,30 @@ public class ProjectServiceImpl implements ProjectService{
         dto.setDataFim(project.getDataFim());
         dto.setCompletionPercentage(project.getCompletionPercentage());
         dto.setStatus(project.getStatus());// Retorna a string do enum
-        //dto.setUserResponseProjectId(project.getUsuario());
+
+        // Se a entidade Project tem um objeto Usuario, extraia o ID
+        if(project.getUserResponseProject() != null){
+            dto.setUserResponseProjectId(project.getUserResponseProject().getId());
+        }
+        
         return dto;
     }
 
     private Project convertToEntity(ProjectDto dto){
 
+        
         Project project = new Project();
         project.setNome(dto.getNome());
         project.setDescricao(dto.getDescricao());
         project.setDataInicio(dto.getDataInicio());
         project.setDataFim(dto.getDataFim());
-        //project.setUserResponseProject(dto.getUserResponseProjectId());
-        //project.setStatus(dto.getStatus());
-        // completionPercentage inicia em 0 e status em "New" no construtor da classe Project
+        
+        // Buscar o Usuario pelo ID do DTO e setar o objeto Usuario na entidade
+        if(dto.getUserResponseProjectId() != null){
+            Usuario usuario = userRepository.findById(dto.getUserResponseProjectId())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + dto.getUserResponseProjectId()));
+                project.setUserResponseProject(usuario);
+        }
         
         return project;
     }

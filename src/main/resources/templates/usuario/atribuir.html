@@ -170,9 +170,9 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="/projects">
+            <a class="navbar-brand d-flex align-items-center" href="/">
                 <i class="bi bi-kanban-fill me-2"></i>
-                TaskFlow
+                CuboChess
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -220,7 +220,7 @@
             <div class="col-lg-6">
                 <div class="form-container">
                     <div class="page-header">
-                        <h2>Assign Responsible</h2>
+                        <h2>Atribuir Responsável</h2>
                     </div>
                     
                     <!-- Task Information -->
@@ -241,9 +241,9 @@
                         <input type="hidden" th:field="*{tarefaId}" />
                         
                         <div class="mb-4">
-                            <label class="form-label">Select Responsible</label>
+                            <label class="form-label">Selecione um Responsável</label>
                             <select th:field="*{usuarioId}" class="form-select">
-                                <option value="" disabled selected>Select a responsible person</option>
+                                <option value="" disabled selected>Selecione um Responsável</option>
                                 <option th:each="usuario : ${usuarios}" th:value="${usuario.id}" th:text="${usuario.name}+ ' - ' +${usuario.funcao}"></option>
                             </select>
                         </div>

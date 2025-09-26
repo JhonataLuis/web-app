@@ -113,7 +113,7 @@ public class Project {
         this.userResponseProject = userResponseProject;
     }
 
-    public Usuario getUsuario() {
+    public Usuario getUserResponseProject() {
         return userResponseProject;
     }
 

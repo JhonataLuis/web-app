@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.bmt.webApp.enums.ProjectStatus;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -29,10 +30,11 @@ public class ProjectDto {
    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dataFim;
     
-    @NotEmpty(message = "Informar o status")
+    @NotNull(message = "O status do projeto é obrigatório")
     private ProjectStatus status;//New, Pendente, Em andamento, Concluído e Cancelado
 
-    @NotEmpty(message = "O projeto precisa de um responsável")
+    @NotNull(message = "O projeto precisa de um responsável")
+    @Min(value = 1, message = "O projeto precisa de um responsável válido") // evita caso de 0 seja enviado por engano
     private Long userResponseProjectId;
 
     private Integer completionPercentage;

@@ -423,7 +423,7 @@
 
 
         <div class="card-details">
-            <h2 class="section-title">Project Details</h2>
+            <h2 class="section-title">Detalhes do Projeto</h2>
             
             <div class="detail-row row">
                 <div class="col-md-2 detail-label">ID</div>
@@ -431,12 +431,17 @@
             </div>
             
             <div class="detail-row row">
-                <div class="col-md-2 detail-label">Name</div>
+                <div class="col-md-2 detail-label">Titulo</div>
                 <div class="col-md-10 detail-value" th:text="${project.nome}"></div>
+            </div>
+
+             <div class="detail-row row">
+                <div class="col-md-2 detail-label">Responsável</div>
+                <div class="col-md-10 detail-value" th:text="${project.userResponseProject != null} ? ${project.userResponseProject.name} : 'Não atribuído'"></div>
             </div>
             
             <div class="detail-row row">
-                <div class="col-md-2 detail-label">Description</div>
+                <div class="col-md-2 detail-label">Descrição</div>
                 <div class="col-md-10 detail-value" th:text="${project.descricao}"></div>
             </div>
             
@@ -465,17 +470,17 @@
         </div>
 
         <div class="card-details">
-            <h3 class="section-title">Project Tasks</h3>
+            <h3 class="section-title">Tarefas</h3>
             
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">Title</th>
-                            <th scope="col">Description</th>
+                            <th scope="col">Titulo</th>
+                            <th scope="col">Descrição</th>
                             <th scope="col">Status</th>
                             <th scope="col">Assigned To</th>
-                             <th scope="col">Function</th>
+                             <th scope="col">Função</th>
                             <th scope="col">Date Range</th>
                             <th scope="col" class="text-center">Actions</th>
                         </tr>

@@ -381,6 +381,17 @@
               <p th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="text-danger"></p>
             </div>
 
+            <!-- Responsável -->
+             <div class="mb-4">
+                <label class="form-label">Selecione Responsável</label>
+                  <select th:field="*{userResponseProjectId}" class="form-select">
+                    <option value="" disabled selected>Selecione um Responsável</option>
+                    <option th:each="usuario : ${users}" 
+                        th:value="${usuario.id}" 
+                        th:text="${usuario.name}+ ' - ' +${usuario.funcao}"></option>
+                  </select>
+              </div>
+
             <!-- Start Date -->
             <div class="mb-4">
               <label class="form-label">Start Date</label>
@@ -399,11 +410,7 @@
             <div class="mb-4">
               <label class="form-label">Status</label>
               <select class="form-select" th:field="*{status}">
-                <option value="" disabled selected>Select project status</option>
-                <option value="New" class="status-option-new">New</option>
-                <option value="Pendente" class="status-option-pendente">Pendente</option>
-                <option value="Em andamento" class="status-option-andamento">In Progress</option>
-                <option value="Concluído" class="status-option-concluido">Completed</option>
+                <option value="NEW" class="status-option-new">New</option>
               </select>
               <p th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="text-danger"></p>
             </div>

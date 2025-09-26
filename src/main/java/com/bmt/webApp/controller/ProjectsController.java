@@ -1,5 +1,7 @@
 package com.bmt.webApp.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bmt.webApp.dto.ProjectDto;
+import com.bmt.webApp.model.Project;
+import com.bmt.webApp.model.Usuario;
 import com.bmt.webApp.repository.ProjectsRepository;
+import com.bmt.webApp.repository.UserRepository;
 import com.bmt.webApp.service.ProjectService;
 import com.bmt.webApp.service.TarefaService;
 
@@ -39,6 +44,9 @@ public class ProjectsController {
 
     @Autowired
     private TarefaService tarefaService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     //lista todos os projetos com paginação, filtro por status e busca
     @GetMapping({"", "/"})
@@ -75,7 +83,10 @@ public class ProjectsController {
     public String createdProject(Model model){
         
         ProjectDto project = new ProjectDto();
+        List<Usuario> users = userRepository.findAll();
+        
         model.addAttribute("projectDto", project);
+        model.addAttribute("users", users);
         return "projects/create";
     }
 
@@ -85,16 +96,26 @@ public class ProjectsController {
                                  Model model, 
                                  RedirectAttributes redirect){
 
+        Project project = new Project();
+
+        Usuario usuario = userRepository.findById(projectDto.getUserResponseProjectId())
+        .orElseThrow(() -> new IllegalArgumentException("Usuário Inválido"));                            
+
         if(result.hasErrors()){//SE TIVER ERRO INFORMA ERRO
-            model.addAttribute("errorMessage","Please correct the errors in the form!");
+
+            List<Usuario> users = userRepository.findAll();
+            model.addAttribute("errorMessage","Por favor, corrija os erros no formulário!");
             //É importante retornar o objeto para manter os dados preenchidos
             model.addAttribute("projectDto", projectDto);
+            model.addAttribute("users", users);
             return "projects/create";
         }
        
         try{
+
+            project.setUserResponseProject(usuario); // associa o usuário real
             projectService.createProject(projectDto);
-            redirect.addFlashAttribute("successMessage", "Project created successfully!");
+            redirect.addFlashAttribute("successMessage", "Projeto criado com sucesso!");
             logger.info("Projeto criado no banco de dados ID{}", projectDto.getId());
             return "redirect:/projects";
         } catch(Exception e){
