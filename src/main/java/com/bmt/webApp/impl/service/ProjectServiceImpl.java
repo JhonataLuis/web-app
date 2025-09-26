@@ -112,6 +112,14 @@ public class ProjectServiceImpl implements ProjectService{
         project.setDataInicio(dto.getDataInicio());
         project.setDataFim(dto.getDataFim());
         project.setStatus(dto.getStatus());
+        // completionPercentage não é atualizado pois é calculado automaticamente
+
+        if(dto.getUserResponseProjectId() != null){
+            Usuario user = userRepository.findById(dto.getUserResponseProjectId())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+            
+            project.setUserResponseProject(user);    
+        }
 
         projectRepository.save(project);
         logger.info("Projeto atualizado no banco de dados com ID: {}" + id);

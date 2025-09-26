@@ -19,14 +19,14 @@ public class ProjectDto {
     @NotEmpty(message = "Informe um nome para o Projeto")
     private String nome;
     
-    @NotEmpty(message = "The description is required")
+    @NotEmpty(message = "A descrição é obrigatório")
     private String descricao;
 
-    @NotNull(message = "The Date start is required")
+    @NotNull(message = "A data de início é obrigat´rio")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dataInicio;
     
-    @NotNull(message = "The Date End is required")
+    @NotNull(message = "A data de fim é obrigatório")
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dataFim;
     
@@ -78,6 +78,10 @@ public class ProjectDto {
 
     public void setStatus(ProjectStatus status) {
         this.status = status;
+    }
+
+    public Integer getCompletionPercentage(){
+        return completionPercentage;
     }
 
     public void setCompletionPercentage(Integer completionPercentage) {

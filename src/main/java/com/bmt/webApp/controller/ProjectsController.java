@@ -164,8 +164,14 @@ public class ProjectsController {
                                 BindingResult result, RedirectAttributes redirectAttributes,
                                 Model model){
 
+        // Carrega a lista de usuários                          
+        List<Usuario> users = userRepository.findAll();
+
         if(result.hasErrors()){
             model.addAttribute("projectId", id);
+            model.addAttribute("projectDto", projectDto);
+            model.addAttribute("users", users);
+            redirectAttributes.addFlashAttribute("warningMessage", "Erro ao editar informações, favor verificar dados!");
             return "projects/edit";
         }  
         
