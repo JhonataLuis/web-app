@@ -10,10 +10,15 @@ public interface TarefaService {
     List<Tarefa> listarTarefasPorProjeto(Long projectId);
 
     void adicionarTarefa(TarefaDto tarefaDto, Long project_id);
+    
     void atribuirResponsavel(Long tarefaId, Long userId);
-    void removerTarefa(Long tarefaId, Long userId);
+
+    Long removerTarefa(Long tarefaId, Long userId);
+
     void atualizarTarefa(TarefaDto tarefaDto);
+
     Long obterProjetoIdDaTarefa(Long tarefaId);// útil para redirecionar ao projeto correto
+
     TarefaDto buscarPorId(Long tarefaId);
 
     // Método para contar tarefas atrasadas

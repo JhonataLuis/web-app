@@ -2,25 +2,29 @@ package com.bmt.webApp.dto;
 
 import java.time.LocalDateTime;
 
-import jakarta.validation.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 public class TarefaDto {
 
     private Long id;
-    @NotBlank
-    @NotEmpty(message = "The title is required")
+    @NotEmpty(message = "O titulo é obrigatório")
     private String titulo;
-    @NotBlank
-    @NotEmpty(message = "The desctiption is required")
+
+    @NotEmpty(message = "A descrição é obrigatória")
     private String descricao;
-    @NotBlank
-    @NotEmpty(message = "The status is required")
+
+    @NotEmpty(message = "O status é obrigatório")
     private String status;//Em andamento, Pendente
-    @NotNull
+
+    @NotNull(message="A data de ínicio é obrigatória")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dataInicio;
-    @NotNull
+    
+    @NotNull(message="A data de fim é obrigatória")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime dataFim;
     
     private Long projectId;

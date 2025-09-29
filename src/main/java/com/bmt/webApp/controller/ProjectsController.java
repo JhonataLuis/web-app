@@ -119,7 +119,7 @@ public class ProjectsController {
             logger.info("Projeto criado no banco de dados ID{}", projectDto.getId());
             return "redirect:/projects";
         } catch(Exception e){
-            model.addAttribute("errorMessage", "An error occurred while creating the project. Please try again.");
+            model.addAttribute("errorMessage", "Ocorreu um erro ao criar o projeto. Tente novamente.");
             model.addAttribute("projectDto", projectDto);
             return "projects/create";
         }
@@ -178,7 +178,7 @@ public class ProjectsController {
         projectDto.setId(id);
         projectService.updateProject(id, projectDto);
         redirectAttributes.addFlashAttribute("successMessage", "Projeto atualizado com sucesso!");
-        return "redirect:/projects";
+        return "redirect:/projects/details/" +id;
 
     }
 

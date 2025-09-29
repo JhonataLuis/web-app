@@ -100,12 +100,15 @@ public class TarefaServiceImpl implements TarefaService{
     }
 
     @Override
-    public void removerTarefa(Long tarefaId, Long userId){
+    public Long removerTarefa(Long tarefaId, Long userId){
 
-        var tarefa = tarefaRepository.findByIdAndUserResponseId(tarefaId, userId)
+        Tarefa tarefa = tarefaRepository.findByIdAndUserResponseId(tarefaId, userId)
             .orElseThrow(() -> new IllegalArgumentException("Tarefa não encontrada ou usuário não autorizado"));
         
+        Long projectId = tarefa.getProject().getId();
         tarefaRepository.delete(tarefa);
+
+        return projectId;
     }
 
     @Override
@@ -140,6 +143,7 @@ public class TarefaServiceImpl implements TarefaService{
     public Long obterProjetoIdDaTarefa(Long tarefaId){
         return tarefaRepository.findById(tarefaId)
                 .map(tarefa -> {
+
                     if(tarefa.getProject() == null){
                         throw new IllegalStateException("Tarefa não está associada a um projeto.");
                     }

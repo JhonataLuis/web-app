@@ -48,7 +48,8 @@ public class UsuarioController {
 
     @PostMapping("/save")
     public String saveUser(@Valid @ModelAttribute Usuario user,
-                           BindingResult result, RedirectAttributes redirect,
+                           BindingResult result, 
+                           RedirectAttributes redirect,
                            Model model) {
 
         // Verifica se há erros de validação
