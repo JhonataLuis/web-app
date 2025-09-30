@@ -2,6 +2,8 @@ package com.bmt.webApp.controller;
 
 import java.time.LocalDateTime;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +26,7 @@ import jakarta.validation.Valid;
 @RequestMapping("/users")
 public class UsuarioController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UsuarioController.class);
 
     @Autowired
     private UsuarioService userService;
@@ -58,9 +61,12 @@ public class UsuarioController {
             result.rejectValue("password", "password.empty", "Senha é obrigatória.");
         }
 
-        if(result.hasErrors()){
-            // Retorna para a página de criação, mantendo os dados e os erros
+        if(result.hasErrors()){// Retorna para a página de criação, mantendo os dados e os erros
+            logger.error("Erros de validação encontrados: {}", result.getFieldError());
+            model.addAttribute("user", user);
             model.addAttribute("funcoes", Funcao.values());
+            model.addAttribute("errorMessage", "Ocorreu um erro ao criar a tarefa. Verifique os campos e tente novamente.");
+
             return "usuario/create";
         }
 
@@ -71,10 +77,11 @@ public class UsuarioController {
             // Se o usuário já existir, adiciona um erro ao resultado
             result.rejectValue("email", "error.email", e.getMessage());
             model.addAttribute("funcoes", Funcao.values());
-            return "usuario/create";
+            redirect.addFlashAttribute("errorMessage", "Erro ao criar usuário: " +e.getMessage());
+            return "usuario/create";//retorna para a view sem redirecionar
         }
         // Se a criação for bem-sucedida, adiciona uma mensagem de sucesso
-        redirect.addFlashAttribute("successMessage", "Employer cadastrado com Sucesso!");
+        redirect.addFlashAttribute("successMessage", "Usuário cadastrado com Sucesso!");
         return "redirect:/users";
     }
 
