@@ -19,7 +19,6 @@ public class UsuarioDto {
     @NotEmpty(message = "O e-mail é obrigatório")
     private String email;
 
-    @NotEmpty(message="O password é obrigatório")
     @Column(nullable = false)
     private String password;
 
