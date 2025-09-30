@@ -5,7 +5,7 @@ public enum ProjectStatus {
     NEW("New"),
     PENDENTE("Pendente"),
     ANDAMENTO("Andamento"),
-    CONCLUÍDO("Concluído"),
+    CONCLUIDO("Concluído"),
     CANCELADO("Cancelado");
 
     private final String projectStatus;

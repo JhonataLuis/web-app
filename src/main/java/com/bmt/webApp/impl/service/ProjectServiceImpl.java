@@ -185,7 +185,7 @@ public class ProjectServiceImpl implements ProjectService{
       */
       @Override 
       public long countByStatus(String status) {
-        return projectRepository.countByStatus(ProjectStatus.CONCLUÍDO);// Aqui você pode passar o enum ProjectStatus.CONCLUÍDO
+        return projectRepository.countByStatus(ProjectStatus.CONCLUIDO);// Aqui você pode passar o enum ProjectStatus.CONCLUÍDO
       }
 
     /**
@@ -255,7 +255,7 @@ public class ProjectServiceImpl implements ProjectService{
 
         // Atualiza o status do projeto com base na porcentagem de conclusão
         if(completionPercentage == 100){
-            project.setStatus(ProjectStatus.CONCLUÍDO);
+            project.setStatus(ProjectStatus.CONCLUIDO);
         } else if (completionPercentage > 0){
             project.setStatus(ProjectStatus.ANDAMENTO);
         } else {

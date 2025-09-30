@@ -43,7 +43,7 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public Double calcularTaxaConclusao() {
         Long totalProjetos = projectRepository.count();
-        Long projetosConcluidos = projectRepository.countByStatus(ProjectStatus.CONCLUÍDO);
+        Long projetosConcluidos = projectRepository.countByStatus(ProjectStatus.CONCLUIDO);
 
         if (totalProjetos == 0) return 0.0;
             return (projetosConcluidos * 100.0) / totalProjetos;
@@ -71,7 +71,7 @@ public class ReportServiceImpl implements ReportService {
     LocalDateTime limite = hoje.plusDays(7);
 
     List<ProjectStatus> statusIgnorados = List.of(
-            ProjectStatus.CONCLUÍDO, 
+            ProjectStatus.CONCLUIDO, 
             ProjectStatus.CANCELADO
         );
 
