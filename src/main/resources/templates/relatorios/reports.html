@@ -310,45 +310,6 @@
             </div>
         </div>
 
-        <!-- Filtros -->
-        <div class="filter-section">
-            <div class="row">
-                <div class="col-md-3 mb-3">
-                    <label class="form-label">Período</label>
-                    <select class="form-select">
-                        <option selected>Últimos 30 dias</option>
-                        <option>Últimos 7 dias</option>
-                        <option>Últimos 90 dias</option>
-                        <option>Este mês</option>
-                        <option>Personalizado</option>
-                    </select>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <label class="form-label">Projeto</label>
-                    <select class="form-select">
-                        <option selected>Todos os projetos</option>
-                        <option>Redesign do Site</option>
-                        <option>Sistema de Gestão</option>
-                        <option>App Mobile</option>
-                    </select>
-                </div>
-                <div class="col-md-3 mb-3">
-                    <label class="form-label">Equipe</label>
-                    <select class="form-select">
-                        <option selected>Toda a equipe</option>
-                        <option>Desenvolvimento</option>
-                        <option>Design</option>
-                        <option>Marketing</option>
-                    </select>
-                </div>
-                <div class="col-md-3 mb-3 d-flex align-items-end">
-                    <button class="btn btn-primary w-100">
-                        <i class="bi bi-funnel me-2"></i>Aplicar Filtros
-                    </button>
-                </div>
-            </div>
-        </div>
-
         <!-- Stats Section -->
         <div class="row mb-5">
             <div class="col-md-3 col-6 mb-4">
@@ -356,7 +317,7 @@
                     <div class="stats-icon icon-primary">
                         <i class="bi bi-graph-up-arrow"></i>
                     </div>
-                    <div class="stats-number" th:text="${produtividade != null ? produtividade : '0'}"></div>
+                    <div class="stats-number" th:text="${produtividade != null ? produtividade : '0'}">0</div>
                     <div class="stats-label">Produtividade (%)</div>
                 </div>
 
@@ -366,7 +327,7 @@
                     <div class="stats-icon icon-success">
                         <i class="bi bi-check-circle"></i>
                     </div>
-                    <div class="stats-number" th:text="${taxaConclusao != null ? taxaConclusao : '92'}">92</div>
+                    <div class="stats-number" th:text="${taxaConclusao != null ? taxaConclusao : '0'}">0</div>
                     <div class="stats-label">Taxa de Conclusão (%)</div>
                 </div>
             </div>
@@ -375,7 +336,7 @@
                     <div class="stats-icon icon-warning">
                         <i class="bi bi-clock-history"></i>
                     </div>
-                    <div class="stats-number" th:text="${atrasos != null ? atrasos : '5'}">5</div>
+                    <div class="stats-number" th:text="${atrasos != null ? atrasos : '0'}">0</div>
                     <div class="stats-label">Tarefas Atrasadas</div>
                 </div>
             </div>
@@ -397,14 +358,6 @@
                 <div class="chart-container">
                     <h3 class="section-title">Status dos Projetos</h3>
                     <canvas id="projectStatusChart" height="250"></canvas>
-                </div>
-            </div>
-            
-            <!-- Gráfico de Progresso Mensal -->
-            <div class="col-lg-6 mb-4">
-                <div class="chart-container">
-                    <h3 class="section-title">Progresso Mensal</h3>
-                    <canvas id="monthlyProgressChart" height="250"></canvas>
                 </div>
             </div>
             
