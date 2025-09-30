@@ -7,7 +7,7 @@ public interface  UsuarioService {
 
     Iterable<Usuario> listUsers();
 
-    Usuario createUser(Usuario users);
+    Usuario createUser(Usuario user);
 
     Usuario updateUser(UsuarioDto userDto);
 

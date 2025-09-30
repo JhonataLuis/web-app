@@ -2,24 +2,30 @@ package com.bmt.webApp.dto;
 
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.bmt.webApp.enums.Funcao;
 
 import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 
 public class UsuarioDto {
 
-    private Long id;
-    @NotBlank       
-    @NotEmpty(message = "The name is required")
+    private Long id; 
+
+    @NotEmpty(message = "O nome é obrigatório")
     private String name;
-    @NotBlank
-    @NotEmpty(message = "The email is required")
+
+    @NotEmpty(message = "O e-mail é obrigatório")
     private String email;
+
+    @NotEmpty(message="O password é obrigatório")
     @Column(nullable = false)
     private String password;
-    private LocalDateTime dataCriacao;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")// pega automática a data do sistema
+    private LocalDateTime dataCriacao = LocalDateTime.now().withSecond(0).withNano(0);
+
     private LocalDateTime dataAtualizacao;
 
     private Funcao funcao;

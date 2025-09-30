@@ -345,23 +345,6 @@
                             <small class="text-muted">Deixe em branco para manter a senha atual ao atualizar</small>
                         </div>
 
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">
-                                <i class="bi bi-key"></i> Password
-                            </label>
-                            <div class="input-group">
-                                <input type="password" class="form-control" th:field="*{password}" 
-                                    placeholder="Enter password" id="passwordField">
-                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
-                                    <i class="bi bi-eye"></i>
-                                </button>
-                            </div>
-                            <div th:if="${#fields.hasErrors('password')}" class="text-danger mt-1">
-                                <small><i class="bi bi-exclamation-circle me-1"></i> <span th:errors="*{password}"></span></small>
-                            </div>
-                            <small class="text-muted">Deixe em branco para manter a senha atual ao atualizar</small>
-                        </div>
-
                         <div class="row mt-4">
                             <div class="col-12">
                                 <div class="d-flex button-group justify-content-end">

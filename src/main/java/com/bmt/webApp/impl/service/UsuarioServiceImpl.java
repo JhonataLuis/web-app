@@ -43,21 +43,21 @@ public class UsuarioServiceImpl implements UsuarioService{
      * @throws IllegalArgumentException Se o usuário já existir com o email fornecido.
      */
     @Override
-    public Usuario createUser(Usuario users) {
+    public Usuario createUser(Usuario user) {
        logger.info("Tentando criar um novo usuário: {}");
 
          // Verificando se o usuário já existe pelo email
-         if(userRepository.findByEmail(users.getEmail()) != null) {
-             logger.warn("Usuário com email {} já existe.", users.getEmail());
-             throw new IllegalArgumentException("Usuário já existe com o email: " + users.getEmail());
+         if(userRepository.findByEmail(user.getEmail()) != null) {
+             logger.warn("Usuário com email {} já existe.", user.getEmail());
+             throw new IllegalArgumentException("Usuário já existe com o email: " + user.getEmail());
          }
          
          // Criptografando a senha do usuário antes de salvar
-         String senhaCriptografada = passwordEncoder.encode(users.getPassword());
-         users.setPassword(senhaCriptografada);
+         String senhaCriptografada = passwordEncoder.encode(user.getPassword());
+         user.setPassword(senhaCriptografada);
          logger.info("Senha criptografada: {}", senhaCriptografada);
         // Salvando o usuário no repositório
-       return userRepository.save(users);
+       return userRepository.save(user);
         
     }
 

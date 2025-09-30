@@ -65,7 +65,7 @@ public class UsuarioController {
             logger.error("Erros de validação encontrados: {}", result.getFieldError());
             model.addAttribute("user", user);
             model.addAttribute("funcoes", Funcao.values());
-            model.addAttribute("errorMessage", "Ocorreu um erro ao criar a tarefa. Verifique os campos e tente novamente.");
+            model.addAttribute("errorMessage", "Ocorreu um erro ao criar o usuário. Verifique os campos e tente novamente.");
 
             return "usuario/create";
         }
@@ -90,7 +90,7 @@ public class UsuarioController {
         // Busca o usuário pelo ID
         Usuario user = userService.findById(id);
         if (user == null) {
-            model.addAttribute("errorMessage", "Employer não encontrado.");
+            model.addAttribute("errorMessage", "Usuário não encontrado.");
             return "redirect:/users";
         }
         model.addAttribute("user", user);
@@ -118,7 +118,7 @@ public class UsuarioController {
         try {
             // Atualiza o usuário através do serviço
             userService.updateUser(userDto);
-            redirect.addFlashAttribute("successMessage", "Employer atualizado com Sucesso!");
+            redirect.addFlashAttribute("successMessage", "Usuário atualizado com Sucesso!");
         } catch (IllegalArgumentException e) {
             // Se o usuário não existir, adiciona um erro ao resultado
             result.rejectValue("email", "error.email", e.getMessage());
@@ -128,7 +128,7 @@ public class UsuarioController {
         }
         
         // Se a atualização for bem-sucedida, adiciona uma mensagem de sucesso
-        redirect.addFlashAttribute("successMessage", "Employer atualizado com Sucesso!");
+        redirect.addFlashAttribute("successMessage", "Usuário atualizado com Sucesso!");
         return "redirect:/users";
     }
 
@@ -137,7 +137,7 @@ public class UsuarioController {
         try {
             // Deleta o usuário através do serviço
             userService.deleteUser(id);
-            redirect.addFlashAttribute("successMessage", "Employer deletado com Sucesso!");
+            redirect.addFlashAttribute("successMessage", "Usuário deletado com Sucesso!");
         } catch (IllegalArgumentException e) {
             // Se o usuário não existir, adiciona uma mensagem de erro
             redirect.addFlashAttribute("errorMessage", e.getMessage());

@@ -286,7 +286,11 @@
         </div>
     </nav>
 
-    <!-- Alert Messages -->
+    <!-- MAIN CONTENT -->
+    <div class="container main-container">
+        <div class="row justify-content-center">
+
+            <!-- Alert Messages -->
     <div class="container mt-4">
         <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show mb-4" role="alert">
             <i class="bi bi-check-circle-fill me-2"></i>
@@ -308,9 +312,6 @@
             </div>
             </div>
 
-    <!-- MAIN CONTENT -->
-    <div class="container main-container">
-        <div class="row justify-content-center">
             <div class="col-lg-6">
                 <div class="form-container">
                     <div class="page-header">
@@ -352,6 +353,13 @@
                             <p th:if="${#fields.hasErrors('funcao')}" th:errors="*{funcao}" class="text-danger"></p>
                         </div>
 
+                        <!-- Start Date -->
+                        <div class="mb-4">
+                            <label class="form-label">Date Created</label>
+                            <input type="datetime-local" class="form-control" th:field="*{dataCriacao}">
+                            <p th:if="${#fields.hasErrors('dataCriacao')}" th:errors="*{dataCriacao}" class="text-danger"></p>
+                        </div>
+
                         <!-- Submit & Cancel -->
                         <div class="d-flex justify-content-end mt-5">
                             <div class="btn-group">
@@ -380,5 +388,6 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 </body>
 </html>
