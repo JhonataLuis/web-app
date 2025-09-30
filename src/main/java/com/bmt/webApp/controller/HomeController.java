@@ -35,7 +35,7 @@ public class HomeController {
     public String home(Model model){
 
         Long totalProjects = projectsRepository.count();
-        Long totalCompletedProjects = projectsRepository.countByStatus(ProjectStatus.CONCLUÍDO); //Aqui você pode passar o enum ProjectStatus.COMPLETED se estiver usando enums
+        Long totalCompletedProjects = projectsRepository.countByStatus(ProjectStatus.CONCLUIDO); //Aqui você pode passar o enum ProjectStatus.COMPLETED se estiver usando enums
         List<ProjectDto> proximosPrazos = projectService.buscarProjetosComProximosPrazos(); //método para buscar projetos com prazos próximos (7 dias) dashboard (index.html)
         
         

@@ -18,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.bmt.webApp.dto.TarefaDto;
 import com.bmt.webApp.dto.UserResponsavelDto;
-import com.bmt.webApp.repository.ProjectsRepository;
 import com.bmt.webApp.repository.UserRepository;
 import com.bmt.webApp.service.TarefaService;
 
@@ -35,9 +34,6 @@ public class TarefasController {
     @Autowired
     private TarefaService tarefaService;
 
-    @Autowired
-    private ProjectsRepository pRepository;
-
     public TarefasController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -51,7 +47,6 @@ public class TarefasController {
             return "projects/index";
         }
         
-        //tarefaDto.setProjectId(projectId);
         model.addAttribute("projectId", projectId);
         model.addAttribute("tarefaDto", tarefaDto);
         return "projects/newTarefa";
