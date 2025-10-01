@@ -119,8 +119,8 @@ Este projeto está sob a licença MIT
 
 Feito com 💙 por Jhonata Luis
 
-📧 Email: [jhonatafontesluis23@gmail.com
-]
+📧 Email: [jhonatafontesluis23@gmail.com]
+
 💼 LinkedIn: https://www.linkedin.com/in/jhonataluisdesenvolvedorjava/
 
 🐙 GitHub: https://github.com/JhonataLuis
