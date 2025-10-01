@@ -54,10 +54,10 @@ Este projeto foi desenvolvido com o objetivo de **praticar conceitos de desenvol
 
 ```bash
 # Clone este repositório
-git clone https://github.com/seu-usuario/app-gerenciamento-projetos.git
+git clone https://github.com/JhonataLuis/web-app.git
 
 # Acesse a pasta do projeto
-cd app-gerenciamento-projetos
+cd web-app
 
 # Configure o banco de dados PostgreSQL no arquivo application.properties
 
@@ -69,11 +69,11 @@ Acesse no navegador:
 
 🔑 Funcionalidades
 
-✅ Cadastro e login de usuários (com senha criptografada)
+✅ Cadastro de usuários (com senha criptografada)
 
 ✅ Criação, edição e exclusão de projetos
 
-✅ Gestão de tarefas com status (pendente, em andamento, concluída)
+✅ Gestão de tarefas com status (New, Pendente, Em andamento, Concluída)
 
 ✅ Atribuição de responsáveis
 
