@@ -1,104 +1,127 @@
+# 🚀 Sistema de Gerenciamento de Projetos
 
+![Status](https://img.shields.io/badge/status-em%20desenvolvimento-yellow)
+![Licença](https://img.shields.io/badge/licença-MIT-green)
+![Versão](https://img.shields.io/badge/versão-1.0-blue)
 
-# App de Gerenciamento de Projetos e Tarefas
+---
 
-![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
-![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
-![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
-![Git](https://img.shields.io/badge/git-%23E44C30.svg?style=for-the-badge&logo=git&logoColor=white)  
-![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=sqlite&logoColor=white)
+## 📌 Descrição
+Um sistema web para **gerenciamento de projetos e tarefas**, permitindo criar, editar, atribuir responsáveis e acompanhar o progresso em tempo real.  
 
-This project is an API built using **Java, Java Spring, Flyway Migrations, PostgresSQL as the database, and Spring Security for authentication control.** 
+---
 
-## Table of Contents
+## 📖 Detalhes
+Este projeto foi desenvolvido com o objetivo de **praticar conceitos de desenvolvimento web fullstack**, como:  
+- Integração entre **frontend e backend**  
+- Persistência de dados com **JPA e PostgreSQL**  
+- Segurança com **criptografia de senhas (BCrypt)**  
+- Templates dinâmicos com **Thymeleaf**  
 
-- [Descrição](#descrição)
-- [Funcionalidades](#funcionalidades)
-- [Tecnologias](#tecnologias)
-- [Etapas](#etapas)
-- [Usage](#usage)
-- [Database](#database)
-- [Contributing](#contributing)
+É ideal para **equipes que desejam centralizar suas tarefas em um ambiente simples e eficiente**.  
 
-## Descrição
+---
 
-    Um aplicativo de gerenciamento de projetos e tarefas (como Trello, Asana ou Notion simplificado) que permite organizar atividades pessoais e profissionais em um sistema intuitivo.
+## 🖼️ Demonstração
+> Substitua os links abaixo por prints ou GIFs reais do sistema.
 
-    Foi construído para resolver problemas comuns de organização, produtividade e colaboração, tanto no âmbito pessoal quanto profissional. 
+![Dashboard](https://via.placeholder.com/800x400.png?text=Dashboard+do+Sistema)  
+![Gerenciamento de Tarefas](https://via.placeholder.com/800x400.png?text=Gerenciamento+de+Tarefas)  
 
-## Funcionalidades:
-
-    Cria projetos e atribuir tarefas.
-    Acompanhar o progresso das tarefas.
-    Chat em tempo real para equipes.
-    
-    ## Instrução de Instalação
-
-    ``bash
-    npm install
-    ``
-    ## pré requisitos
-    Java 17 + jdk 17
-    Banco de Dados PostgreSQL
+---
 
 ## 🛠️ Tecnologias Utilizadas
+- ☕ **Java 17**  
+- 🌱 **Spring Boot**  
+- 🗄️ **PostgreSQL**  
+- 🧩 **JPA / Hibernate**  
+- 🔐 **BCrypt**  
+- 🎨 **Thymeleaf**  
+- 🎭 **Bootstrap**  
+- 📜 **JavaScript**  
+- 🎨 **CSS 3**  
 
-    -Frontend (Web)
-    Thymeleaf (web).
-    Layout: Bootstrap 5 css.
-    -Backend
-    Java + Spring Framework (Spring Boot, Spring Data JPA, Spring Web, Spring Security, API REST), JPA (Hibernate) BCrypt.
-    Banco de Dados: PostgreSQL.
-    -Recursos Adicionais
-    Autenticação: Auth ou JWT.
+| Camada        | Tecnologias / Ferramentas         |
+|---------------|-----------------------------------|
+| Backend       | Java 17, Spring Boot, JPA, BCrypt |
+| Frontend      | Thymeleaf, JavaScript, CSS 3      |
+| UI / Estilo   | Bootstrap                         |
+| Banco de Dados| PostgreSQL                        |
 
-    ### Frontend
-![Thymeleaf](https://img.shields.io/badge/Thymeleaf-%23005C0F.svg?style=for-the-badge&logo=thymeleaf&logoColor=white)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+---
 
-### Backend
-![Java](https://img.shields.io/badge/Java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
-![Spring](https://img.shields.io/badge/Spring-6DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F.svg?style=for-the-badge&logo=springboot&logoColor=white)
-![Hibernate](https://img.shields.io/badge/Hibernate-59666C.svg?style=for-the-badge&logo=hibernate&logoColor=white)
+## ⚙️ Instalação e Execução
 
-### Banco de Dados
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+```bash
+# Clone este repositório
+git clone https://github.com/seu-usuario/app-gerenciamento-projetos.git
 
-### Segurança & API
-![Spring Security](https://img.shields.io/badge/Spring_Security-6DB33F.svg?style=for-the-badge&logo=springsecurity&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-000000.svg?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
-BCrypt
-![API REST](https://img.shields.io/badge/REST_API-FF6C37.svg?style=for-the-badge&logo=rest&logoColor=white)
+# Acesse a pasta do projeto
+cd app-gerenciamento-projetos
 
-## Etapas 
+# Configure o banco de dados PostgreSQL no arquivo application.properties
 
-    1. Clone the repository:
+# Execute o projeto com Maven
+./mvnw spring-boot:run
 
-    ´´´bash
-    git clone https://github.com/your-username/project-name.git
-    ´´´
-    2. Install dependencies with Maven
+Acesse no navegador:
+👉 http://localhost:8080
 
-    3. Install [PostgresSQL](https://www.postgresql.org/)
-    4. Install  [Postgis Extension](https://postgis.net/documentation/getting_started/)
+🔑 Funcionalidades
 
-## Exemplo de Fluxo de Uso
+✅ Cadastro e login de usuários (com senha criptografada)
 
-    1. Abra localhost:8080 
-    2. Faça Login
-    3. Use chatbot
-    Usuário cria um projeto .
-    Adiciona tarefas.
-    Define prazos e prioridades.
-    Marca como concluído e acompanha progresso no dashboard.
-    
-    ``bash
-    npm install
-    ``
+✅ Criação, edição e exclusão de projetos
 
-## Contributions
+✅ Gestão de tarefas com status (pendente, em andamento, concluída)
 
-    Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request to the repository.
+✅ Atribuição de responsáveis
 
-    When contributing to this project, please follow the existing code style, commit conventions, and submit your changes in a separate branch.
+✅ Dashboard para acompanhamento de progresso
+
+💡 Exemplos de Uso
+
+Criar um novo projeto e adicionar membros da equipe
+
+Atribuir tarefas e acompanhar status em tempo real
+
+Atualizar e concluir tarefas diretamente no painel do projeto
+
+# Exemplo de endpoint (se aplicável)
+GET /api/projetos
+
+🤝 Contribuições
+
+Contribuições são sempre bem-vindas!
+
+Se quiser contribuir:
+
+Faça um fork do projeto
+
+Crie uma branch: git checkout -b minha-feature
+
+Commit suas alterações: git commit -m "Minha nova feature"
+
+Push: git push origin minha-feature
+
+Abra um Pull Request 🚀
+
+📌 Status do Projeto
+
+📍 Em desenvolvimento
+
+📜 Licença
+
+Este projeto está sob a licença MIT
+.
+
+👨‍💻 Autor
+
+Feito com 💙 por Jhonata Luis
+
+📧 Email: [jhonatafontesluis23@gmail.com
+]
+💼 LinkedIn: https://www.linkedin.com/in/jhonataluisdesenvolvedorjava/
+
+🐙 GitHub: https://github.com/JhonataLuis
+
